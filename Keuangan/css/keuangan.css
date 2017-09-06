@@ -1,0 +1,16 @@
+﻿.top-buffer { margin-top:10px; }
+.top-atas { margin-top:1px; }
+.buttom-buffer { margin-bottom:10px;}
+.keterangan { color:#999;}
+.top-main-form { margin-top:1px; }
+
+/* vertical alignment styles */
+.col-top {
+    vertical-align:top;
+}
+.col-middle {
+    vertical-align:middle;
+}
+.col-bottom {
+    vertical-align:bottom;
+}

@@ -1,0 +1,9 @@
+﻿table-header
+{
+    font-size : 12px;
+    width : 70%;
+    border : 1px solid #dddddd;
+    border-spacing: none;
+    border-collapse : collapse;
+    background: white;
+}

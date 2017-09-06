@@ -1,0 +1,69 @@
+﻿#catatan
+{
+    font-size : 12px;
+    width : 70%;
+    border-spacing: none;
+    border-collapse : collapse;
+    border : 1px solid transparent;
+    
+}
+
+#catatan td, th 
+{
+    border : 3px solid transparent;
+    border-collapse : collapse;
+    height : 20px;
+}
+
+table.cetak 
+{
+    font-size : 12px;
+    width : 70%;
+    border : 1px solid #dddddd;
+    border-spacing: none;
+    border-collapse : collapse;
+    background: white;
+}
+
+.cetak td, th 
+{
+    font-size : 12px;
+    padding: 4px;
+    border : 1px solid #dddddd;
+    border-collapse : collapse;
+}
+
+table.catak2
+{
+    width: 445px;
+}
+
+table.cetak2 td
+{
+    font-size : 13px;
+    border : 1px solid transparent;
+    
+}
+table.cetak2 p
+{
+    font-size : 12px;
+   
+    
+}
+
+table.cek-list
+{
+    font-size : 13px;
+    width : 70%;
+    border-spacing: none;
+    border-collapse : collapse;
+    border : 1.5px solid #dddddd;
+}
+
+table.cek-list th, td
+{
+    border : 1.5px solid #dddddd;
+    border-collapse : collapse;
+    height : 24px;
+}
+

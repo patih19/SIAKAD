@@ -1,0 +1,227 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin.master.cs" Inherits="akademik.am.admin" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <%--<link href="~/css/boots.css" rel="stylesheet" type="text/css" />--%>
+    <link href="~/css/header.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/keuangan.css" rel="stylesheet" type="text/css" />
+    <link href="../css/jquery.smartmenus.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+    <%--<script src="../Scripts/bootstrap.min.js" type="text/javascript"></script>--%>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style1
+        {
+            color: #FFFFFF;
+        }
+        .caret-up
+        {
+            width: 0;
+            height: 0;
+            border-left: 4px solid rgba(0, 0, 0, 0);
+            border-right: 4px solid rgba(0, 0, 0, 0);
+            border-bottom: 4px solid;
+            display: inline-block;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        .style2
+        {
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            color: #339933;
+        }
+        .style3
+        {
+            color: #F7E497;
+            font-size: small;
+        }
+    </style>    
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <!-- ===========================  Header ============================== -->
+        <div style="background-color: #00b200">
+            <div class="container">
+                <div class="row">
+                    <div class=" col-lg-12 col-md-12">
+                        <h3 class="style1 top-atas">
+                            Sistem Informasi Akademik Universitas Tidar</h3>
+                        <span class="style3"><em>Biro Akademik, Kemahasiswaan, Perencanaan dan Kerjasama (BAKPK)
+                            <br />
+                            Alamat : Jalan Kapten Suparman No. 39 Magelang Telp. (0293)364113, Fax. (0293)362438</em></span><br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: rgba(21, 150, 23, 0.73); padding: 5px; box-shadow: 0px 0px 200px rgba(17, 91, 152, 0.25), 0px 1px 2px rgba(4, 1, 27, 0.68);">
+            <div class="container">
+                <div class="row">
+                    <div class=" col-lg-12 col-md-12">
+                        <span id="ctl00_LbWelcome" style="color: #F5F5EA; ">Selamat datang</span>
+                        <asp:Label ID="LbName" runat="server" style="color: #F5F5EA;"></asp:Label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container top-buffer">
+            <div class="row">
+                <nav class="navbar-default" role="navigation" id="mainnav">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                                class="icon-bar"></span><span class="icon-bar"></span>
+                        </button>
+                        <a class="style2"><em>SIA</em></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="Div1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Master</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("") %>">Universitas</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Fakultas") %>">Fakultas</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Prodi") %>">Program Studi</a></li>
+                                    <li class="divider"></li>
+                                    <li ><asp:HyperLink ID="Kalender" runat="server" NavigateUrl="~/am/Kalender">Kalender</asp:HyperLink></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Bobot") %>">Bobot Nilai</a></li>
+                                    <li ><asp:HyperLink ID="Ruang" runat="server" NavigateUrl="~/am/RuangKuliah">Ruang Kuliah</asp:HyperLink></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <strong>Kemahasiswaan</strong> 
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/am/MhsAktif") %>">Mahasiswa Aktif</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/MhsCuti") %>">Status Cuti/Lulus/Non Aktif</a></li>
+                                    <li><a href="#">Ganti NPM</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Password") %>">Password Mahasiswa</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/KRS") %>">Kartu Rencana Studi</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/CetakKartu") %>">Cetak KRS & KHS</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/AktvMhs") %>">Daftar KHS</a></li>
+                                    <li class="divider"></li>
+                                    <li ><asp:HyperLink ID="Nilai" runat="server" NavigateUrl="~/am/Nilai14">Input Nilai</asp:HyperLink></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Trans") %>">Transkrip Nilai</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Perkuliahan</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/am/JadwalKuliah") %>">Jadwal Perkuliahan</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Absensi") %>">Presensi Perkuliahan</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" class="dropup">Rekap Input Nilai<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<%= Page.ResolveUrl("~/am/RekapInputNilai") %>">Fakultas</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/RekapNilai") %>">Program Studi</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Ujian</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/am/JadwalUTS") %>">Jadwal UTS</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/JadwalUAS") %>">Jadwal UAS</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/PesertaUjian") %>">Peserta Ujian</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Kartu") %>">Kartu Ujian</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Dosen</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/am/dosen") %>">Data Dosen</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/UpdNidn") %>">Update NIDN</a></li>
+                                </ul>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Report</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="dropup">Mengajar<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<%= Page.ResolveUrl("~/am/Ajar") %>">Rekap Per Dosen</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/RekapAjar") %>">Rekap Jumlah SKS</a></li>
+                                        </ul>                                   
+                                    </li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/RekapSKS") %>">Pengambilan SKS</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Aktif") %>">Mahasiswa Aktif</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/AktvMhs") %>">Aktivitas Kuliah Mhs</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/MhsSmstr") %>">Rekapitulasi Mahasiswa Aktif</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" class="dropup">Pelaporan Feeder<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FJadwalKuliah") %>">Jadwal Perkuliahan</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FMaba") %>">Mahasiswa Baru</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FKelasKuliah") %>">Kelas Perkuliahan</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FDosenMengajar") %>">Dosen Mengajar</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FKrsMhs") %>">KRS Mahasiswa</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FNilai") %>">Nilai Mahasiswa</a></li>
+                                            <li><a href="<%= Page.ResolveUrl("~/am/FAktvMhs") %>">Aktivitas Kuliah Mhs</a></li>
+                                            <li><a href="#">Mahasiswa Lulus/Drop Out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">
+                        Submit</button>  -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>User</strong>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/am/Key") %>">Ganti Password</a></li>
+                                    <li class="divider"></li>
+                                    <li><a id="keluar" runat="server" href="#">Logout </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        <!-- ===========================  Footer ================================ -->
+        <div style="background-color: #333333">
+            <div class="container top-buffer">
+                <div class="row">
+                    <div class=" col-lg-12 col-md-12 top-buffer">
+                        <span style="font-size: small; font-style: italic; color: White">&copy; Copyright 2014-2015,
+                            Puskominfo Untidar </span>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    <!-- ----- End Footer -------- -->
+    </div>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../css/jquery.smartmenus.js" type="text/javascript"></script>
+<script src="../css/jquery.smartmenus.bootstrap.js" type="text/javascript"></script>
+
+</html>
+
