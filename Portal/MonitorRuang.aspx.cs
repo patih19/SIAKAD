@@ -14,14 +14,12 @@ namespace Portal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!Page.IsPostBack)
             {
                 PopulateProdi();
                 PopulateSemester();
                 //JadwalPerhari();
             }
-
         }
 
         protected static DataTable NamaRuang(string IdProdi)
@@ -53,11 +51,9 @@ namespace Portal
 
                             TableData.Rows.Add(datarow);
                         }
-
                         ////Fill Gridview
                         //this.RepeaterRuang.DataSource = TableData;
                         //this.RepeaterRuang.DataBind();
-
                     }
                 }
 
@@ -126,7 +122,7 @@ namespace Portal
             }
         }
 
-        protected void JadwalPerhari()
+        protected void Hari()
         {
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
@@ -303,8 +299,7 @@ namespace Portal
                 return;
             }
 
-
-            JadwalPerhari();
+            Hari();
         }
     }
 }
