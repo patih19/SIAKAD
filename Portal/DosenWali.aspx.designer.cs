@@ -31,22 +31,31 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.Panel PanelSPI;
         
         /// <summary>
-        /// UpPnlDosenWali control.
+        /// PanelDosenWali control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpPnlDosenWali;
+        protected global::System.Web.UI.UpdatePanel PanelDosenWali;
         
         /// <summary>
-        /// Panel2 control.
+        /// PanelDaftarMhs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::System.Web.UI.WebControls.Panel PanelDaftarMhs;
+        
+        /// <summary>
+        /// LbNmDosen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbNmDosen;
         
         /// <summary>
         /// GVPeserta control.
@@ -58,24 +67,6 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.GridView GVPeserta;
         
         /// <summary>
-        /// PanelDosen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelDosen;
-        
-        /// <summary>
-        /// Panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
-        
-        /// <summary>
         /// GVDosenAdd control.
         /// </summary>
         /// <remarks>
@@ -85,13 +76,13 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.GridView GVDosenAdd;
         
         /// <summary>
-        /// TbThnAngkatan control.
+        /// PanelMhs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TbThnAngkatan;
+        protected global::System.Web.UI.WebControls.Panel PanelMhs;
         
         /// <summary>
         /// GvMhsAdd control.
@@ -128,15 +119,6 @@ namespace Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PanelTambah;
-        
-        /// <summary>
-        /// BtnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSave;
         
         /// <summary>
         /// PanelUpdate control.

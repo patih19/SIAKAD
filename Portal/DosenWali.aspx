@@ -21,11 +21,8 @@
                 });
 
                 $('#ctl00_ContentPlaceHolder1_GvMhsAdd').DataTable({
-                    'dom': '<"top"f>rtip',
-                    'bPaginate': false,
-                    "bInfo": false,
-                    'iDisplayLength': 10,
-                    'aLengthMenu': [[10, 25, 50, 75, 100, 200, 300, -1], [10, 25, 50, 75, 100, 200, 300, "All"]],
+                    'iDisplayLength': 150,
+                    'aLengthMenu': [[200, 300, 400, 500, -1], [200, 300, 400, 500, "All"]],
                     language: {
                         search: "Pencarian :",
                         searchPlaceholder: "Ketik Kata Kunci"
@@ -50,11 +47,8 @@
             });
 
             $('#ctl00_ContentPlaceHolder1_GvMhsAdd').DataTable({
-                'dom': '<"top"f>rtip',
-                'bPaginate': false,
-                "bInfo": false,
-                'iDisplayLength': 10,
-                'aLengthMenu': [[10, 25, 50, 75, 100, 200, 300, -1], [10, 25, 50, 75, 100, 200, 300, "All"]],
+                'iDisplayLength': 150,
+                'aLengthMenu': [[200, 300, 400, 500, -1], [200, 300, 400, 500, "All"]],
                 language: {
                     search: "Pencarian :",
                     searchPlaceholder: "Ketik Kata Kunci"
@@ -120,22 +114,26 @@
 
 
                         <asp:Panel ID="PanelSPI" runat="server">
-                            <asp:UpdatePanel ID="UpPnlDosenWali" runat="server">
+                            <asp:UpdatePanel ID="PanelDosenWali" runat="server">
                                 <ContentTemplate>
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12 col-lg-12">
-                                            <asp:Panel ID="Panel2" runat="server">
-                                                <asp:GridView ID="GVPeserta" CssClass="table-condensed table-bordered" runat="server" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
-                                                    <AlternatingRowStyle BackColor="#F7F7F7" />
-                                                    <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
-                                                    <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
-                                                    <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
-                                                    <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
-                                                    <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
-                                                    <SortedAscendingCellStyle BackColor="#F4F4FD" />
-                                                    <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
-                                                    <SortedDescendingCellStyle BackColor="#D8D8F0" />
-                                                    <SortedDescendingHeaderStyle BackColor="#3E3277" />
+                                            <asp:Panel ID="PanelDaftarMhs" runat="server"> 
+                                                <asp:Label ID="LbNmDosen" runat="server" Text=""></asp:Label>
+                                                 <p></p>
+                                                Daftar Mahasiswa                                               
+                                                <asp:GridView ID="GVPeserta" CssClass="table-condensed table-bordered" runat="server" CellPadding="4" GridLines="None" ForeColor="#333333">
+                                                    <AlternatingRowStyle BackColor="White" />
+                                                    <EditRowStyle BackColor="#7C6F57" />
+                                                    <FooterStyle BackColor="#1C5E55" ForeColor="White" Font-Bold="True" />
+                                                    <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                                    <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                                    <RowStyle BackColor="#E3EAEB" />
+                                                    <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                                    <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                                    <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                                    <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
                                                 </asp:GridView>
                                                 <hr />
                                             </asp:Panel>
@@ -148,68 +146,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <asp:Panel ID="PanelDosen" runat="server">
-                                                            <table class="table">
-                                                                <tr>
-                                                                    <td>
-                                                                        <asp:Panel ID="Panel1" runat="server">
-                                                                            <asp:GridView ID="GVDosenAdd" runat="server" CellPadding="1" CssClass=" table-condensed table-bordered"
-                                                                                ForeColor="#333333" GridLines="None" OnPreRender="GVDosenAdd_PreRender">
-                                                                                <AlternatingRowStyle BackColor="White" />
-                                                                                <Columns>
-                                                                                    <asp:TemplateField>
-                                                                                        <ItemTemplate>
-                                                                                            <asp:CheckBox ID="CbDosen" runat="server" AutoPostBack="True" />
-                                                                                        </ItemTemplate>
-                                                                                    </asp:TemplateField>
-                                                                                </Columns>
-                                                                                <EditRowStyle BackColor="#7C6F57" />
-                                                                                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                                                                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                                                                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                                                                                <RowStyle BackColor="#E3EAEB" />
-                                                                                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                                                                                <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                                                                                <SortedAscendingHeaderStyle BackColor="#246B61" />
-                                                                                <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                                                                                <SortedDescendingHeaderStyle BackColor="#15524A" />
-                                                                            </asp:GridView>
-                                                                        </asp:Panel>
-
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-
-                                                        </asp:Panel>
-
-
-
-
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="col-xs-12 col-md-5 col-lg-5">
-                                            <table class="table-bordered table-condensed table">
-                                                <tr>
-                                                    <td style="background-color: #E1F0FF; padding-left: 10px">
-                                                        <strong>MAHASISWA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>    &nbsp;Tahun : <asp:TextBox ID="TbThnAngkatan" runat="server"></asp:TextBox>                                                                
-                                                                        
-                                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-
-                                                        <table class=" table">
+                                                        <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    <asp:GridView ID="GvMhsAdd" runat="server" CellPadding="4" CssClass=" table-condensed table-bordered" ForeColor="#333333" GridLines="None" OnPreRender="GvMhsAdd_PreRender">
+                                                                    <asp:GridView ID="GVDosenAdd" runat="server" CellPadding="1" CssClass=" table-condensed table-bordered"
+                                                                        ForeColor="#333333" GridLines="None" OnPreRender="GVDosenAdd_PreRender">
                                                                         <AlternatingRowStyle BackColor="White" />
                                                                         <Columns>
                                                                             <asp:TemplateField>
                                                                                 <ItemTemplate>
-                                                                                    <asp:CheckBox ID="CbDosen" runat="server" />
+                                                                                    <asp:CheckBox ID="CbDosen" runat="server" AutoPostBack="True" OnCheckedChanged="CbDosen_CheckedChanged" />
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                         </Columns>
@@ -224,6 +170,7 @@
                                                                         <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                                                         <SortedDescendingHeaderStyle BackColor="#15524A" />
                                                                     </asp:GridView>
+
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -231,6 +178,47 @@
                                                     </td>
                                                 </tr>
                                             </table>
+                                        </div>
+                                        <div class="col-xs-12 col-md-7 col-lg-7">
+                                            <asp:Panel ID="PanelMhs" runat="server">
+                                                <table class="table-bordered table-condensed table">
+                                                    <tr>
+                                                        <td style="background-color: #E1F0FF; padding-left: 10px">
+                                                            <strong>MAHASISWA</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+
+                                                            <table class=" table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <asp:GridView ID="GvMhsAdd" runat="server" CellPadding="4" CssClass=" table-condensed" GridLines="Horizontal" OnPreRender="GvMhsAdd_PreRender" BackColor="White" BorderColor="#336666" BorderStyle="Double" BorderWidth="3px">
+                                                                            <Columns>
+                                                                                <asp:TemplateField>
+                                                                                    <ItemTemplate>
+                                                                                        <asp:CheckBox ID="CbDosen" runat="server" />
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                            <FooterStyle BackColor="White" ForeColor="#333333" />
+                                                                            <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
+                                                                            <PagerStyle BackColor="#336666" ForeColor="White" HorizontalAlign="Center" />
+                                                                            <RowStyle BackColor="White" ForeColor="#333333" />
+                                                                            <SelectedRowStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
+                                                                            <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                                                                            <SortedAscendingHeaderStyle BackColor="#487575" />
+                                                                            <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                                                                            <SortedDescendingHeaderStyle BackColor="#275353" />
+                                                                        </asp:GridView>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </asp:Panel>                                            
                                         </div>
                                     </div>
 
@@ -252,7 +240,6 @@
 
                             <asp:Label CssClass="hidden" ID="lbno_jadwal" runat="server" ForeColor="Transparent"></asp:Label>
                             <asp:Panel ID="PanelTambah" runat="server">
-                                <asp:Button ID="BtnSave" runat="server" Text="Tambah" OnClick="BtnSave_Click" CssClass="btn btn-success" />
                             </asp:Panel>
                             <asp:Panel ID="PanelUpdate" runat="server">
                                 <%--<asp:Button ID="BtnUpdate" runat="server" Text="Update" OnClick="BtnUpdate_Click"
