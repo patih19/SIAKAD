@@ -57,7 +57,7 @@
 
         });
     </script>
-    <%--<style type="text/css">
+    <style type="text/css">
         .mdl
         {
             position: fixed;
@@ -88,7 +88,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>--%>
+    </style>
     <style type="text/css">
         .top {
             float: left;
@@ -197,7 +197,7 @@
                                                                             <Columns>
                                                                                 <asp:TemplateField>
                                                                                     <ItemTemplate>
-                                                                                        <asp:CheckBox ID="CbDosen" runat="server" />
+                                                                                        <asp:CheckBox ID="CbMhs" runat="server" AutoPostBack="True" OnCheckedChanged="CbMhs_CheckedChanged" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                             </Columns>

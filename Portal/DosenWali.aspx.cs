@@ -12,6 +12,12 @@ namespace Portal
 {
     public partial class DosenWali : Tu
     {
+        public String _NIDN
+        {
+            get { return this.ViewState["nidn"].ToString(); }
+            set { this.ViewState["nidn"] = (object)value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -69,7 +75,7 @@ namespace Portal
             }
         }
 
-        protected void PopulateMhs(string nidn)
+        protected void PopulateMhsAktif(string nidn)
         {
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
@@ -127,6 +133,112 @@ namespace Portal
                         GvMhsAdd.DataBind();
                     }
                 }
+
+
+            }
+        }
+
+        protected void PopulateDaftarMhs (string nidn)
+        {           
+            string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                con.Open();
+                SqlCommand CmdDosen = new SqlCommand(" SELECT        bak_dosen.nidn, bak_mahasiswa.npm, bak_mahasiswa.nama, bak_mahasiswa.thn_angkatan, bak_mahasiswa.status " +
+                                                     " FROM            bak_dosen INNER JOIN " +
+                                                                            "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali " +
+                                                    " WHERE  bak_mahasiswa.status = 'A' AND bak_dosen.nidn = @nidn", con);
+                CmdDosen.CommandType = System.Data.CommandType.Text;
+
+                CmdDosen.Parameters.AddWithValue("@nidn",nidn);
+
+                DataTable TabelMhs = new DataTable();
+                TabelMhs.Columns.Add("NPM");
+                TabelMhs.Columns.Add("Nama");
+                TabelMhs.Columns.Add("Tahun");
+
+                using (SqlDataReader rdr = CmdDosen.ExecuteReader())
+                {
+                    if (rdr.HasRows)
+                    {
+                        this.PanelDaftarMhs.Visible = true;
+                        this.PanelDaftarMhs.Enabled = true;
+
+                        
+
+                        while (rdr.Read())
+                        {
+                            DataRow datarow = TabelMhs.NewRow();
+                            datarow["NPM"] = rdr["NPM"];
+                            datarow["Nama"] = rdr["nama"];
+                            datarow["Tahun"] = rdr["thn_angkatan"];
+
+                            TabelMhs.Rows.Add(datarow);
+                        }
+                        //Fill Gridview
+                        this.GVPeserta.DataSource = TabelMhs;
+                        this.GVPeserta.DataBind();
+                    }
+                    else
+                    {
+                        this.PanelDaftarMhs.Visible = false;
+                        this.PanelDaftarMhs.Enabled = false;
+
+                        //clear Gridview
+                        TabelMhs.Rows.Clear();
+                        TabelMhs.Clear();
+                        GVPeserta.DataSource = TabelMhs;
+                        GVPeserta.DataBind();
+                    }
+                }
+            }
+        }
+
+        protected void CheckedMhsDibimbing (string nidn)
+        {
+            string npm;
+
+            string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                con.Open();
+
+                for (int i = 0; i < this.GvMhsAdd.Rows.Count; i++)
+                {
+                    CheckBox ch = (CheckBox)this.GvMhsAdd.Rows[i].FindControl("CbMhs");
+                    npm = this.GvMhsAdd.Rows[i].Cells[1].Text.Trim();   
+
+                    SqlCommand CmdDosen = new SqlCommand(   "SELECT        bak_mahasiswa.id_wali, bak_mahasiswa.npm, bak_mahasiswa.nama, bak_mahasiswa.thn_angkatan, bak_mahasiswa.status "+
+                                                            "FROM            bak_dosen RIGHT OUTER JOIN "+
+                                                                                     "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali "+
+                                                            "WHERE bak_mahasiswa.status = 'A' AND bak_mahasiswa.id_prog_study = @id_prodi AND bak_mahasiswa.npm=@npm AND id_wali in " +
+                                                            "( "+
+                                                                "SELECT        id_wali "+
+                                                                "FROM            bak_mahasiswa "+
+                                                                "WHERE(id_wali is null OR id_wali = @nidn) "+
+                                                            ") "+
+                                                            "order by thn_angkatan desc "+
+                                                            "", con);
+
+                    CmdDosen.CommandType = System.Data.CommandType.Text;
+                    CmdDosen.Parameters.AddWithValue("@id_prodi", this.Session["level"].ToString());
+                    CmdDosen.Parameters.AddWithValue("@nidn", nidn);
+                    CmdDosen.Parameters.AddWithValue("@npm", npm);
+
+                    using (SqlDataReader rdr = CmdDosen.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                ch.Checked = true;
+
+                                string hex = "#f1f17e";
+                                this.GvMhsAdd.Rows[i].BackColor = System.Drawing.ColorTranslator.FromHtml(hex);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -169,6 +281,9 @@ namespace Portal
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
 
+            _NIDN = this.GVDosenAdd.Rows[index].Cells[1].Text.Trim();
+            this.LbNmDosen.Text = this.GVDosenAdd.Rows[index].Cells[2].Text.Trim();
+
             // Clear selected checkbox
             for (int i = 0; i < this.GVDosenAdd.Rows.Count; i++)
             {
@@ -181,61 +296,76 @@ namespace Portal
             CbOld.Checked = true;
 
             //Populate Mhs By Wali
-            string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(CS))
+            PopulateDaftarMhs(this.GVDosenAdd.Rows[index].Cells[1].Text.Trim());
+
+            //populate Mhs Aktif
+            PopulateMhsAktif(this.GVDosenAdd.Rows[index].Cells[1].Text.Trim());
+
+            //tandai mahasiswa 
+            CheckedMhsDibimbing(this.GVDosenAdd.Rows[index].Cells[1].Text.Trim());
+        }
+
+        protected void CbMhs_CheckedChanged(object sender, EventArgs e)
+        {
+            // get row index
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+
+            CheckBox ch = (CheckBox)GvMhsAdd.Rows[index].FindControl("CbMhs");
+            if (ch.Checked == true)
             {
-                con.Open();
-                SqlCommand CmdDosen = new SqlCommand(" SELECT        bak_dosen.nidn, bak_mahasiswa.npm, bak_mahasiswa.nama, bak_mahasiswa.thn_angkatan, bak_mahasiswa.status "+
-                                                     " FROM            bak_dosen INNER JOIN "+
-                                                                            "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali "+
-                                                    " WHERE  bak_mahasiswa.status != 'L' AND bak_dosen.nidn = @nidn", con);
-                CmdDosen.CommandType = System.Data.CommandType.Text;
+                string message = "alert('Checked')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
 
-                CmdDosen.Parameters.AddWithValue("@nidn", this.GVDosenAdd.Rows[index].Cells[1].Text);
-
-                DataTable TabelMhs = new DataTable();
-                TabelMhs.Columns.Add("NPM");
-                TabelMhs.Columns.Add("Nama");
-                TabelMhs.Columns.Add("Tahun");
-
-                using (SqlDataReader rdr = CmdDosen.ExecuteReader())
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
                 {
-                    if (rdr.HasRows)
-                    {
-                        this.PanelDaftarMhs.Visible = true;
-                        this.PanelDaftarMhs.Enabled = true;
+                    con.Open();
+                    SqlCommand CmdDosen = new SqlCommand("update bak_mahasiswa SET id_wali = @nidn WHERE npm=@npm", con);
+                    CmdDosen.CommandType = System.Data.CommandType.Text;
 
-                        this.LbNmDosen.Text = this.GVDosenAdd.Rows[index].Cells[2].Text.Trim();
+                    CmdDosen.Parameters.AddWithValue("@nidn", _NIDN);
+                    CmdDosen.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
 
-                        while (rdr.Read())
-                        {
-                            DataRow datarow = TabelMhs.NewRow();
-                            datarow["NPM"] = rdr["NPM"];
-                            datarow["Nama"] = rdr["nama"];
-                            datarow["Tahun"] = rdr["thn_angkatan"];
-
-                            TabelMhs.Rows.Add(datarow);
-                        }
-                        //Fill Gridview
-                        this.GVPeserta.DataSource = TabelMhs;
-                        this.GVPeserta.DataBind();
-                    }
-                    else
-                    {
-                        this.PanelDaftarMhs.Visible = false;
-                        this.PanelDaftarMhs.Enabled = false;
-
-                        //clear Gridview
-                        TabelMhs.Rows.Clear();
-                        TabelMhs.Clear();
-                        GVPeserta.DataSource = TabelMhs;
-                        GVPeserta.DataBind();
-                    }
+                    CmdDosen.ExecuteNonQuery();
                 }
-            }
 
-            //populate 
-            PopulateMhs(this.GVDosenAdd.Rows[index].Cells[1].Text.Trim());
+                //refresh data mahasiswa aktif
+                PopulateMhsAktif(_NIDN);
+                
+                //refresh daftar mahasiswa dan PA
+                PopulateDaftarMhs(_NIDN);
+
+                //tandai mahasiswa 
+                CheckedMhsDibimbing(_NIDN);
+            }
+            else
+            {
+                string message = "alert('UnChecked')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    con.Open();
+                    SqlCommand CmdDosen = new SqlCommand("update bak_mahasiswa SET id_wali = NULL WHERE npm=@npm", con);
+                    CmdDosen.CommandType = System.Data.CommandType.Text;
+
+                    CmdDosen.Parameters.AddWithValue("@nidn", _NIDN);
+                    CmdDosen.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
+
+                    CmdDosen.ExecuteNonQuery();
+                }
+
+                //refresh data mahasiswa aktif
+                PopulateMhsAktif(_NIDN);
+
+                //refresh daftar mahasiswa dan PA
+                PopulateDaftarMhs(_NIDN);
+
+                //tandai mahasiswa 
+                CheckedMhsDibimbing(_NIDN);
+            }
         }
     }
 }
