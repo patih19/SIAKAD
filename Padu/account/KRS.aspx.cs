@@ -1983,6 +1983,43 @@ namespace Padu.account
                                         this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                                         this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
 
+                                        //-- --------------  INSERT PERSETUJUAN KRS  --------------------  --
+                                        SqlCommand CmdPersetujuan = new SqlCommand(""+
+                                              "DECLARE @IdPersetujuan BIGINT "+
+                                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs "+
+                                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester "+
+                                              "IF(@IdPersetujuan IS NULL) "+
+                                              "BEGIN "+
+                                                "DECLARE @nidn VARCHAR(20) "+
+                                                "SELECT        @nidn = bak_dosen.nidn "+
+                                                "FROM            bak_dosen INNER JOIN "+
+                                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm "+
+                                                "IF(@nidn IS NULL) "+
+                                                "BEGIN "+
+                                                    "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) "+
+                                                    "RETURN "+
+                                                "END "+
+                                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) "+
+                                              "END "+
+                                              "ELSE "+
+                                              "BEGIN "+
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan "+
+                                                "IF(@@ROWCOUNT <> 1) "+
+                                                "BEGIN "+
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) "+
+                                                    "RETURN "+
+                                                "END "+
+                                              "END" +
+                                            "", con);
+                                        CmdPersetujuan.Transaction = trans;
+                                        CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                                        CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                                        CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                                        CmdPersetujuan.ExecuteNonQuery();
+
+
                                         // ---- =========== INSERT KRS SKRIPSI =============== ----
                                         // ---- Ambil KRS BIASA 1 Mata Kuliah / Jadwal Tidak Disarankan
                                         //----- ===================================== -----
@@ -2111,9 +2148,46 @@ namespace Padu.account
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
 
+
+                            //5.) INSERT PERSETUJUAN KRS 
+                            SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                  "DECLARE @IdPersetujuan BIGINT " +
+                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                  "IF(@IdPersetujuan IS NULL) " +
+                                  "BEGIN " +
+                                    "DECLARE @nidn VARCHAR(20) " +
+                                    "SELECT        @nidn = bak_dosen.nidn " +
+                                    "FROM            bak_dosen INNER JOIN " +
+                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                    "IF(@nidn IS NULL) " +
+                                    "BEGIN " +
+                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                                  "END " +
+                                  "ELSE " +
+                                  "BEGIN " +
+                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                    "IF(@@ROWCOUNT <> 1) " +
+                                    "BEGIN " +
+                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                  "END" +
+                                "", con);
+                            CmdPersetujuan.Transaction = trans;
+                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                            CmdPersetujuan.ExecuteNonQuery();
+
                         }
                         //Insert jumlah SKS khusus untuk Mhs Yayasan Tahun 2014
-                        else if (this.LbTahun.Text == "2014/2015")
+                        else if (this.LbTahun.Text.Trim() == "2014/2015")
                         {
                             SqlCommand CmdPeriodik = new SqlCommand("SpInsertTagihanPeriodikTiapMhs2", con);
                             CmdPeriodik.Transaction = trans;
@@ -2178,6 +2252,43 @@ namespace Padu.account
                                   (new System.Globalization.CultureInfo("id"), "{0:c}", total);
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
+
+                            //4.) INSERT PERSETUJUAN KRS 
+                            SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                  "DECLARE @IdPersetujuan BIGINT " +
+                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                  "IF(@IdPersetujuan IS NULL) " +
+                                  "BEGIN " +
+                                    "DECLARE @nidn VARCHAR(20) " +
+                                    "SELECT        @nidn = bak_dosen.nidn " +
+                                    "FROM            bak_dosen INNER JOIN " +
+                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                    "IF(@nidn IS NULL) " +
+                                    "BEGIN " +
+                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                                  "END " +
+                                  "ELSE " +
+                                  "BEGIN " +
+                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                    "IF(@@ROWCOUNT <> 1) " +
+                                    "BEGIN " +
+                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                  "END" +
+                                "", con);
+                            CmdPersetujuan.Transaction = trans;
+                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                            CmdPersetujuan.ExecuteNonQuery();
+
                         }
 
                         // Angsuran 1 Angkatan mulai 2012/2013 ke bawah .... ==> Biaya Saja
@@ -2245,6 +2356,43 @@ namespace Padu.account
                                 (new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
+
+                            //5.) INSERT PERSETUJUAN KRS 
+                            SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                  "DECLARE @IdPersetujuan BIGINT " +
+                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                  "IF(@IdPersetujuan IS NULL) " +
+                                  "BEGIN " +
+                                    "DECLARE @nidn VARCHAR(20) " +
+                                    "SELECT        @nidn = bak_dosen.nidn " +
+                                    "FROM            bak_dosen INNER JOIN " +
+                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                    "IF(@nidn IS NULL) " +
+                                    "BEGIN " +
+                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                                  "END " +
+                                  "ELSE " +
+                                  "BEGIN " +
+                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                    "IF(@@ROWCOUNT <> 1) " +
+                                    "BEGIN " +
+                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                  "END" +
+                                "", con);
+                            CmdPersetujuan.Transaction = trans;
+                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                            CmdPersetujuan.ExecuteNonQuery();
+
                         }
 
                         trans.Commit();
@@ -2461,17 +2609,52 @@ namespace Padu.account
                         //// - ========================================================================================================================
                         //// - ========================================================================================================================
 
-
-
                         //4. -------------- Filter Cek Pembayaran UKT ----------------
                         // filter sama seperti cek download KRS
                         SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar, TransUntidar);
                         CmdFilterSemGasal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+                        CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
                         CmdFilterSemGasal.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
 
                         CmdFilterSemGasal.ExecuteNonQuery();
+
+                        //5.) INSERT PERSETUJUAN KRS 
+                        SqlCommand CmdPersetujuan = new SqlCommand("" +
+                              "DECLARE @IdPersetujuan BIGINT " +
+                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                              "IF(@IdPersetujuan IS NULL) " +
+                              "BEGIN " +
+                                "DECLARE @nidn VARCHAR(20) " +
+                                "SELECT        @nidn = bak_dosen.nidn " +
+                                "FROM            bak_dosen INNER JOIN " +
+                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                "IF(@nidn IS NULL) " +
+                                "BEGIN " +
+                                    "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                    "RETURN " +
+                                "END " +
+                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                              "END " +
+                              "ELSE " +
+                              "BEGIN " +
+                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                "IF(@@ROWCOUNT <> 1) " +
+                                "BEGIN " +
+                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                    "RETURN " +
+                                "END " +
+                              "END" +
+                            "", ConUntidar, TransUntidar);
+
+                        CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                        CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                        CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                        CmdPersetujuan.ExecuteNonQuery();
+
 
 
                         // 5.---------- Simpan Perubahan --------------
@@ -2576,6 +2759,44 @@ namespace Padu.account
                                         cmdInKRS.ExecuteNonQuery();
                                     }
                                 }
+
+                                // ---- INSERT PERSETUJUAN KRS  -----
+                                SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                      "DECLARE @IdPersetujuan BIGINT " +
+                                      "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                      "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                      "IF(@IdPersetujuan IS NULL) " +
+                                      "BEGIN " +
+                                        "DECLARE @nidn VARCHAR(20) " +
+                                        "SELECT        @nidn = bak_dosen.nidn " +
+                                        "FROM            bak_dosen INNER JOIN " +
+                                                                 "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                        "IF(@nidn IS NULL) " +
+                                        "BEGIN " +
+                                            "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                            "RETURN " +
+                                        "END " +
+                                        "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                                      "END " +
+                                      "ELSE " +
+                                      "BEGIN " +
+                                        "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                        "IF(@@ROWCOUNT <> 1) " +
+                                        "BEGIN " +
+                                            "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                            "RETURN " +
+                                        "END " +
+                                      "END" +
+                                    "", con);
+                                CmdPersetujuan.Transaction = trans;
+
+                                CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                                CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                                CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                                CmdPersetujuan.ExecuteNonQuery();
+
 
                                 trans.Commit();
                                 trans.Dispose();
@@ -2773,6 +2994,42 @@ namespace Padu.account
                             CmdFilterSemGasal.ExecuteNonQuery();
 
 
+                            //5. ---- INSERT PERSETUJUAN KRS  -----
+                            SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                  "DECLARE @IdPersetujuan BIGINT " +
+                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                  "IF(@IdPersetujuan IS NULL) " +
+                                  "BEGIN " +
+                                    "DECLARE @nidn VARCHAR(20) " +
+                                    "SELECT        @nidn = bak_dosen.nidn " +
+                                    "FROM            bak_dosen INNER JOIN " +
+                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                    "IF(@nidn IS NULL) " +
+                                    "BEGIN " +
+                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
+                                  "END " +
+                                  "ELSE " +
+                                  "BEGIN " +
+                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                    "IF(@@ROWCOUNT <> 1) " +
+                                    "BEGIN " +
+                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
+                                  "END" +
+                                "", ConUntidar, TransUntidar);
+
+                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
+
+                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                            CmdPersetujuan.ExecuteNonQuery();
+
                             // 5.---------- Simpan Perubahan --------------
                             TransUntidar.Commit();
                             TransUKT.Commit();
@@ -2850,7 +3107,6 @@ namespace Padu.account
                 // Kategori Tahun Masuk Tidak Terdaftar
                 string msg = "alert('Kategori Tahun Masuk Tidak Terdaftar ')";
                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-
             }
         }
 
