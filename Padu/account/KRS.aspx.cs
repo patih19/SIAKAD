@@ -631,6 +631,38 @@ namespace Padu.account
                             }
                         }
 
+                        //-------------- Read Status Validasi KRS  --------------------- //
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        CmdCekValidasi.CommandType = System.Data.CommandType.Text;
+                        CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
+                        CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+
+                        using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    if (rdr["val"] == DBNull.Value)
+                                    {
+                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
+                                        return;
+                                    }
+                                    else if (rdr["val"].ToString() == "1")
+                                    {
+                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
+                                        return;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
+                                return;
+                            }
+                        }
+
+
                         // --- === CEK MABA  ATAU NON MABA === ---
                         string TahunMhs = "";
 
@@ -1135,7 +1167,6 @@ namespace Padu.account
 
                     this.DLSemester.SelectedValue = "Semester";
 
-
                     string message = "alert('" + ex.Message.ToString() + "')";
                     ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
 
@@ -1168,6 +1199,37 @@ namespace Padu.account
                             if (rdr.HasRows)
                             {
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
+                                return;
+                            }
+                        }
+
+                        //-------------- Read Status Validasi KRS  --------------------- //
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        CmdCekValidasi.CommandType = System.Data.CommandType.Text;
+                        CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
+                        CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+
+                        using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    if (rdr["val"] == DBNull.Value)
+                                    {
+                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
+                                        return;
+                                    }
+                                    else if (rdr["val"].ToString() == "1")
+                                    {
+                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
+                                        return;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
                                 return;
                             }
                         }
@@ -1641,6 +1703,32 @@ namespace Padu.account
                     using (SqlConnection con = new SqlConnection(CS))
                     {
                         con.Open();
+
+                        //-------------- Read Status Validasi KRS  --------------------- //
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        CmdCekValidasi.CommandType = System.Data.CommandType.Text;
+                        CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
+                        CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+
+                        using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    if (rdr["val"] == DBNull.Value || rdr["val"].ToString() == "0")
+                                    {
+                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
+                                        return;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
+                                return;
+                            }
+                        }
 
                         // --------------------- Fill Gridview  ------------------------
                         SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
