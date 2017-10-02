@@ -632,7 +632,7 @@ namespace Padu.account
                         }
 
                         //-------------- Read Status Validasi KRS  --------------------- //
-                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
                         CmdCekValidasi.CommandType = System.Data.CommandType.Text;
                         CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
                         CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
@@ -657,7 +657,7 @@ namespace Padu.account
                             }
                             else
                             {
-                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJUAN KRS');", true);
                                 return;
                             }
                         }
@@ -1204,7 +1204,7 @@ namespace Padu.account
                         }
 
                         //-------------- Read Status Validasi KRS  --------------------- //
-                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
                         CmdCekValidasi.CommandType = System.Data.CommandType.Text;
                         CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
                         CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
@@ -1229,7 +1229,7 @@ namespace Padu.account
                             }
                             else
                             {
-                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJAUN KRS');", true);
                                 return;
                             }
                         }
@@ -1698,14 +1698,15 @@ namespace Padu.account
 
                 try
                 {
-                    //1. ---------- Gridview SKS ------------------
                     string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(CS))
                     {
                         con.Open();
 
-                        //-------------- Read Status Validasi KRS  --------------------- //
-                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM, semester=@semester, jenis='krs'", con);
+                        // A. ----------------- Read Status Validasi KRS  ----------------- //
+                        string ReadValid = ""; 
+
+                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
                         CmdCekValidasi.CommandType = System.Data.CommandType.Text;
                         CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
                         CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
@@ -1716,99 +1717,207 @@ namespace Padu.account
                             {
                                 while (rdr.Read())
                                 {
-                                    if (rdr["val"] == DBNull.Value || rdr["val"].ToString() == "0")
+                                    if (rdr["val"] == DBNull.Value || rdr["val"].ToString().Trim() == "0")
                                     {
-                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
-                                        return;
+                                        ReadValid = "BelumValid";
+                                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
+                                        //return;
+                                    }
+                                    else if (rdr["val"].ToString() == "1")
+                                    {
+                                        ReadValid = "Valid";
+                                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
+                                        //return;
                                     }
                                 }
                             }
                             else
                             {
-                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA DATA KRS');", true);
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJAUN KRS');", true);
                                 return;
                             }
                         }
 
-                        // --------------------- Fill Gridview  ------------------------
-                        SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
-                        CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                        CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-                        DataTable TableKRS = new DataTable();
-                        TableKRS.Columns.Add("Key");
-                        TableKRS.Columns.Add("Kode");
-                        TableKRS.Columns.Add("Mata Kuliah");
-                        TableKRS.Columns.Add("SKS");
-                        TableKRS.Columns.Add("Dosen");
-                        TableKRS.Columns.Add("Kelas");
-                        TableKRS.Columns.Add("Hari");
-                        TableKRS.Columns.Add("Mulai");
-                        TableKRS.Columns.Add("Selesai");
-                        TableKRS.Columns.Add("Ruang");
-
-                        using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
+                        // B. --------------- VALIDASI ACTION-----------------
+                        if (ReadValid == "BelumValid")
                         {
-                            if (rdr.HasRows)
+
+                            Response.Write("KRS Belum Valid");
+
+                            // --- List KRS -----
+                            SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
+                            CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                            CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                            CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+
+                            DataTable TableKRS = new DataTable();
+                            TableKRS.Columns.Add("Key");
+                            TableKRS.Columns.Add("Kode");
+                            TableKRS.Columns.Add("Mata Kuliah");
+                            TableKRS.Columns.Add("SKS");
+                            TableKRS.Columns.Add("Dosen");
+                            TableKRS.Columns.Add("Kelas");
+                            TableKRS.Columns.Add("Hari");
+                            TableKRS.Columns.Add("Mulai");
+                            TableKRS.Columns.Add("Selesai");
+                            TableKRS.Columns.Add("Ruang");
+
+                            using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
                             {
-                                this.PanelKRS.Enabled = false;
-                                this.PanelKRS.Visible = false;
-
-                                this.PanelEditKRS.Enabled = false;
-                                this.PanelEditKRS.Visible = false;
-
-                                this.PanelListKRS.Enabled = true;
-                                this.PanelListKRS.Visible = true;
-
-                                while (rdr.Read())
+                                if (rdr.HasRows)
                                 {
-                                    DataRow datarow = TableKRS.NewRow();
-                                    datarow["Key"] = rdr["no_jadwal"];
-                                    datarow["Kode"] = rdr["kode_makul"];
-                                    datarow["Mata Kuliah"] = rdr["makul"];
-                                    datarow["SKS"] = rdr["sks"];
-                                    datarow["Dosen"] = rdr["nama"];
-                                    datarow["Kelas"] = rdr["kelas"];
-                                    datarow["Hari"] = rdr["hari"];
-                                    datarow["Mulai"] = rdr["jm_awal_kuliah"];
-                                    datarow["Selesai"] = rdr["jm_akhir_kuliah"];
-                                    datarow["Ruang"] = rdr["nm_ruang"];
+                                    this.PanelKRS.Enabled = false;
+                                    this.PanelKRS.Visible = false;
 
-                                    TableKRS.Rows.Add(datarow);
+                                    this.PanelEditKRS.Enabled = false;
+                                    this.PanelEditKRS.Visible = false;
+
+                                    this.PanelListKRS.Enabled = true;
+                                    this.PanelListKRS.Visible = true;
+
+                                    while (rdr.Read())
+                                    {
+                                        DataRow datarow = TableKRS.NewRow();
+                                        datarow["Key"] = rdr["no_jadwal"];
+                                        datarow["Kode"] = rdr["kode_makul"];
+                                        datarow["Mata Kuliah"] = rdr["makul"];
+                                        datarow["SKS"] = rdr["sks"];
+                                        datarow["Dosen"] = rdr["nama"];
+                                        datarow["Kelas"] = rdr["kelas"];
+                                        datarow["Hari"] = rdr["hari"];
+                                        datarow["Mulai"] = rdr["jm_awal_kuliah"];
+                                        datarow["Selesai"] = rdr["jm_akhir_kuliah"];
+                                        datarow["Ruang"] = rdr["nm_ruang"];
+
+                                        TableKRS.Rows.Add(datarow);
+                                    }
+
+                                    //Fill Gridview
+                                    this.GVListKrs.DataSource = TableKRS;
+                                    this.GVListKrs.DataBind();
+
+                                    //this.DLSemester.SelectedValue = "Semester";
                                 }
+                                else
+                                {
+                                    //clear Gridview
+                                    TableKRS.Rows.Clear();
+                                    TableKRS.Clear();
+                                    GVListKrs.DataSource = TableKRS;
+                                    GVListKrs.DataBind();
 
-                                //Fill Gridview
-                                this.GVListKrs.DataSource = TableKRS;
-                                this.GVListKrs.DataBind();
+                                    this.PanelKRS.Enabled = false;
+                                    this.PanelKRS.Visible = false;
 
-                                //this.DLSemester.SelectedValue = "Semester";
+                                    this.PanelEditKRS.Enabled = false;
+                                    this.PanelEditKRS.Visible = false;
+
+                                    this.PanelListKRS.Enabled = false;
+                                    this.PanelListKRS.Visible = false;
+
+                                    this.DLSemester.SelectedValue = "Semester";
+
+                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
+                                    string message = "alert('KRS Semester Ini Belum Ada')";
+                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                                }
                             }
-                            else
-                            {
-                                //clear Gridview
-                                TableKRS.Rows.Clear();
-                                TableKRS.Clear();
-                                GVListKrs.DataSource = TableKRS;
-                                GVListKrs.DataBind();
 
-                                this.PanelKRS.Enabled = false;
-                                this.PanelKRS.Visible = false;
-
-                                this.PanelEditKRS.Enabled = false;
-                                this.PanelEditKRS.Visible = false;
-
-                                this.PanelListKRS.Enabled = false;
-                                this.PanelListKRS.Visible = false;
-
-                                this.DLSemester.SelectedValue = "Semester";
-
-                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
-                                string message = "alert('KRS Semester Ini Belum Ada')";
-                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                            }
+                            // --- Disable download ---
+                            this.BtnDwnKrs.Visible = false;
+                            this.BtnDwnKrs.Enabled = false;
                         }
+                        else if (ReadValid == "Valid")
+                        {
+
+                            Response.Write("KRS Valid");
+
+                            SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
+                            CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                            CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                            CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+
+                            DataTable TableKRS = new DataTable();
+                            TableKRS.Columns.Add("Key");
+                            TableKRS.Columns.Add("Kode");
+                            TableKRS.Columns.Add("Mata Kuliah");
+                            TableKRS.Columns.Add("SKS");
+                            TableKRS.Columns.Add("Dosen");
+                            TableKRS.Columns.Add("Kelas");
+                            TableKRS.Columns.Add("Hari");
+                            TableKRS.Columns.Add("Mulai");
+                            TableKRS.Columns.Add("Selesai");
+                            TableKRS.Columns.Add("Ruang");
+
+                            using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
+                            {
+                                if (rdr.HasRows)
+                                {
+                                    this.PanelKRS.Enabled = false;
+                                    this.PanelKRS.Visible = false;
+
+                                    this.PanelEditKRS.Enabled = false;
+                                    this.PanelEditKRS.Visible = false;
+
+                                    this.PanelListKRS.Enabled = true;
+                                    this.PanelListKRS.Visible = true;
+
+                                    while (rdr.Read())
+                                    {
+                                        DataRow datarow = TableKRS.NewRow();
+                                        datarow["Key"] = rdr["no_jadwal"];
+                                        datarow["Kode"] = rdr["kode_makul"];
+                                        datarow["Mata Kuliah"] = rdr["makul"];
+                                        datarow["SKS"] = rdr["sks"];
+                                        datarow["Dosen"] = rdr["nama"];
+                                        datarow["Kelas"] = rdr["kelas"];
+                                        datarow["Hari"] = rdr["hari"];
+                                        datarow["Mulai"] = rdr["jm_awal_kuliah"];
+                                        datarow["Selesai"] = rdr["jm_akhir_kuliah"];
+                                        datarow["Ruang"] = rdr["nm_ruang"];
+
+                                        TableKRS.Rows.Add(datarow);
+                                    }
+
+                                    //Fill Gridview
+                                    this.GVListKrs.DataSource = TableKRS;
+                                    this.GVListKrs.DataBind();
+
+                                    //this.DLSemester.SelectedValue = "Semester";
+                                }
+                                else
+                                {
+                                    //clear Gridview
+                                    TableKRS.Rows.Clear();
+                                    TableKRS.Clear();
+                                    GVListKrs.DataSource = TableKRS;
+                                    GVListKrs.DataBind();
+
+                                    this.PanelKRS.Enabled = false;
+                                    this.PanelKRS.Visible = false;
+
+                                    this.PanelEditKRS.Enabled = false;
+                                    this.PanelEditKRS.Visible = false;
+
+                                    this.PanelListKRS.Enabled = false;
+                                    this.PanelListKRS.Visible = false;
+
+                                    this.DLSemester.SelectedValue = "Semester";
+
+                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
+                                    string message = "alert('KRS Semester Ini Belum Ada')";
+                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                                }
+                            }
+
+                            // --- Enable download ---
+                            this.BtnDwnKrs.Visible = true;
+                            this.BtnDwnKrs.Enabled = true;
+                        }
+
+
                     }
                 }
                 catch (Exception ex)
