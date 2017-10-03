@@ -2105,7 +2105,7 @@ namespace Padu.account
                                                                          "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm "+
                                                 "IF(@nidn IS NULL) "+
                                                 "BEGIN "+
-                                                    "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) "+
+                                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) "+
                                                     "RETURN "+
                                                 "END "+
                                                 "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) "+
@@ -2271,7 +2271,7 @@ namespace Padu.account
                                                              "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                     "IF(@nidn IS NULL) " +
                                     "BEGIN " +
-                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                         "RETURN " +
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
@@ -2375,7 +2375,7 @@ namespace Padu.account
                                                              "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                     "IF(@nidn IS NULL) " +
                                     "BEGIN " +
-                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                         "RETURN " +
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
@@ -2479,7 +2479,7 @@ namespace Padu.account
                                                              "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                     "IF(@nidn IS NULL) " +
                                     "BEGIN " +
-                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                         "RETURN " +
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
@@ -2741,7 +2741,7 @@ namespace Padu.account
                                                          "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                 "IF(@nidn IS NULL) " +
                                 "BEGIN " +
-                                    "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                     "RETURN " +
                                 "END " +
                                 "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
@@ -2882,7 +2882,7 @@ namespace Padu.account
                                                                  "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                         "IF(@nidn IS NULL) " +
                                         "BEGIN " +
-                                            "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                            "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                             "RETURN " +
                                         "END " +
                                         "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +
@@ -3116,7 +3116,7 @@ namespace Padu.account
                                                              "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
                                     "IF(@nidn IS NULL) " +
                                     "BEGIN " +
-                                        "RAISERROR('DOSEN PEMBIMBIMG TIDAK DITEMUKAN, HUBUNGI TU PRODI ...', 16, 10) " +
+                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ..., HUBUNGI TU PRODI ...', 16, 10) " +
                                         "RETURN " +
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester) VALUES(@npm, @nidn, 'krs', @semester) " +

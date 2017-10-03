@@ -155,7 +155,7 @@
                                         <asp:DropDownList ID="DLSemester" runat="server" CssClass="form-control">
                                             <asp:ListItem Value="-1">Semester</asp:ListItem>
                                             <asp:ListItem>1</asp:ListItem>
-                                            <%--<asp:ListItem>2</asp:ListItem>--%>
+                                            <asp:ListItem>2</asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                     <td>
