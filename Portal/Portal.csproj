@@ -739,6 +739,10 @@
     <Content Include="RekapSKS.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\bootstrap.3.3.6.css" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.css" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery-2.1.3-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
