@@ -112,15 +112,6 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.RadioButton RBEditKRS;
         
         /// <summary>
-        /// RbBatalTambahKRS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RbBatalTambahKRS;
-        
-        /// <summary>
         /// RBList control.
         /// </summary>
         /// <remarks>
@@ -146,6 +137,15 @@ namespace Padu.account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DLSemester;
+        
+        /// <summary>
+        /// PanelContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PanelContent;
         
         /// <summary>
         /// PanelKRS control.
@@ -283,6 +283,15 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Panel PanelListKRS;
         
         /// <summary>
+        /// LbTextValidasi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbTextValidasi;
+        
+        /// <summary>
         /// GVListKrs control.
         /// </summary>
         /// <remarks>
@@ -290,6 +299,24 @@ namespace Padu.account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GVListKrs;
+        
+        /// <summary>
+        /// PanelValidasiKRS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelValidasiKRS;
+        
+        /// <summary>
+        /// GVPesan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVPesan;
         
         /// <summary>
         /// BtnDwnKrs control.
