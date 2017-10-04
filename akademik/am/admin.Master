@@ -161,7 +161,7 @@
                                     <li><a href="<%= Page.ResolveUrl("~/am/Aktif") %>">Mahasiswa Aktif</a></li>
                                     <li><a href="<%= Page.ResolveUrl("~/am/AktvMhs") %>">Aktivitas Kuliah Mhs</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<%= Page.ResolveUrl("~/am/MhsSmstr") %>">Rekapitulasi Mahasiswa Aktif</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/AktifKRS") %>">Rekapitulasi Mahasiswa Aktif</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#" class="dropup">Pelaporan Feeder<span class="caret"></span></a>
                                         <ul class="dropdown-menu">

@@ -10,7 +10,7 @@
 namespace akademik.am {
     
     
-    public partial class WebForm1 {
+    public partial class AktifKRS {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -20,15 +20,6 @@ namespace akademik.am {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
-        
-        /// <summary>
-        /// PanelDosen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelDosen;
         
         /// <summary>
         /// DLTahun control.
@@ -58,21 +49,30 @@ namespace akademik.am {
         protected global::System.Web.UI.WebControls.DropDownList DlSemester;
         
         /// <summary>
-        /// DLProdi control.
+        /// BtnAktifKRS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLProdi;
+        protected global::System.Web.UI.WebControls.Button BtnAktifKRS;
         
         /// <summary>
-        /// GVAktif control.
+        /// PanelMhsKrs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVAktif;
+        protected global::System.Web.UI.WebControls.Panel PanelMhsKrs;
+        
+        /// <summary>
+        /// GvMhsAktifKrs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvMhsAktifKrs;
     }
 }

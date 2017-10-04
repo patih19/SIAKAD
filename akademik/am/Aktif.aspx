@@ -21,9 +21,16 @@
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control">
+                                                            <%-- <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control">
                                                                 <asp:ListItem>2015</asp:ListItem>
+                                                            </asp:DropDownList>--%>
+                                                            <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control">
                                                             </asp:DropDownList>
+                                                            <ajaxToolkit:CascadingDropDown ID="CascadingDLTahun" TargetControlID="DLTahun" runat="server"
+                                                                Category="DLTahun" ServicePath="~/web_services/ServiceCS.asmx" ServiceMethod="semester"
+                                                                LoadingText="Loading" PromptText="Tahun">
+                                                            </ajaxToolkit:CascadingDropDown>
+
                                                         </td>
                                                         <td>&nbsp;</td>
                                                         <td>

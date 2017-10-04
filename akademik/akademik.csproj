@@ -21,6 +21,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -158,6 +163,7 @@
     <Content Include="am\RekapInputNilai.aspx" />
     <Content Include="am\AddJadwalMku.aspx" />
     <Content Include="am\JadwalMku.aspx" />
+    <Content Include="am\AktifKRS.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.3.3.6.css" />
@@ -836,6 +842,13 @@
     </Compile>
     <Compile Include="am\JadwalMku.aspx.designer.cs">
       <DependentUpon>JadwalMku.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="am\AktifKRS.aspx.cs">
+      <DependentUpon>AktifKRS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="am\AktifKRS.aspx.designer.cs">
+      <DependentUpon>AktifKRS.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front.Master.cs">
       <DependentUpon>Front.Master</DependentUpon>
