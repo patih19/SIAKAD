@@ -1,0 +1,176 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Pasca.master.cs" Inherits="simuktpasca.Pasca" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Settings - Canvas Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="">
+    <meta name="author" content="" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800"
+        type="text/css">
+    <link id="Link1" runat="server" rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css" />
+    <link id="Link2" runat="server" rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css" />
+	<link id="Link3" runat="server" rel="stylesheet" href="~/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css">		
+
+	<link id="Link4" runat="server" rel="stylesheet" href="~/js/plugins/fileupload/bootstrap-fileupload.css" type="text/css">
+	<link id="Link5" runat="server" rel="stylesheet" href="~/css/App.css" type="text/css">
+	<link id="Link6" runat="server" rel="stylesheet" href="~/css/custom.css" type="text/css">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div id="wrapper">
+            <header id="header">
+                <h1 id="site-logo">
+                    <a href="index-2.html">
+                        <img id="Img1" runat="server" src="~/img/logos/logo.png" alt="Site Logo" />
+                    </a>
+                </h1>
+                <a href="javascript:;" data-toggle="collapse" data-target=".top-bar-collapse" id="top-bar-toggle"
+                    class="navbar-toggle collapsed"><i class="fa fa-cog"></i></a><a href="javascript:;"
+                        data-toggle="collapse" data-target=".sidebar-collapse" id="sidebar-toggle" class="navbar-toggle collapsed">
+                        <i class="fa fa-reorder"></i></a>
+            </header>
+            <!-- header -->
+            <nav id="top-bar" class="collapse top-bar-collapse">
+                <ul class="nav navbar-nav pull-left">
+                    <li class=""><a href="<%= Page.ResolveUrl("~/home.aspx") %>"><i class="fa fa-home"></i>Home </a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:;"><i class="fa fa-user"></i>&nbsp;&nbsp;Example #1</a></li>
+                            <li><a href="javascript:;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Example #2</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:;"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Example #3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        <i class="fa fa-user"></i>Rod Howard <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                           <%-- <li><a href="page-profile.html"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile </a>
+                            </li>
+                            <li><a href="page-calendar.html"><i class="fa fa-calendar"></i>&nbsp;&nbsp;My Calendar
+                            </a></li>
+                            <li><a href="page-settings.html"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Settings </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="page-login.html"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout </a>
+                            </li>--%>
+                            <li><a  runat="server" id="keluar" href="#"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /#top-bar -->
+            <div id="sidebar-wrapper" class="collapse sidebar-collapse">
+                <div id="search">
+                    <div>
+                    <input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
+                    <button type="submit" id="search-btn" class="btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    </div>
+                </div>
+                <!-- #search -->
+                <nav id="sidebar">
+                    <ul id="main-nav" class="open-active">
+                        <%--<li runat="server" id="NavHOme" class=""><a href="<%= Page.ResolveUrl("~/") %>"><i class="fa fa-dashboard"></i>Dashboard </a>
+                        </li>--%>
+                        <li runat="server" id="NavMonitor" class=""><a href="<%= Page.ResolveUrl("~/Peserta.aspx") %>"><i class="fa fa-dashboard"></i>Input Data</a>
+                        </li>
+                        <li runat="server" id="NavExample" class="dropdown"><a href="javascript:;"><i class="fa fa-file-text"></i>Verifikasi Borang
+                            <span class="caret"></span></a>
+                            <ul runat="server" id="SubNavExample" class="sub-nav">
+                                <li><asp:HyperLink ID="LinkPribadi" runat="server" NavigateUrl="~/Pribadi.aspx"><i class="fa fa-user"></i>Pribadi (1)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkKeluarga" runat="server" NavigateUrl="~/Keluarga.aspx"><i class="fa fa-group"></i>Keluarga (2)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkRumah" runat="server" NavigateUrl="~/Rumah.aspx"><i class="fa fa-home"></i>Rumah (3)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkLingkugan" runat="server" NavigateUrl="~/Lingkungan.aspx"><i class="fa fa-building"></i>Lingkungan (4)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkPerabot" runat="server" NavigateUrl="~/perabot.aspx"><i class="fa fa-cutlery"></i>Perabot (5)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkFasilitas" runat="server" NavigateUrl="~/fasilitas.aspx"><i class="fa fa-desktop"></i>Fasilitas (6)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkEkonomi" runat="server" NavigateUrl="~/ekonomi.aspx"><i class="fa fa-money"></i>Ekonomi (7)</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="LinkAset" runat="server" NavigateUrl="~/aset.aspx"><i class="fa fa-book"></i>Aset/Harta (8)</asp:HyperLink></li>
+                            </ul>
+                        </li>
+                        <%--<li class="dropdown"><a href="javascript:;"><i class="fa fa-tasks"></i>Form Elements
+                            <span class="caret"></span></a>
+                            <ul class="sub-nav">
+                                <li><a href="form-regular.html"><i class="fa fa-location-arrow"></i>Regular Elements
+                                </a></li>
+                                <li><a href="form-extended.html"><i class="fa fa-magic"></i>Extended Elements </a>
+                                </li>
+                                <li><a href="form-validation.html"><i class="fa fa-check"></i>Validation </a></li>
+                            </ul>
+                        </li>--%>
+                        <%--<li class="dropdown"><a href="javascript:;"><i class="fa fa-desktop"></i>UI Features
+                            <span class="caret"></span></a>
+                            <ul class="sub-nav">
+                                <li><a href="ui-buttons.html"><i class="fa fa-hand-o-up"></i>Buttons </a></li>
+                                <li><a href="ui-tabs.html"><i class="fa fa-reorder"></i>Tabs & Accordions </a></li>
+                                <li><a href="ui-popups.html"><i class="fa fa-asterisk"></i>Popups / Notifications </a>
+                                </li>
+                                <li><a href="ui-sliders.html"><i class="fa fa-tasks"></i>Sliders </a></li>
+                                <li class=""><a href="ui-typography.html"><i class="fa fa-font"></i>Typography </a>
+                                </li>
+                                <li class=""><a href="ui-icons.html"><i class="fa fa-star-o"></i>Icons </a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-table"></i>Tables <span
+                            class="caret"></span></a>
+                            <ul class="sub-nav">
+                                <li><a href="table-basic.html"><i class="fa fa-table"></i>Basic Tables </a></li>
+                                <li><a href="table-advanced.html"><i class="fa fa-table"></i>Advanced Tables </a>
+                                </li>
+                                <li><a href="table-responsive.html"><i class="fa fa-table"></i>Responsive Tables </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="ui-portlets.html"><i class="fa fa-list-alt"></i>Portlets </a></li>
+                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-bar-chart-o"></i>Charts
+                            & Graphs <span class="caret"></span></a>
+                            <ul class="sub-nav">
+                                <li><a href="chart-flot.html"><i class="fa fa-bar-chart-o"></i>jQuery Flot </a></li>
+                                <li><a href="chart-morris.html"><i class="fa fa-bar-chart-o"></i>Morris.js </a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-file-text-o"></i>Extra Pages
+                            <span class="caret"></span></a>
+                            <ul class="sub-nav">
+                                <li><a href="page-login.html"><i class="fa fa-unlock"></i>Login Basic </a></li>
+                                <li><a href="page-login-social.html"><i class="fa fa-unlock"></i>Login Social </a>
+                                </li>
+                                <li><a href="page-404.html"><i class="fa fa-ban"></i>404 Error </a></li>
+                                <li><a href="page-500.html"><i class="fa fa-ban"></i>500 Error </a></li>
+                                <li><a href="page-blank.html"><i class="fa fa-file-text-o"></i>Blank Page </a></li>
+                            </ul>
+                        </li>--%>
+                    </ul>
+                </nav>
+                <!-- #sidebar -->
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <div id="content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <!-- content from here-->
+                </asp:ContentPlaceHolder>
+            </div>
+            <!-- #content -->
+        </div>
+        <!-- #wrapper -->
+        <footer id="footer">
+            <ul class="nav pull-right">
+                <li>Copyright &copy; 2017, UPT TIK Universitas Tidar. </li>
+            </ul>
+        </footer>
+
+    </div>
+    </form>
+</body>
+</html>
