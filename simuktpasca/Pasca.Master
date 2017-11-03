@@ -52,7 +52,7 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                        <i class="fa fa-user"></i>Rod Howard <span class="caret"></span></a>
+                        <i class="fa fa-user"></i>User <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                            <%-- <li><a href="page-profile.html"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile </a>
                             </li>
@@ -73,86 +73,80 @@
             <div id="sidebar-wrapper" class="collapse sidebar-collapse">
                 <div id="search">
                     <div>
-                    <input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
-                    <button type="submit" id="search-btn" class="btn">
-                        <i class="fa fa-search"></i>
-                    </button>
+                        <input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
+                        <button type="submit" id="search-btn" class="btn">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- #search -->
                 <nav id="sidebar">
                     <ul id="main-nav" class="open-active">
-                        <%--<li runat="server" id="NavHOme" class=""><a href="<%= Page.ResolveUrl("~/") %>"><i class="fa fa-dashboard"></i>Dashboard </a>
-                        </li>--%>
-                        <li runat="server" id="NavMonitor" class=""><a href="<%= Page.ResolveUrl("~/Peserta.aspx") %>"><i class="fa fa-dashboard"></i>Input Data</a>
+                        <li runat="server" id="NavDashboard">
+                            <a href="<%= Page.ResolveUrl("~/home.aspx") %>">
+                                <i class="fa fa-dashboard"></i>
+                                Home
+                            </a>
                         </li>
-                        <li runat="server" id="NavExample" class="dropdown"><a href="javascript:;"><i class="fa fa-file-text"></i>Verifikasi Borang
-                            <span class="caret"></span></a>
-                            <ul runat="server" id="SubNavExample" class="sub-nav">
-                                <li><asp:HyperLink ID="LinkPribadi" runat="server" NavigateUrl="~/Pribadi.aspx"><i class="fa fa-user"></i>Pribadi (1)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkKeluarga" runat="server" NavigateUrl="~/Keluarga.aspx"><i class="fa fa-group"></i>Keluarga (2)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkRumah" runat="server" NavigateUrl="~/Rumah.aspx"><i class="fa fa-home"></i>Rumah (3)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkLingkugan" runat="server" NavigateUrl="~/Lingkungan.aspx"><i class="fa fa-building"></i>Lingkungan (4)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkPerabot" runat="server" NavigateUrl="~/perabot.aspx"><i class="fa fa-cutlery"></i>Perabot (5)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkFasilitas" runat="server" NavigateUrl="~/fasilitas.aspx"><i class="fa fa-desktop"></i>Fasilitas (6)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkEkonomi" runat="server" NavigateUrl="~/ekonomi.aspx"><i class="fa fa-money"></i>Ekonomi (7)</asp:HyperLink></li>
-                                <li><asp:HyperLink ID="LinkAset" runat="server" NavigateUrl="~/aset.aspx"><i class="fa fa-book"></i>Aset/Harta (8)</asp:HyperLink></li>
-                            </ul>
-                        </li>
-                        <%--<li class="dropdown"><a href="javascript:;"><i class="fa fa-tasks"></i>Form Elements
-                            <span class="caret"></span></a>
-                            <ul class="sub-nav">
-                                <li><a href="form-regular.html"><i class="fa fa-location-arrow"></i>Regular Elements
-                                </a></li>
-                                <li><a href="form-extended.html"><i class="fa fa-magic"></i>Extended Elements </a>
+                        <li runat="server" id="NavMasterTagihan"  class="dropdown">
+                            <a href="javascript:;">
+                                <i class="fa fa-file-text"></i>
+                               Master Tagihan
+						<span class="caret"></span>
+                            </a>
+                            <ul runat="server" id="SubNavMasterTagihan" class="sub-nav">
+                                <li>
+                                    <a href="<%= Page.ResolveUrl("~/TagihanPeriodik.aspx") %>">
+                                        <i class="fa fa-user"></i>
+                                        Tagihan Periodik
+                                    </a>
                                 </li>
-                                <li><a href="form-validation.html"><i class="fa fa-check"></i>Validation </a></li>
-                            </ul>
-                        </li>--%>
-                        <%--<li class="dropdown"><a href="javascript:;"><i class="fa fa-desktop"></i>UI Features
-                            <span class="caret"></span></a>
-                            <ul class="sub-nav">
-                                <li><a href="ui-buttons.html"><i class="fa fa-hand-o-up"></i>Buttons </a></li>
-                                <li><a href="ui-tabs.html"><i class="fa fa-reorder"></i>Tabs & Accordions </a></li>
-                                <li><a href="ui-popups.html"><i class="fa fa-asterisk"></i>Popups / Notifications </a>
-                                </li>
-                                <li><a href="ui-sliders.html"><i class="fa fa-tasks"></i>Sliders </a></li>
-                                <li class=""><a href="ui-typography.html"><i class="fa fa-font"></i>Typography </a>
-                                </li>
-                                <li class=""><a href="ui-icons.html"><i class="fa fa-star-o"></i>Icons </a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-table"></i>Tables <span
-                            class="caret"></span></a>
-                            <ul class="sub-nav">
-                                <li><a href="table-basic.html"><i class="fa fa-table"></i>Basic Tables </a></li>
-                                <li><a href="table-advanced.html"><i class="fa fa-table"></i>Advanced Tables </a>
-                                </li>
-                                <li><a href="table-responsive.html"><i class="fa fa-table"></i>Responsive Tables </a>
+                                <li>
+                                    <a href="<%= Page.ResolveUrl("~/TagihanAkhir.aspx") %>">
+                                        <i class="fa fa-money"></i>
+                                        Tagihan Akhir
+                                    </a>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="ui-portlets.html"><i class="fa fa-list-alt"></i>Portlets </a></li>
-                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-bar-chart-o"></i>Charts
-                            & Graphs <span class="caret"></span></a>
-                            <ul class="sub-nav">
-                                <li><a href="chart-flot.html"><i class="fa fa-bar-chart-o"></i>jQuery Flot </a></li>
-                                <li><a href="chart-morris.html"><i class="fa fa-bar-chart-o"></i>Morris.js </a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="javascript:;"><i class="fa fa-file-text-o"></i>Extra Pages
-                            <span class="caret"></span></a>
-                            <ul class="sub-nav">
-                                <li><a href="page-login.html"><i class="fa fa-unlock"></i>Login Basic </a></li>
-                                <li><a href="page-login-social.html"><i class="fa fa-unlock"></i>Login Social </a>
+
+                        <li runat="server" id="NavPembayaran" class="dropdown">
+                            <a href="javascript:;">
+                                <i class="fa fa-tasks"></i>
+                                Pembayaran
+						<span class="caret"></span>
+                            </a>
+                            <ul runat="server" id="SubNavPembayaran" class="sub-nav">
+                                <li>
+                                    <a href="<%= Page.ResolveUrl("~/Keuangan.aspx") %>">
+                                        <i class="fa fa-location-arrow"></i>
+                                        Tagihan Mahasiswa
+                                    </a>
                                 </li>
-                                <li><a href="page-404.html"><i class="fa fa-ban"></i>404 Error </a></li>
-                                <li><a href="page-500.html"><i class="fa fa-ban"></i>500 Error </a></li>
-                                <li><a href="page-blank.html"><i class="fa fa-file-text-o"></i>Blank Page </a></li>
+                                <li>
+                                    <a href="form-extended.html">
+                                        <i class="fa fa-magic"></i>
+                                        Aktifasi Pembayaran
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<%= Page.ResolveUrl("~/RekapBayar.aspx") %>">
+                                        <i class="fa fa-magic"></i>
+                                        Rekap Pembayaran
+                                    </a>
+                                </li>
                             </ul>
-                        </li>--%>
+
+                        </li>
+                        <li>
+                            <a href="ui-portlets.html">
+                                <i class="fa fa-list-alt"></i>
+                                Portlets
+                            </a>
+                        </li>
                     </ul>
-                </nav>
+
+                </nav> 
                 <!-- #sidebar -->
             </div>
             <!-- /#sidebar-wrapper -->
@@ -173,4 +167,26 @@
     </div>
     </form>
 </body>
+<script src="js/libs/jquery-1.9.1.min.js"></script>
+<script src="js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+
+<script src="js/plugins/icheck/jquery.icheck.min.js"></script>
+<script src="js/plugins/select2/select2.js"></script>
+<script src="js/plugins/tableCheckable/jquery.tableCheckable.js"></script>
+
+<script src="js/App.js"></script>
+
+<script src="js/libs/raphael-2.1.2.min.js"></script>
+<script src="js/plugins/morris/morris.min.js"></script>
+
+<script src="js/demos/charts/morris/area.js"></script>
+<script src="js/demos/charts/morris/donut.js"></script>
+
+<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="js/demos/calendar.js"></script>
+
+<script src="js/demos/dashboard.js"></script>
 </html>

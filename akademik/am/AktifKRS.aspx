@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/am/admin.Master" AutoEventWireup="true" CodeBehind="AktifKRS.aspx.cs" Inherits="akademik.am.AktifKRS" EnableEventValidation="false" %>
+
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -50,8 +52,47 @@
                             CssClass="btn btn-primary" OnClick="BtnAktifKRS_Click" />
                     </div>
                 </div>
-                <br />
-                <br />
+                <p></p>
+                <asp:Chart ID="Chart1" runat="server" Height="700px" Width="750px" >
+                    <Series>
+                        <asp:Series Name="Series1" ChartArea="ChartArea1" IsValueShownAsLabel="true" CustomProperties="PointWidth=.8" ChartType="Bar" >
+                            <Points>
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 1" YValues="10" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 2" YValues="20" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 3" YValues="30" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 4" YValues="40" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 5" YValues="50" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 6" YValues="60" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 7" YValues="70" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 8" YValues="80" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 9" YValues="90" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 10" YValues="100" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN 11" YValues="110" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN" YValues="120" />
+                                <asp:DataPoint AxisLabel="S1 AGROTEKNOLOGI" YValues="130" />
+                                <asp:DataPoint AxisLabel="D3 TEKNIK MESIN" YValues="140" />
+                                <asp:DataPoint AxisLabel="S1 TEKNIK MESIN" YValues="150" />
+                                <asp:DataPoint AxisLabel="S1 AGROTEKNOLOGI" YValues="1000" />
+                            </Points>
+                        </asp:Series>
+                    </Series>
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea1">
+                            <AxisX Title="PROGRAM STUDI" IsLabelAutoFit="False">
+                                <MajorGrid Enabled="False" />
+                                 <LabelStyle Interval="1" Font="Microsoft Sans Serif, 8pt" />
+                            </AxisX>
+                            <AxisY Title="JUMLAH AKTIF KRS" IsLabelAutoFit="False">
+                                <MajorGrid Enabled="False" />
+                                
+                               
+                                
+                            </AxisY>
+                        </asp:ChartArea>
+                    </ChartAreas>
+                    <BorderSkin BorderColor="DarkRed" />
+                </asp:Chart>
+                <p></p>
                 <asp:Panel ID="PanelMhsKrs" runat="server">
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">

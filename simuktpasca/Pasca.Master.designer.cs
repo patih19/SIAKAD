@@ -112,103 +112,49 @@ namespace simuktpasca {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor keluar;
         
         /// <summary>
-        /// NavMonitor control.
+        /// NavDashboard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavMonitor;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavDashboard;
         
         /// <summary>
-        /// NavExample control.
+        /// NavMasterTagihan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavExample;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavMasterTagihan;
         
         /// <summary>
-        /// SubNavExample control.
+        /// SubNavMasterTagihan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SubNavExample;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SubNavMasterTagihan;
         
         /// <summary>
-        /// LinkPribadi control.
+        /// NavPembayaran control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkPribadi;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavPembayaran;
         
         /// <summary>
-        /// LinkKeluarga control.
+        /// SubNavPembayaran control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkKeluarga;
-        
-        /// <summary>
-        /// LinkRumah control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkRumah;
-        
-        /// <summary>
-        /// LinkLingkugan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkLingkugan;
-        
-        /// <summary>
-        /// LinkPerabot control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkPerabot;
-        
-        /// <summary>
-        /// LinkFasilitas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkFasilitas;
-        
-        /// <summary>
-        /// LinkEkonomi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkEkonomi;
-        
-        /// <summary>
-        /// LinkAset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkAset;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SubNavPembayaran;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

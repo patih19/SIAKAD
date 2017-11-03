@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KRS.aspx.cs" Inherits="Padu.account.WebForm4" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KRS.aspx.cs" Inherits="Padu.account.WebForm12" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
+ <%--   <style type="text/css">
         .style2
         {
             color: #FF3300;
@@ -41,7 +41,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>
+    </style>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -146,7 +146,7 @@
                                     <td colspan="2">
                                 <asp:RadioButton ID="RBInput" runat="server" Text="Pengambilan KRS" GroupName="KRS" /> <br />
                                 <asp:RadioButton ID="RBEditKRS" runat="server" Text="Edit KRS" GroupName="KRS" /> <br />
-                                <%-- <asp:RadioButton ID="RbBatalTambahKRS" runat="server" Text="Batal Tambah KRS" GroupName="KRS" /> <br />--%>
+                                 <asp:RadioButton ID="RbBatalTambahKRS" runat="server" Text="Batal Tambah KRS" GroupName="KRS" /> <br />
                                 <asp:RadioButton ID="RBList" runat="server" Text="Lihat KRS" GroupName="KRS" />
                                     </td>
                                 </tr>
@@ -178,120 +178,40 @@
                             </table>
                         </div>
                     </div>
-
-                    <div runat="server" id="PanelContent" class="panel panel-default">
-                        <div class="panel-body">
-                            <asp:Panel ID="PanelKRS" runat="server">
-                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                    <ContentTemplate>
-                                        <asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
-                                            <strong>Jumlah maksimal SKS :</strong>
-                                            <asp:Label ID="LbMaxSKS" runat="server" Text="" Style="font-weight: 700"></asp:Label>
-                                        </asp:Panel>
-                                        <p></p>
-                                        <strong>Jumlah SKS dipilih :</strong>
-                                        <asp:Label ID="LbJumlahSKS" runat="server" Style="font-weight: 700"></asp:Label>
-                                        <br />
-                                        <asp:GridView ID="GVAmbilKRS" runat="server" CellPadding="4"
-                                            ForeColor="#333333" GridLines="None" CssClass="table table-striped"
-                                            OnRowDataBound="GVAmbilKRS_RowDataBound">
-                                            <AlternatingRowStyle BackColor="White" />
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="CBMakul" runat="server" AutoPostBack="true" OnCheckedChanged="CBMakul_CheckedChanged" />
-                                                    </ItemTemplate>
-                                                    <HeaderTemplate>
-                                                        Pilih
-                                                    </HeaderTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="LbSisa" runat="server" Style="font-weight: 700"></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderTemplate>
-                                                        Sisa
-                                                    </HeaderTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <EditRowStyle BackColor="#7C6F57" />
-                                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                                            <RowStyle BackColor="#E3EAEB" />
-                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
-                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
-                                        </asp:GridView>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                                <asp:UpdatePanel ID="UpdatePnlSimpanKRS" runat="server">
-                                    <ContentTemplate>
-                                        <asp:Button ID="BtnSimpan" runat="server" Text="Simpan" OnClick="BtnSimpan_Click"
-                                            class="btn btn-default" OnClientClick="return confirm('Anda Yakin Data Tersebut Benar ?');"
-                                            CssClass="btn btn-primary" />
-                                        <asp:Label ID="LbPostSuccess" runat="server"></asp:Label>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </asp:Panel>
-                            <asp:Panel ID="PanelEditKRS" runat="server">
-                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                    <ContentTemplate>
-                                        <hr />
-                                        <span class="style2"><strong>Batal Tambah/Edit KRS Hanya Bisa Dilakukan 4x !!</strong></span><br />
-                                        <br />
-                                        <strong>Jumlah SKS =</strong>
-                                        <asp:Label ID="LbJumlahEditSKS" runat="server" Style="font-weight: 700"></asp:Label>
-                                        <br />
-                                        <asp:GridView ID="GVEditKRS" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
-                                            CssClass="table table-striped"
-                                            OnRowDataBound="GVEditKRS_RowDataBound">
-                                            <AlternatingRowStyle BackColor="White" />
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="CBEdit" runat="server" OnCheckedChanged="CBEdit_CheckedChanged"
-                                                            AutoPostBack="True" />
-                                                    </ItemTemplate>
-                                                    <HeaderTemplate>
-                                                        Pilih
-                                                    </HeaderTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField>
-                                                    <HeaderTemplate>
-                                                        Sisa
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="LbSisa" runat="server" Style="font-weight: 700"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <EditRowStyle BackColor="#7C6F57" />
-                                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                                            <RowStyle BackColor="#E3EAEB" />
-                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
-                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
-                                        </asp:GridView>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                                <asp:Button ID="BtnUpdate" runat="server" Text="Update"
-                                    OnClick="BtnUpdate_Click" CssClass="btn btn-primary"
-                                    OnClientClick="return confirm('Anda Yakin Data Tersebut Benar ?');" />
-                            </asp:Panel>
-                            <asp:Panel ID="PanelListKRS" runat="server">
-                                <div style="color:red"><strong>
-                                <asp:Label ID="LbTextValidasi" runat="server" Text=""></asp:Label></strong> </div> <p></p>
-                                <asp:GridView ID="GVListKrs" runat="server" CssClass="table table-striped table-bordered"
-                                    CellPadding="4" ForeColor="#333333" GridLines="None"
-                                    OnRowDataBound="GVListKrs_RowDataBound">
+                    
+                    <asp:Panel ID="PanelKRS" runat="server">
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>
+                                <asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
+                                    <strong>Jumlah maksimal SKS :</strong>
+                                    <asp:Label ID="LbMaxSKS" runat="server" Text="" style="font-weight: 700"></asp:Label>
+                                </asp:Panel>
+                                <p></p>
+                                <strong>Jumlah SKS dipilih :</strong>
+                                <asp:Label ID="LbJumlahSKS" runat="server" style="font-weight: 700"></asp:Label>
+                                <br />
+                                <asp:GridView ID="GVAmbilKRS" runat="server" CellPadding="4"
+                                    ForeColor="#333333" GridLines="None" CssClass="table table-striped"
+                                    onrowdatabound="GVAmbilKRS_RowDataBound">
                                     <AlternatingRowStyle BackColor="White" />
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CBMakul" runat="server" AutoPostBack="true" OnCheckedChanged="CBMakul_CheckedChanged" />
+                                            </ItemTemplate>
+                                            <HeaderTemplate>
+                                                Pilih
+                                            </HeaderTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:Label ID="LbSisa" runat="server" style="font-weight: 700"></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderTemplate>
+                                                Sisa
+                                            </HeaderTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
                                     <EditRowStyle BackColor="#7C6F57" />
                                     <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -303,29 +223,86 @@
                                     <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                     <SortedDescendingHeaderStyle BackColor="#15524A" />
                                 </asp:GridView>
-                                <asp:Panel ID="PanelValidasiKRS" runat="server">
-                                    <br />
-                                    <strong>Pesan dosen pembimbing:</strong> 
-                                    <asp:GridView ID="GVPesan" CssClass="table table-hover" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                        <EditRowStyle BackColor="#999999" />
-                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                                    </asp:GridView>
-                                    <p></p>
-                                </asp:Panel>
-                                <asp:Button ID="BtnDwnKrs" runat="server" Text="Download"
-                                    CssClass="btn btn-success" OnClick="BtnDwnKrs_Click" />
-                            </asp:Panel>
-                        </div>
-                    </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <asp:UpdatePanel ID="UpdatePnlSimpanKRS" runat="server">
+                            <ContentTemplate>
+                                <asp:Button ID="BtnSimpan" runat="server" Text="Simpan" OnClick="BtnSimpan_Click"
+                                    class="btn btn-default" OnClientClick="return confirm('Anda Yakin Data Tersebut Benar ?');"
+                                    CssClass="btn btn-primary" />
+                                <asp:Label ID="LbPostSuccess" runat="server"></asp:Label>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </asp:Panel>
+                    <asp:Panel ID="PanelEditKRS" runat="server">
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                            <ContentTemplate>
+                                <hr />
+                                <span class="style2"><strong>Batal Tambah/Edit KRS Hanya Bisa Dilakukan 4x !!</strong></span><br />
+                                <br />
+                                <strong>Jumlah SKS =</strong>
+                                <asp:Label ID="LbJumlahEditSKS" runat="server" Style="font-weight: 700"></asp:Label>
+                                <br />
+                                <asp:GridView ID="GVEditKRS" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None"
+                                    CssClass="table table-striped"
+                                    onrowdatabound="GVEditKRS_RowDataBound">
+                                    <AlternatingRowStyle BackColor="White" />
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CBEdit" runat="server" OnCheckedChanged="CBEdit_CheckedChanged"
+                                                    AutoPostBack="True" />
+                                            </ItemTemplate>
+                                            <HeaderTemplate>
+                                                Pilih
+                                            </HeaderTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                Sisa
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label ID="LbSisa" runat="server" style="font-weight: 700"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <EditRowStyle BackColor="#7C6F57" />
+                                    <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                    <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#E3EAEB" />
+                                    <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                    <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                    <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                    <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                </asp:GridView>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <asp:Button ID="BtnUpdate" runat="server" Text="Update" 
+                            onclick="BtnUpdate_Click" CssClass="btn btn-primary"
+                            onclientclick="return confirm('Anda Yakin Data Tersebut Benar ?');" />
+                    </asp:Panel>
+                    <asp:Panel ID="PanelListKRS" runat="server">
+                        <hr />
+                        DATA KRS<asp:GridView ID="GVListKrs" runat="server" CssClass="table table-striped table-bordered"
+                            CellPadding="4" ForeColor="#333333" GridLines="None" 
+                            OnRowDataBound="GVListKrs_RowDataBound">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EditRowStyle BackColor="#7C6F57" />
+                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#E3EAEB" />
+                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                        </asp:GridView>
+                        <asp:Button ID="BtnDwnKrs" runat="server" Text="Download" 
+                            CssClass="btn btn-success" onclick="BtnDwnKrs_Click" />
+                    </asp:Panel>
                     <br />
                     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
                         <ProgressTemplate>

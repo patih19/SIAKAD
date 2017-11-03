@@ -12,8 +12,7 @@ using System.IO;
 
 namespace Padu.account
 {
-    //public partial class WebForm4 : System.Web.UI.Page
-    public partial class WebForm4 : Mhs_account
+    public partial class WebForm12 : Mhs_account
     {
         //instance object mahasiswa 
         Mhs mhs = new Mhs();
@@ -73,8 +72,6 @@ namespace Padu.account
         {
             if (!Page.IsPostBack)
             {
-                this.PanelContent.Visible = false;
-
                 _JenisKRS = "";
 
                 _TotalSKS = 0;
@@ -120,8 +117,6 @@ namespace Padu.account
 
         protected void DLSemester_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.PanelContent.Visible = true;
-
             if (this.RBInput.Checked)
             {
                 try
@@ -412,7 +407,7 @@ namespace Padu.account
                                 _MaxKRS = 24;
                             }
                             else if (this.DLSemester.SelectedValue.Trim() == "2")
-                            { 
+                            {
                                 // ------- Sama dengan mahasiswa lama -------- //
 
                                 _PrevIPS = 0;
@@ -634,38 +629,6 @@ namespace Padu.account
                                 return;
                             }
                         }
-
-                        //-------------- Read Status Validasi KRS  --------------------- //
-                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
-                        CmdCekValidasi.CommandType = System.Data.CommandType.Text;
-                        CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
-                        CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
-
-                        using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
-                        {
-                            if (rdr.HasRows)
-                            {
-                                while (rdr.Read())
-                                {
-                                    if (rdr["val"] == DBNull.Value || rdr["val"].ToString() == "0")
-                                    {
-                                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
-                                        //return;
-                                    }
-                                    else if (rdr["val"].ToString() == "1")
-                                    {
-                                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
-                                        return;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJUAN KRS');", true);
-                                return;
-                            }
-                        }
-
 
                         // --- === CEK MABA  ATAU NON MABA === ---
                         string TahunMhs = "";
@@ -1171,6 +1134,7 @@ namespace Padu.account
 
                     this.DLSemester.SelectedValue = "Semester";
 
+
                     string message = "alert('" + ex.Message.ToString() + "')";
                     ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
 
@@ -1178,523 +1142,492 @@ namespace Padu.account
                     //return;
                 }
             }
-            //else if (this.RbBatalTambahKRS.Checked)
-            //{
-            //    _TotalSKS = 0;
-            //    _TotalEditSKS = 0;
-
-            //    _JenisKRS = "BatalTambah";
-
-            //    try
-            //    {
-            //        //1. --------------- Gridview EDIT KRS Semester ------------------
-            //        string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            //        using (SqlConnection con = new SqlConnection(CS))
-            //        {
-            //            con.Open();
-
-            //            //-------------- Read Status AKTIF  --------------------- //
-            //            SqlCommand CmdCekStatus = new SqlCommand("SELECT npm FROM dbo.bak_mahasiswa WHERE npm=@NPM AND status <> 'A'", con);
-            //            CmdCekStatus.CommandType = System.Data.CommandType.Text;
-            //            CmdCekStatus.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
-
-            //            using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
-            //            {
-            //                if (rdr.HasRows)
-            //                {
-            //                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
-            //                    return;
-            //                }
-            //            }
-
-            //            //-------------- Read Status Validasi KRS  --------------------- //
-            //            SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
-            //            CmdCekValidasi.CommandType = System.Data.CommandType.Text;
-            //            CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
-            //            CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
-
-            //            using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
-            //            {
-            //                if (rdr.HasRows)
-            //                {
-            //                    while (rdr.Read())
-            //                    {
-            //                        if (rdr["val"] == DBNull.Value || rdr["val"].ToString() == "0")
-            //                        {
-            //                            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
-            //                            //return;
-            //                        }
-            //                        else if (rdr["val"].ToString() == "1")
-            //                        {
-            //                            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
-            //                            return;
-            //                        }
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJAUN KRS');", true);
-            //                    return;
-            //                }
-            //            }
-
-
-            //            //1. ------ Cek Masa KRS -------
-            //            SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
-            //            //CmdCekMasa.Transaction = trans;
-            //            CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //            CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-            //            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
-
-            //            SqlParameter Status = new SqlParameter();
-            //            Status.ParameterName = "@output";
-            //            Status.SqlDbType = System.Data.SqlDbType.VarChar;
-            //            Status.Size = 20;
-            //            Status.Direction = System.Data.ParameterDirection.Output;
-            //            CmdCekMasa.Parameters.Add(Status);
-
-            //            CmdCekMasa.ExecuteNonQuery();
-
-            //            if (Status.Value.ToString() == "OUT")
-            //            {
-            //                try
-            //                {
-            //                    //2. ------ Cek Masa Batal Tambah -------
-            //                    SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", con);
-            //                    //CmdCekMasa.Transaction = trans;
-            //                    CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                    CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
-            //                    CmdCekMasaBatal.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
-
-            //                    SqlParameter StatusBtl = new SqlParameter();
-            //                    StatusBtl.ParameterName = "@output";
-            //                    StatusBtl.SqlDbType = System.Data.SqlDbType.VarChar;
-            //                    StatusBtl.Size = 20;
-            //                    StatusBtl.Direction = System.Data.ParameterDirection.Output;
-            //                    CmdCekMasaBatal.Parameters.Add(StatusBtl);
-
-            //                    CmdCekMasaBatal.ExecuteNonQuery();
-
-            //                    if (StatusBtl.Value.ToString() == "OUT")
-            //                    {
-            //                        con.Close();
-            //                        con.Dispose();
-
-            //                        this.DLSemester.SelectedValue = "Semester";
-
-            //                        string message = "alert('Tidak Ada Jadwal Batal Tambah KRS ...')";
-            //                        ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-
-            //                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
-            //                        return;
-            //                    }
-            //                }
-            //                catch (Exception ex)
-            //                {
-            //                    this.DLSemester.SelectedValue = "Semester";
-            //                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
-
-            //                    string message = "alert('" + ex.Message.ToString() + "')";
-            //                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-            //                }
-            //            }
-
-            //            // pastikan jika dari menu edit atau batal tambah krs harus sudah mengisi KRS
-            //            //Cek KRS Semester Ini, error jika belum ada -----------
-            //            SqlCommand CekInputKRS = new SqlCommand("SpCekKrs2", con);
-            //            //CekKRS2.Transaction = trans;
-            //            CekInputKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //            CekInputKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-            //            CekInputKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-            //            CekInputKRS.ExecuteNonQuery();
-
-            //            //// ------------ Cek IP Semester Sebelumnya & Set Max SKS ------------ ////
-            //            // --- CEK MABA ---
-            //            string TahunMhs = "";
-
-            //            SqlCommand CmdCekMabaKrs = new SqlCommand("SELECT TOP 1 thn_angkatan FROM dbo.bak_mahasiswa GROUP BY thn_angkatan ORDER BY thn_angkatan DESC", con);
-            //            CmdCekMabaKrs.CommandType = System.Data.CommandType.Text;
-
-            //            using (SqlDataReader rdr = CmdCekMabaKrs.ExecuteReader())
-            //            {
-            //                if (rdr.HasRows)
-            //                {
-            //                    while (rdr.Read())
-            //                    {
-            //                        TahunMhs = rdr["thn_angkatan"].ToString();
-            //                    }
-            //                }
-            //            }
-
-
-            //            if (this.LbTahun.Text.Trim() == TahunMhs)
-            //            {
-            //                // Maba awal semester semester max 24 sks
-            //                if (this.DLSemester.SelectedValue.Trim() == "1")
-            //                {
-            //                    _MaxKRS = 24;
-            //                }
-            //                else if (this.DLSemester.SelectedValue.Trim() == "2")
-            //                {
-            //                    // ------- Mulai Semester Dua Sama Dengan Mahasiswa Lama -------- //
-            //                    _PrevIPS = 0;
-
-            //                    SqlCommand CmdCekIPS = new SqlCommand("SpGetPrevIPS", con);
-            //                    //CmdCekMasa.Transaction = trans;
-            //                    CmdCekIPS.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                    CmdCekIPS.Parameters.AddWithValue("@ThisSemester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
-            //                    CmdCekIPS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-            //                    SqlParameter CekIPS = new SqlParameter();
-            //                    CekIPS.ParameterName = "@IPS";
-            //                    CekIPS.SqlDbType = System.Data.SqlDbType.Decimal;
-            //                    CekIPS.Precision = 4; // jumlah angka decimal
-            //                    CekIPS.Scale = 2; // jumlah digit setelah koma
-            //                    CekIPS.Direction = System.Data.ParameterDirection.Output;
-            //                    CmdCekIPS.Parameters.Add(CekIPS);
-
-            //                    CmdCekIPS.ExecuteNonQuery();
-
-            //                    _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-            //                    if (_PrevIPS < Convert.ToDecimal(2.00))
-            //                    {
-            //                        _MaxKRS = 16;
-            //                    }
-            //                    else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49)))
-            //                    {
-            //                        _MaxKRS = 20;
-            //                    }
-            //                    else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99)))
-            //                    {
-            //                        _MaxKRS = 22;
-            //                    }
-            //                    else if (_PrevIPS >= Convert.ToDecimal(3.00))
-            //                    {
-            //                        _MaxKRS = 24;
-            //                    }
-            //                }
-            //            }
-            //            else
-            //            {
-            //                // ---------- MAHASISWA LAMA ----------------//
-            //                _PrevIPS = 0;
-
-            //                SqlCommand CmdCekIPS = new SqlCommand("SpGetPrevIPS", con);
-            //                //CmdCekMasa.Transaction = trans;
-            //                CmdCekIPS.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                CmdCekIPS.Parameters.AddWithValue("@ThisSemester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
-            //                CmdCekIPS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-            //                SqlParameter CekIPS = new SqlParameter();
-            //                CekIPS.ParameterName = "@IPS";
-            //                CekIPS.SqlDbType = System.Data.SqlDbType.Decimal;
-            //                CekIPS.Precision = 4; // jumlah angka decimal
-            //                CekIPS.Scale = 2; // jumlah digit setelah koma
-            //                CekIPS.Direction = System.Data.ParameterDirection.Output;
-            //                CmdCekIPS.Parameters.Add(CekIPS);
-
-            //                CmdCekIPS.ExecuteNonQuery();
-
-            //                _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-            //                if (_PrevIPS < Convert.ToDecimal(2.00))
-            //                {
-            //                    _MaxKRS = 16;
-            //                }
-            //                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49)))
-            //                {
-            //                    _MaxKRS = 20;
-            //                }
-            //                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99)))
-            //                {
-            //                    _MaxKRS = 22;
-            //                }
-            //                else if (_PrevIPS >= Convert.ToDecimal(3.00))
-            //                {
-            //                    _MaxKRS = 24;
-            //                }
-
-            //            }
-
-            //            this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
-
-            //            // 2. ----- Get status Batal Tambah KRS ( Max 2x ) ----------------
-            //            SqlCommand CmdCntKRS = new SqlCommand("SpCntBatalKRS", con);
-            //            //CmdCekMasa.Transaction = trans;
-            //            CmdCntKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //            CmdCntKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-            //            CmdCntKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-
-            //            CmdCntKRS.ExecuteNonQuery();
-
-
-            //            // 3. ----- Cek KRS Semester Ini, error jika belum ada -----------
-            //            SqlCommand CekKRS2 = new SqlCommand("SpCekKrs2", con);
-            //            CekKRS2.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //            CekKRS2.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-            //            CekKRS2.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-            //            CekKRS2.ExecuteNonQuery();
-
-            //            //------------- Fill Gridview Edit KRS ------------------------
-            //            SqlCommand CmdEdit = new SqlCommand("SpListKRS2", con);
-            //            CmdEdit.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //            CmdEdit.Parameters.AddWithValue("@id_prodi", LbKdProdi.Text);
-            //            CmdEdit.Parameters.AddWithValue("@jenis_kelas", this.LbKelas.Text);
-            //            CmdEdit.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-            //            CmdEdit.Parameters.AddWithValue("@npm", this.Session["Name"].ToString().Trim());
-
-            //            DataTable TableEdit = new DataTable();
-            //            TableEdit.Columns.Add("Key");
-            //            TableEdit.Columns.Add("Kode");
-            //            TableEdit.Columns.Add("Mata Kuliah");
-            //            TableEdit.Columns.Add("SKS");
-            //            TableEdit.Columns.Add("Quota");
-            //            TableEdit.Columns.Add("Dosen");
-            //            TableEdit.Columns.Add("Kelas");
-            //            TableEdit.Columns.Add("Hari");
-            //            TableEdit.Columns.Add("Mulai");
-            //            TableEdit.Columns.Add("Selesai");
-            //            TableEdit.Columns.Add("Ruang");
-
-            //            using (SqlDataReader rdr = CmdEdit.ExecuteReader())
-            //            {
-            //                if (rdr.HasRows)
-            //                {
-            //                    this.PanelKRS.Enabled = false;
-            //                    this.PanelKRS.Visible = false;
-
-            //                    this.PanelEditKRS.Enabled = true;
-            //                    this.PanelEditKRS.Visible = true;
-
-            //                    this.PanelListKRS.Enabled = false;
-            //                    this.PanelListKRS.Visible = false;
-
-            //                    while (rdr.Read())
-            //                    {
-            //                        DataRow datarow = TableEdit.NewRow();
-            //                        datarow["Key"] = rdr["no_jadwal"];
-            //                        datarow["Kode"] = rdr["kode_makul"];
-            //                        datarow["Mata Kuliah"] = rdr["makul"];
-            //                        datarow["SKS"] = rdr["sks"];
-            //                        datarow["Quota"] = rdr["quota"];
-            //                        datarow["Dosen"] = rdr["nama"];
-            //                        datarow["Kelas"] = rdr["kelas"];
-            //                        datarow["Hari"] = rdr["hari"];
-            //                        datarow["Mulai"] = rdr["jm_awal_kuliah"];
-            //                        datarow["Selesai"] = rdr["jm_akhir_kuliah"];
-            //                        datarow["Ruang"] = rdr["nm_ruang"];
-
-            //                        TableEdit.Rows.Add(datarow);
-            //                    }
-
-            //                    //Fill Gridview
-            //                    this.GVEditKRS.DataSource = TableEdit;
-            //                    this.GVEditKRS.DataBind();
-
-            //                }
-            //                else
-            //                {
-            //                    //clear Gridview
-            //                    TableEdit.Rows.Clear();
-            //                    TableEdit.Clear();
-            //                    GVEditKRS.DataSource = TableEdit;
-            //                    GVEditKRS.DataBind();
-
-            //                    this.PanelKRS.Enabled = false;
-            //                    this.PanelKRS.Visible = false;
-
-            //                    this.PanelEditKRS.Enabled = false;
-            //                    this.PanelEditKRS.Visible = false;
-
-            //                    this.PanelListKRS.Enabled = false;
-            //                    this.PanelListKRS.Visible = false;
-
-            //                    this.DLSemester.SelectedValue = "Semester";
-
-            //                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Mahasiswa Tidak Ditemukan');", true);
-
-            //                    string message = "alert('KRS Mahasiswa Tidak Ditemukan')";
-            //                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-
-            //                    return;
-            //                }
-            //            }
-
-            //            //-- 3. loop id jadwal yg sudah diambil berdasarkan no jadwal
-            //            //-- jika ada checked = true
-            //            int TotalSKS = 0;
-            //            for (int i = 0; i < this.GVEditKRS.Rows.Count; i++)
-            //            {
-            //                SqlCommand CmdChecked = new SqlCommand("SpGetIdJadwalMhs", con);
-            //                CmdChecked.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                CmdChecked.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
-            //                CmdChecked.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-            //                CmdChecked.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-            //                using (SqlDataReader rdrchecked = CmdChecked.ExecuteReader())
-            //                {
-            //                    // ------ Cek Quota Makul (CHECKED) -------
-            //                    if (rdrchecked.HasRows)
-            //                    {
-            //                        while (rdrchecked.Read())
-            //                        {
-            //                            CheckBox ch = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
-            //                            ch.Checked = true;
-            //                            TotalSKS += Convert.ToInt32(this.GVEditKRS.Rows[i].Cells[5].Text);
-
-            //                            this.GVEditKRS.Rows[i].BackColor = System.Drawing.Color.FromName("#FFFFB7");
-
-            //                            try
-            //                            {
-            //                                string CS2 = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            //                                using (SqlConnection con2 = new SqlConnection(CS))
-            //                                {
-            //                                    con2.Open();
-
-            //                                    SqlCommand CmdCekQuota = new SqlCommand("SpQuotaJadwal", con2);
-            //                                    //CmdCekMasa.Transaction = trans;
-            //                                    CmdCekQuota.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                                    CmdCekQuota.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
-
-            //                                    SqlParameter Quota = new SqlParameter();
-            //                                    Quota.ParameterName = "@quota";
-            //                                    Quota.SqlDbType = System.Data.SqlDbType.VarChar;
-            //                                    Quota.Size = 20;
-            //                                    Quota.Direction = System.Data.ParameterDirection.Output;
-            //                                    CmdCekQuota.Parameters.Add(Quota);
-
-            //                                    SqlParameter Sisa = new SqlParameter();
-            //                                    Sisa.ParameterName = "@sisa";
-            //                                    Sisa.SqlDbType = System.Data.SqlDbType.Int;
-            //                                    Sisa.Size = 20;
-            //                                    Sisa.Direction = System.Data.ParameterDirection.Output;
-            //                                    CmdCekQuota.Parameters.Add(Sisa);
-
-            //                                    CmdCekQuota.ExecuteNonQuery();
-
-
-            //                                    if (Convert.ToInt32(Sisa.Value.ToString()) != 0)
-            //                                    {
-            //                                        Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
-            //                                        LbSisa.Text = Sisa.Value.ToString();
-
-            //                                        LbSisa.ForeColor = System.Drawing.Color.Green;
-            //                                    }
-            //                                    else
-            //                                    {
-            //                                        Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
-            //                                        LbSisa.Text = "Penuh";
-
-            //                                        LbSisa.ForeColor = System.Drawing.Color.Red;
-
-            //                                        CheckBox ch2 = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
-
-            //                                        //ch2.Visible = false;
-            //                                    }
-            //                                }
-            //                            }
-            //                            catch (Exception)
-            //                            {
-            //                                Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Checked");
-            //                            }
-            //                        }
-            //                    }
-            //                    else
-            //                    {
-            //                        // ------ Cek Quota Makul (UNCHECKED)-------
-            //                        try
-            //                        {
-            //                            string CS2 = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            //                            using (SqlConnection con2 = new SqlConnection(CS))
-            //                            {
-            //                                con2.Open();
-
-            //                                SqlCommand CmdCekQuo = new SqlCommand("SpQuotaJadwal", con2);
-            //                                //CmdCekMasa.Transaction = trans;
-            //                                CmdCekQuo.CommandType = System.Data.CommandType.StoredProcedure;
-
-            //                                CmdCekQuo.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
-
-            //                                SqlParameter Quota = new SqlParameter();
-            //                                Quota.ParameterName = "@quota";
-            //                                Quota.SqlDbType = System.Data.SqlDbType.VarChar;
-            //                                Quota.Size = 20;
-            //                                Quota.Direction = System.Data.ParameterDirection.Output;
-            //                                CmdCekQuo.Parameters.Add(Quota);
-
-            //                                SqlParameter Sisa = new SqlParameter();
-            //                                Sisa.ParameterName = "@sisa";
-            //                                Sisa.SqlDbType = System.Data.SqlDbType.Int;
-            //                                Sisa.Size = 20;
-            //                                Sisa.Direction = System.Data.ParameterDirection.Output;
-            //                                CmdCekQuo.Parameters.Add(Sisa);
-
-            //                                CmdCekQuo.ExecuteNonQuery();
-
-
-            //                                if (Convert.ToInt32(Sisa.Value.ToString()) != 0)
-            //                                {
-            //                                    Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
-            //                                    LbSisa.Text = Sisa.Value.ToString();
-
-            //                                    LbSisa.ForeColor = System.Drawing.Color.Green;
-            //                                }
-            //                                else
-            //                                {
-            //                                    Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
-            //                                    LbSisa.Text = "Penuh";
-
-            //                                    LbSisa.ForeColor = System.Drawing.Color.Red;
-
-            //                                    CheckBox ch2 = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
-
-            //                                    ch2.Visible = false;
-            //                                }
-
-            //                            }
-            //                        }
-            //                        catch (Exception)
-            //                        {
-            //                            Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Unchecked");
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //            this.LbJumlahEditSKS.Text = TotalSKS.ToString();
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        this.PanelKRS.Enabled = false;
-            //        this.PanelKRS.Visible = false;
-
-            //        this.PanelEditKRS.Enabled = false;
-            //        this.PanelEditKRS.Visible = false;
-
-            //        this.PanelListKRS.Enabled = false;
-            //        this.PanelListKRS.Visible = false;
-
-            //        this.DLSemester.SelectedValue = "Semester";
-
-
-            //        string message = "alert('" + ex.Message.ToString() + "')";
-            //        ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-
-            //        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
-            //        //return;
-            //    }
-            //}
+            else if (this.RbBatalTambahKRS.Checked)
+            {
+                _TotalSKS = 0;
+                _TotalEditSKS = 0;
+
+                _JenisKRS = "BatalTambah";
+
+                try
+                {
+                    //1. --------------- Gridview EDIT KRS Semester ------------------
+                    string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(CS))
+                    {
+                        con.Open();
+
+                        //-------------- Read Status AKTIF  --------------------- //
+                        SqlCommand CmdCekStatus = new SqlCommand("SELECT npm FROM dbo.bak_mahasiswa WHERE npm=@NPM AND status <> 'A'", con);
+                        CmdCekStatus.CommandType = System.Data.CommandType.Text;
+                        CmdCekStatus.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
+
+                        using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
+                                return;
+                            }
+                        }
+
+
+                        //1. ------ Cek Masa KRS -------
+                        SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
+                        //CmdCekMasa.Transaction = trans;
+                        CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+                        CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
+
+                        SqlParameter Status = new SqlParameter();
+                        Status.ParameterName = "@output";
+                        Status.SqlDbType = System.Data.SqlDbType.VarChar;
+                        Status.Size = 20;
+                        Status.Direction = System.Data.ParameterDirection.Output;
+                        CmdCekMasa.Parameters.Add(Status);
+
+                        CmdCekMasa.ExecuteNonQuery();
+
+                        if (Status.Value.ToString() == "OUT")
+                        {
+                            try
+                            {
+                                //2. ------ Cek Masa Batal Tambah -------
+                                SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", con);
+                                //CmdCekMasa.Transaction = trans;
+                                CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
+
+                                CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                                CmdCekMasaBatal.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
+
+                                SqlParameter StatusBtl = new SqlParameter();
+                                StatusBtl.ParameterName = "@output";
+                                StatusBtl.SqlDbType = System.Data.SqlDbType.VarChar;
+                                StatusBtl.Size = 20;
+                                StatusBtl.Direction = System.Data.ParameterDirection.Output;
+                                CmdCekMasaBatal.Parameters.Add(StatusBtl);
+
+                                CmdCekMasaBatal.ExecuteNonQuery();
+
+                                if (StatusBtl.Value.ToString() == "OUT")
+                                {
+                                    con.Close();
+                                    con.Dispose();
+
+                                    this.DLSemester.SelectedValue = "Semester";
+
+                                    string message = "alert('Tidak Ada Jadwal Batal Tambah KRS ...')";
+                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
+                                    return;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                this.DLSemester.SelectedValue = "Semester";
+                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+
+                                string message = "alert('" + ex.Message.ToString() + "')";
+                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                            }
+                        }
+
+                        // pastikan jika dari menu edit atau batal tambah krs harus sudah mengisi KRS
+                        //Cek KRS Semester Ini, error jika belum ada -----------
+                        SqlCommand CekInputKRS = new SqlCommand("SpCekKrs2", con);
+                        //CekKRS2.Transaction = trans;
+                        CekInputKRS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CekInputKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CekInputKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+
+                        CekInputKRS.ExecuteNonQuery();
+
+                        //// ------------ Cek IP Semester Sebelumnya & Set Max SKS ------------ ////
+                        // --- CEK MABA ---
+                        string TahunMhs = "";
+
+                        SqlCommand CmdCekMabaKrs = new SqlCommand("SELECT TOP 1 thn_angkatan FROM dbo.bak_mahasiswa GROUP BY thn_angkatan ORDER BY thn_angkatan DESC", con);
+                        CmdCekMabaKrs.CommandType = System.Data.CommandType.Text;
+
+                        using (SqlDataReader rdr = CmdCekMabaKrs.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    TahunMhs = rdr["thn_angkatan"].ToString();
+                                }
+                            }
+                        }
+
+
+                        if (this.LbTahun.Text.Trim() == TahunMhs)
+                        {
+                            // Maba awal semester semester max 24 sks
+                            if (this.DLSemester.SelectedValue.Trim() == "1")
+                            {
+                                _MaxKRS = 24;
+                            }
+                            else if (this.DLSemester.SelectedValue.Trim() == "2")
+                            {
+                                // ------- Mulai Semester Dua Sama Dengan Mahasiswa Lama -------- //
+                                _PrevIPS = 0;
+
+                                SqlCommand CmdCekIPS = new SqlCommand("SpGetPrevIPS", con);
+                                //CmdCekMasa.Transaction = trans;
+                                CmdCekIPS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                                CmdCekIPS.Parameters.AddWithValue("@ThisSemester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                                CmdCekIPS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                                SqlParameter CekIPS = new SqlParameter();
+                                CekIPS.ParameterName = "@IPS";
+                                CekIPS.SqlDbType = System.Data.SqlDbType.Decimal;
+                                CekIPS.Precision = 4; // jumlah angka decimal
+                                CekIPS.Scale = 2; // jumlah digit setelah koma
+                                CekIPS.Direction = System.Data.ParameterDirection.Output;
+                                CmdCekIPS.Parameters.Add(CekIPS);
+
+                                CmdCekIPS.ExecuteNonQuery();
+
+                                _PrevIPS = Convert.ToDecimal(CekIPS.Value);
+                                if (_PrevIPS < Convert.ToDecimal(2.00))
+                                {
+                                    _MaxKRS = 16;
+                                }
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49)))
+                                {
+                                    _MaxKRS = 20;
+                                }
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99)))
+                                {
+                                    _MaxKRS = 22;
+                                }
+                                else if (_PrevIPS >= Convert.ToDecimal(3.00))
+                                {
+                                    _MaxKRS = 24;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // ---------- MAHASISWA LAMA ----------------//
+                            _PrevIPS = 0;
+
+                            SqlCommand CmdCekIPS = new SqlCommand("SpGetPrevIPS", con);
+                            //CmdCekMasa.Transaction = trans;
+                            CmdCekIPS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                            CmdCekIPS.Parameters.AddWithValue("@ThisSemester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                            CmdCekIPS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                            SqlParameter CekIPS = new SqlParameter();
+                            CekIPS.ParameterName = "@IPS";
+                            CekIPS.SqlDbType = System.Data.SqlDbType.Decimal;
+                            CekIPS.Precision = 4; // jumlah angka decimal
+                            CekIPS.Scale = 2; // jumlah digit setelah koma
+                            CekIPS.Direction = System.Data.ParameterDirection.Output;
+                            CmdCekIPS.Parameters.Add(CekIPS);
+
+                            CmdCekIPS.ExecuteNonQuery();
+
+                            _PrevIPS = Convert.ToDecimal(CekIPS.Value);
+                            if (_PrevIPS < Convert.ToDecimal(2.00))
+                            {
+                                _MaxKRS = 16;
+                            }
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49)))
+                            {
+                                _MaxKRS = 20;
+                            }
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99)))
+                            {
+                                _MaxKRS = 22;
+                            }
+                            else if (_PrevIPS >= Convert.ToDecimal(3.00))
+                            {
+                                _MaxKRS = 24;
+                            }
+
+                        }
+
+                        this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
+
+                        // 2. ----- Get status Batal Tambah KRS ( Max 2x ) ----------------
+                        SqlCommand CmdCntKRS = new SqlCommand("SpCntBatalKRS", con);
+                        //CmdCekMasa.Transaction = trans;
+                        CmdCntKRS.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CmdCntKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CmdCntKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+
+                        CmdCntKRS.ExecuteNonQuery();
+
+
+                        // 3. ----- Cek KRS Semester Ini, error jika belum ada -----------
+                        SqlCommand CekKRS2 = new SqlCommand("SpCekKrs2", con);
+                        CekKRS2.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CekKRS2.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CekKRS2.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+
+                        CekKRS2.ExecuteNonQuery();
+
+                        //------------- Fill Gridview Edit KRS ------------------------
+                        SqlCommand CmdEdit = new SqlCommand("SpListKRS2", con);
+                        CmdEdit.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CmdEdit.Parameters.AddWithValue("@id_prodi", LbKdProdi.Text);
+                        CmdEdit.Parameters.AddWithValue("@jenis_kelas", this.LbKelas.Text);
+                        CmdEdit.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                        CmdEdit.Parameters.AddWithValue("@npm", this.Session["Name"].ToString().Trim());
+
+                        DataTable TableEdit = new DataTable();
+                        TableEdit.Columns.Add("Key");
+                        TableEdit.Columns.Add("Kode");
+                        TableEdit.Columns.Add("Mata Kuliah");
+                        TableEdit.Columns.Add("SKS");
+                        TableEdit.Columns.Add("Quota");
+                        TableEdit.Columns.Add("Dosen");
+                        TableEdit.Columns.Add("Kelas");
+                        TableEdit.Columns.Add("Hari");
+                        TableEdit.Columns.Add("Mulai");
+                        TableEdit.Columns.Add("Selesai");
+                        TableEdit.Columns.Add("Ruang");
+
+                        using (SqlDataReader rdr = CmdEdit.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                this.PanelKRS.Enabled = false;
+                                this.PanelKRS.Visible = false;
+
+                                this.PanelEditKRS.Enabled = true;
+                                this.PanelEditKRS.Visible = true;
+
+                                this.PanelListKRS.Enabled = false;
+                                this.PanelListKRS.Visible = false;
+
+                                while (rdr.Read())
+                                {
+                                    DataRow datarow = TableEdit.NewRow();
+                                    datarow["Key"] = rdr["no_jadwal"];
+                                    datarow["Kode"] = rdr["kode_makul"];
+                                    datarow["Mata Kuliah"] = rdr["makul"];
+                                    datarow["SKS"] = rdr["sks"];
+                                    datarow["Quota"] = rdr["quota"];
+                                    datarow["Dosen"] = rdr["nama"];
+                                    datarow["Kelas"] = rdr["kelas"];
+                                    datarow["Hari"] = rdr["hari"];
+                                    datarow["Mulai"] = rdr["jm_awal_kuliah"];
+                                    datarow["Selesai"] = rdr["jm_akhir_kuliah"];
+                                    datarow["Ruang"] = rdr["nm_ruang"];
+
+                                    TableEdit.Rows.Add(datarow);
+                                }
+
+                                //Fill Gridview
+                                this.GVEditKRS.DataSource = TableEdit;
+                                this.GVEditKRS.DataBind();
+
+                            }
+                            else
+                            {
+                                //clear Gridview
+                                TableEdit.Rows.Clear();
+                                TableEdit.Clear();
+                                GVEditKRS.DataSource = TableEdit;
+                                GVEditKRS.DataBind();
+
+                                this.PanelKRS.Enabled = false;
+                                this.PanelKRS.Visible = false;
+
+                                this.PanelEditKRS.Enabled = false;
+                                this.PanelEditKRS.Visible = false;
+
+                                this.PanelListKRS.Enabled = false;
+                                this.PanelListKRS.Visible = false;
+
+                                this.DLSemester.SelectedValue = "Semester";
+
+                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Mahasiswa Tidak Ditemukan');", true);
+
+                                string message = "alert('KRS Mahasiswa Tidak Ditemukan')";
+                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                                return;
+                            }
+                        }
+
+                        //-- 3. loop id jadwal yg sudah diambil berdasarkan no jadwal
+                        //-- jika ada checked = true
+                        int TotalSKS = 0;
+                        for (int i = 0; i < this.GVEditKRS.Rows.Count; i++)
+                        {
+                            SqlCommand CmdChecked = new SqlCommand("SpGetIdJadwalMhs", con);
+                            CmdChecked.CommandType = System.Data.CommandType.StoredProcedure;
+
+                            CmdChecked.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
+                            CmdChecked.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                            CmdChecked.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+
+                            using (SqlDataReader rdrchecked = CmdChecked.ExecuteReader())
+                            {
+                                // ------ Cek Quota Makul (CHECKED) -------
+                                if (rdrchecked.HasRows)
+                                {
+                                    while (rdrchecked.Read())
+                                    {
+                                        CheckBox ch = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
+                                        ch.Checked = true;
+                                        TotalSKS += Convert.ToInt32(this.GVEditKRS.Rows[i].Cells[5].Text);
+
+                                        this.GVEditKRS.Rows[i].BackColor = System.Drawing.Color.FromName("#FFFFB7");
+
+                                        try
+                                        {
+                                            string CS2 = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                                            using (SqlConnection con2 = new SqlConnection(CS))
+                                            {
+                                                con2.Open();
+
+                                                SqlCommand CmdCekQuota = new SqlCommand("SpQuotaJadwal", con2);
+                                                //CmdCekMasa.Transaction = trans;
+                                                CmdCekQuota.CommandType = System.Data.CommandType.StoredProcedure;
+
+                                                CmdCekQuota.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
+
+                                                SqlParameter Quota = new SqlParameter();
+                                                Quota.ParameterName = "@quota";
+                                                Quota.SqlDbType = System.Data.SqlDbType.VarChar;
+                                                Quota.Size = 20;
+                                                Quota.Direction = System.Data.ParameterDirection.Output;
+                                                CmdCekQuota.Parameters.Add(Quota);
+
+                                                SqlParameter Sisa = new SqlParameter();
+                                                Sisa.ParameterName = "@sisa";
+                                                Sisa.SqlDbType = System.Data.SqlDbType.Int;
+                                                Sisa.Size = 20;
+                                                Sisa.Direction = System.Data.ParameterDirection.Output;
+                                                CmdCekQuota.Parameters.Add(Sisa);
+
+                                                CmdCekQuota.ExecuteNonQuery();
+
+
+                                                if (Convert.ToInt32(Sisa.Value.ToString()) != 0)
+                                                {
+                                                    Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
+                                                    LbSisa.Text = Sisa.Value.ToString();
+
+                                                    LbSisa.ForeColor = System.Drawing.Color.Green;
+                                                }
+                                                else
+                                                {
+                                                    Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
+                                                    LbSisa.Text = "Penuh";
+
+                                                    LbSisa.ForeColor = System.Drawing.Color.Red;
+
+                                                    CheckBox ch2 = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
+
+                                                    //ch2.Visible = false;
+                                                }
+                                            }
+                                        }
+                                        catch (Exception)
+                                        {
+                                            Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Checked");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // ------ Cek Quota Makul (UNCHECKED)-------
+                                    try
+                                    {
+                                        string CS2 = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                                        using (SqlConnection con2 = new SqlConnection(CS))
+                                        {
+                                            con2.Open();
+
+                                            SqlCommand CmdCekQuo = new SqlCommand("SpQuotaJadwal", con2);
+                                            //CmdCekMasa.Transaction = trans;
+                                            CmdCekQuo.CommandType = System.Data.CommandType.StoredProcedure;
+
+                                            CmdCekQuo.Parameters.AddWithValue("@no_jadwal", this.GVEditKRS.Rows[i].Cells[2].Text);
+
+                                            SqlParameter Quota = new SqlParameter();
+                                            Quota.ParameterName = "@quota";
+                                            Quota.SqlDbType = System.Data.SqlDbType.VarChar;
+                                            Quota.Size = 20;
+                                            Quota.Direction = System.Data.ParameterDirection.Output;
+                                            CmdCekQuo.Parameters.Add(Quota);
+
+                                            SqlParameter Sisa = new SqlParameter();
+                                            Sisa.ParameterName = "@sisa";
+                                            Sisa.SqlDbType = System.Data.SqlDbType.Int;
+                                            Sisa.Size = 20;
+                                            Sisa.Direction = System.Data.ParameterDirection.Output;
+                                            CmdCekQuo.Parameters.Add(Sisa);
+
+                                            CmdCekQuo.ExecuteNonQuery();
+
+
+                                            if (Convert.ToInt32(Sisa.Value.ToString()) != 0)
+                                            {
+                                                Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
+                                                LbSisa.Text = Sisa.Value.ToString();
+
+                                                LbSisa.ForeColor = System.Drawing.Color.Green;
+                                            }
+                                            else
+                                            {
+                                                Label LbSisa = (Label)this.GVEditKRS.Rows[i].FindControl("LbSisa");
+                                                LbSisa.Text = "Penuh";
+
+                                                LbSisa.ForeColor = System.Drawing.Color.Red;
+
+                                                CheckBox ch2 = (CheckBox)this.GVEditKRS.Rows[i].FindControl("CBEdit");
+
+                                                ch2.Visible = false;
+                                            }
+
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+                                        Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Unchecked");
+                                    }
+                                }
+                            }
+                        }
+                        this.LbJumlahEditSKS.Text = TotalSKS.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.PanelKRS.Enabled = false;
+                    this.PanelKRS.Visible = false;
+
+                    this.PanelEditKRS.Enabled = false;
+                    this.PanelEditKRS.Visible = false;
+
+                    this.PanelListKRS.Enabled = false;
+                    this.PanelListKRS.Visible = false;
+
+                    this.DLSemester.SelectedValue = "Semester";
+
+
+                    string message = "alert('" + ex.Message.ToString() + "')";
+                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                    //return;
+                }
+            }
             else if (this.RBList.Checked)
             {
                 _TotalSKS = 0;
@@ -1702,278 +1635,91 @@ namespace Padu.account
 
                 try
                 {
+                    //1. ---------- Gridview SKS ------------------
                     string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(CS))
                     {
                         con.Open();
 
-                        // A. ----------------- Read Status Validasi KRS  ----------------- //
-                        string ReadValid = "";
+                        // --------------------- Fill Gridview  ------------------------
+                        SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
+                        CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        SqlCommand CmdCekValidasi = new SqlCommand("SELECT id_persetujuan, val FROM dbo.bak_persetujuan_krs WHERE npm=@NPM AND semester=@semester AND jenis='krs'", con);
-                        CmdCekValidasi.CommandType = System.Data.CommandType.Text;
-                        CmdCekValidasi.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
-                        CmdCekValidasi.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                        CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
 
-                        using (SqlDataReader rdr = CmdCekValidasi.ExecuteReader())
+                        DataTable TableKRS = new DataTable();
+                        TableKRS.Columns.Add("Key");
+                        TableKRS.Columns.Add("Kode");
+                        TableKRS.Columns.Add("Mata Kuliah");
+                        TableKRS.Columns.Add("SKS");
+                        TableKRS.Columns.Add("Dosen");
+                        TableKRS.Columns.Add("Kelas");
+                        TableKRS.Columns.Add("Hari");
+                        TableKRS.Columns.Add("Mulai");
+                        TableKRS.Columns.Add("Selesai");
+                        TableKRS.Columns.Add("Ruang");
+
+                        using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
                         {
                             if (rdr.HasRows)
                             {
+                                this.PanelKRS.Enabled = false;
+                                this.PanelKRS.Visible = false;
+
+                                this.PanelEditKRS.Enabled = false;
+                                this.PanelEditKRS.Visible = false;
+
+                                this.PanelListKRS.Enabled = true;
+                                this.PanelListKRS.Visible = true;
+
                                 while (rdr.Read())
                                 {
-                                    if (rdr["val"] == DBNull.Value || rdr["val"].ToString().Trim() == "0")
-                                    {
-                                        ReadValid = "BelumValid";
-                                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS BELUM DIVALIDASI OLEH DOSEN PEMBIMBING');", true);
-                                        //return;
-                                    }
-                                    else if (rdr["val"].ToString() == "1")
-                                    {
-                                        ReadValid = "Valid";
-                                        //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
-                                        //return;
-                                    }
+                                    DataRow datarow = TableKRS.NewRow();
+                                    datarow["Key"] = rdr["no_jadwal"];
+                                    datarow["Kode"] = rdr["kode_makul"];
+                                    datarow["Mata Kuliah"] = rdr["makul"];
+                                    datarow["SKS"] = rdr["sks"];
+                                    datarow["Dosen"] = rdr["nama"];
+                                    datarow["Kelas"] = rdr["kelas"];
+                                    datarow["Hari"] = rdr["hari"];
+                                    datarow["Mulai"] = rdr["jm_awal_kuliah"];
+                                    datarow["Selesai"] = rdr["jm_akhir_kuliah"];
+                                    datarow["Ruang"] = rdr["nm_ruang"];
+
+                                    TableKRS.Rows.Add(datarow);
                                 }
+
+                                //Fill Gridview
+                                this.GVListKrs.DataSource = TableKRS;
+                                this.GVListKrs.DataBind();
+
+                                //this.DLSemester.SelectedValue = "Semester";
                             }
                             else
                             {
-                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJAUN KRS');", true);
-                                return;
+                                //clear Gridview
+                                TableKRS.Rows.Clear();
+                                TableKRS.Clear();
+                                GVListKrs.DataSource = TableKRS;
+                                GVListKrs.DataBind();
+
+                                this.PanelKRS.Enabled = false;
+                                this.PanelKRS.Visible = false;
+
+                                this.PanelEditKRS.Enabled = false;
+                                this.PanelEditKRS.Visible = false;
+
+                                this.PanelListKRS.Enabled = false;
+                                this.PanelListKRS.Visible = false;
+
+                                this.DLSemester.SelectedValue = "Semester";
+
+                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
+                                string message = "alert('KRS Semester Ini Belum Ada')";
+                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                             }
                         }
-
-                        // B. --------------- VALIDASI ACTION-----------------
-                        if (ReadValid == "BelumValid")
-                        {
-                            //Response.Write("KRS Belum Valid");
-
-                            // 1. --- List KRS -----
-                            SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
-                            CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-                            CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                            CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-                            DataTable TableKRS = new DataTable();
-                            TableKRS.Columns.Add("Key");
-                            TableKRS.Columns.Add("Kode");
-                            TableKRS.Columns.Add("Mata Kuliah");
-                            TableKRS.Columns.Add("SKS");
-                            TableKRS.Columns.Add("Dosen");
-                            TableKRS.Columns.Add("Kelas");
-                            TableKRS.Columns.Add("Hari");
-                            TableKRS.Columns.Add("Mulai");
-                            TableKRS.Columns.Add("Selesai");
-                            TableKRS.Columns.Add("Ruang");
-
-                            using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
-                            {
-                                if (rdr.HasRows)
-                                {
-                                    this.PanelKRS.Enabled = false;
-                                    this.PanelKRS.Visible = false;
-
-                                    this.PanelEditKRS.Enabled = false;
-                                    this.PanelEditKRS.Visible = false;
-
-                                    this.PanelListKRS.Enabled = true;
-                                    this.PanelListKRS.Visible = true;
-
-                                    while (rdr.Read())
-                                    {
-                                        DataRow datarow = TableKRS.NewRow();
-                                        datarow["Key"] = rdr["no_jadwal"];
-                                        datarow["Kode"] = rdr["kode_makul"];
-                                        datarow["Mata Kuliah"] = rdr["makul"];
-                                        datarow["SKS"] = rdr["sks"];
-                                        datarow["Dosen"] = rdr["nama"];
-                                        datarow["Kelas"] = rdr["kelas"];
-                                        datarow["Hari"] = rdr["hari"];
-                                        datarow["Mulai"] = rdr["jm_awal_kuliah"];
-                                        datarow["Selesai"] = rdr["jm_akhir_kuliah"];
-                                        datarow["Ruang"] = rdr["nm_ruang"];
-
-                                        TableKRS.Rows.Add(datarow);
-                                    }
-
-                                    //Fill Gridview
-                                    this.GVListKrs.DataSource = TableKRS;
-                                    this.GVListKrs.DataBind();
-
-                                    //this.DLSemester.SelectedValue = "Semester";
-                                }
-                                else
-                                {
-                                    //clear Gridview
-                                    TableKRS.Rows.Clear();
-                                    TableKRS.Clear();
-                                    GVListKrs.DataSource = TableKRS;
-                                    GVListKrs.DataBind();
-
-                                    this.PanelKRS.Enabled = false;
-                                    this.PanelKRS.Visible = false;
-
-                                    this.PanelEditKRS.Enabled = false;
-                                    this.PanelEditKRS.Visible = false;
-
-                                    this.PanelListKRS.Enabled = false;
-                                    this.PanelListKRS.Visible = false;
-
-                                    this.DLSemester.SelectedValue = "Semester";
-
-                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
-                                    string message = "alert('KRS Semester Ini Belum Ada')";
-                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                                }
-                            }
-
-                            // 2. --- Disable download ---
-                            this.BtnDwnKrs.Visible = false;
-                            this.BtnDwnKrs.Enabled = false;
-
-                            // 3. --- Pesan Dosen --- //
-                            SqlCommand CmdPesanDosen = new SqlCommand("" +
-                                "SELECT        bak_persetujuan_krs.id_persetujuan, bak_persetujuan_krs.npm, bak_persetujuan_krs.semester, bak_persetujuan_krs.jenis, bak_bimbingan_krs.id_bimbingan, bak_bimbingan_krs.pesan_dosen, " +
-                                                         "bak_bimbingan_krs.tgl_pesan_dosen " +
-                                "FROM            bak_persetujuan_krs INNER JOIN " +
-                                                         "bak_bimbingan_krs ON bak_persetujuan_krs.id_persetujuan = bak_bimbingan_krs.id_persetujuan " +
-                                "WHERE npm = @npm AND semester = @semester AND jenis = 'krs' " +
-                                "", con);
-                            CmdPesanDosen.CommandType = System.Data.CommandType.Text;
-
-                            CmdPesanDosen.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                            CmdPesanDosen.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-                            DataTable TblPesan = new DataTable();
-                            TblPesan.Columns.Add("Pesan");
-                            TblPesan.Columns.Add("Tanggal");
-
-                            using (SqlDataReader rdr = CmdPesanDosen.ExecuteReader())
-                            {
-                                if (rdr.HasRows)
-                                {
-                                    while (rdr.Read())
-                                    {
-                                        DataRow datarow = TblPesan.NewRow();
-                                        datarow["Pesan"] = rdr["pesan_dosen"];
-                                        datarow["Tanggal"] = rdr["tgl_pesan_dosen"];
-
-                                        TblPesan.Rows.Add(datarow);
-                                    }
-
-                                    //Fill Gridview Pesan
-                                    this.GVPesan.DataSource = TblPesan;
-                                    this.GVPesan.DataBind();
-
-                                    this.PanelValidasiKRS.Enabled = true;
-                                    this.PanelValidasiKRS.Visible = true;
-
-                                } else
-                                {
-                                    this.PanelValidasiKRS.Enabled = false;
-                                    this.PanelValidasiKRS.Visible = false;
-                                }
-                            }
-
-                            this.LbTextValidasi.Text = "----- KRS BELUM DIVALIDASI PEMBIMBING AKADEMIK ----";
-                        }
-                        else if (ReadValid == "Valid")
-                        {
-
-                            //Response.Write("KRS Valid");
-
-                            SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
-                            CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-                            CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                            CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-
-                            DataTable TableKRS = new DataTable();
-                            TableKRS.Columns.Add("Key");
-                            TableKRS.Columns.Add("Kode");
-                            TableKRS.Columns.Add("Mata Kuliah");
-                            TableKRS.Columns.Add("SKS");
-                            TableKRS.Columns.Add("Dosen");
-                            TableKRS.Columns.Add("Kelas");
-                            TableKRS.Columns.Add("Hari");
-                            TableKRS.Columns.Add("Mulai");
-                            TableKRS.Columns.Add("Selesai");
-                            TableKRS.Columns.Add("Ruang");
-
-                            using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
-                            {
-                                if (rdr.HasRows)
-                                {
-                                    this.PanelKRS.Enabled = false;
-                                    this.PanelKRS.Visible = false;
-
-                                    this.PanelEditKRS.Enabled = false;
-                                    this.PanelEditKRS.Visible = false;
-
-                                    this.PanelListKRS.Enabled = true;
-                                    this.PanelListKRS.Visible = true;
-
-                                    this.PanelValidasiKRS.Enabled = false;
-                                    this.PanelValidasiKRS.Visible = false;
-
-                                    while (rdr.Read())
-                                    {
-                                        DataRow datarow = TableKRS.NewRow();
-                                        datarow["Key"] = rdr["no_jadwal"];
-                                        datarow["Kode"] = rdr["kode_makul"];
-                                        datarow["Mata Kuliah"] = rdr["makul"];
-                                        datarow["SKS"] = rdr["sks"];
-                                        datarow["Dosen"] = rdr["nama"];
-                                        datarow["Kelas"] = rdr["kelas"];
-                                        datarow["Hari"] = rdr["hari"];
-                                        datarow["Mulai"] = rdr["jm_awal_kuliah"];
-                                        datarow["Selesai"] = rdr["jm_akhir_kuliah"];
-                                        datarow["Ruang"] = rdr["nm_ruang"];
-
-                                        TableKRS.Rows.Add(datarow);
-                                    }
-
-                                    //Fill Gridview
-                                    this.GVListKrs.DataSource = TableKRS;
-                                    this.GVListKrs.DataBind();
-
-                                    //this.DLSemester.SelectedValue = "Semester";
-                                }
-                                else
-                                {
-                                    //clear Gridview
-                                    TableKRS.Rows.Clear();
-                                    TableKRS.Clear();
-                                    GVListKrs.DataSource = TableKRS;
-                                    GVListKrs.DataBind();
-
-                                    this.PanelKRS.Enabled = false;
-                                    this.PanelKRS.Visible = false;
-
-                                    this.PanelEditKRS.Enabled = false;
-                                    this.PanelEditKRS.Visible = false;
-
-                                    this.PanelListKRS.Enabled = false;
-                                    this.PanelListKRS.Visible = false;
-
-                                    this.DLSemester.SelectedValue = "Semester";
-
-                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
-                                    string message = "alert('KRS Semester Ini Belum Ada')";
-                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                                }
-                            }
-
-                            // --- Enable download ---
-                            this.BtnDwnKrs.Visible = true;
-                            this.BtnDwnKrs.Enabled = true;
-
-
-                            this.LbTextValidasi.Text = "----- KRS SUDAH DIVALIDASI ----";
-                            this.LbTextValidasi.ForeColor = System.Drawing.Color.Green;
-                        }
-
-
                     }
                 }
                 catch (Exception ex)
@@ -2148,43 +1894,6 @@ namespace Padu.account
                                         this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                                         this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
 
-                                        //-- --------------  INSERT PERSETUJUAN KRS  --------------------  --
-                                        SqlCommand CmdPersetujuan = new SqlCommand(""+
-                                              "DECLARE @IdPersetujuan BIGINT "+
-                                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs "+
-                                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester "+
-                                              "IF(@IdPersetujuan IS NULL) "+
-                                              "BEGIN "+
-                                                "DECLARE @nidn VARCHAR(20) "+
-                                                "SELECT        @nidn = bak_dosen.nidn "+
-                                                "FROM            bak_dosen INNER JOIN "+
-                                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm "+
-                                                "IF(@nidn IS NULL) "+
-                                                "BEGIN "+
-                                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) "+
-                                                    "RETURN "+
-                                                "END "+
-                                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) "+
-                                              "END "+
-                                              "ELSE "+
-                                              "BEGIN "+
-                                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan "+
-                                                "IF(@@ROWCOUNT <> 1) "+
-                                                "BEGIN "+
-                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) "+
-                                                    "RETURN "+
-                                                "END "+
-                                              "END" +
-                                            "", con);
-                                        CmdPersetujuan.Transaction = trans;
-                                        CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                                        CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-                                        CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                                        CmdPersetujuan.ExecuteNonQuery();
-
-
                                         // ---- =========== INSERT KRS SKRIPSI =============== ----
                                         // ---- Ambil KRS BIASA 1 Mata Kuliah / Jadwal Tidak Disarankan
                                         //----- ===================================== -----
@@ -2313,46 +2022,9 @@ namespace Padu.account
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
 
-
-                            //5.) INSERT PERSETUJUAN KRS 
-                            SqlCommand CmdPersetujuan = new SqlCommand("" +
-                                  "DECLARE @IdPersetujuan BIGINT " +
-                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                                  "IF(@IdPersetujuan IS NULL) " +
-                                  "BEGIN " +
-                                    "DECLARE @nidn VARCHAR(20) " +
-                                    "SELECT        @nidn = bak_dosen.nidn " +
-                                    "FROM            bak_dosen INNER JOIN " +
-                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                    "IF(@nidn IS NULL) " +
-                                    "BEGIN " +
-                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
-                                  "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
-                                "", con);
-                            CmdPersetujuan.Transaction = trans;
-                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                            CmdPersetujuan.ExecuteNonQuery();
-
                         }
                         //Insert jumlah SKS khusus untuk Mhs Yayasan Tahun 2014
-                        else if (this.LbTahun.Text.Trim() == "2014/2015")
+                        else if (this.LbTahun.Text == "2014/2015")
                         {
                             SqlCommand CmdPeriodik = new SqlCommand("SpInsertTagihanPeriodikTiapMhs2", con);
                             CmdPeriodik.Transaction = trans;
@@ -2417,43 +2089,6 @@ namespace Padu.account
                                   (new System.Globalization.CultureInfo("id"), "{0:c}", total);
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
-
-                            //4.) INSERT PERSETUJUAN KRS 
-                            SqlCommand CmdPersetujuan = new SqlCommand("" +
-                                  "DECLARE @IdPersetujuan BIGINT " +
-                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                                  "IF(@IdPersetujuan IS NULL) " +
-                                  "BEGIN " +
-                                    "DECLARE @nidn VARCHAR(20) " +
-                                    "SELECT        @nidn = bak_dosen.nidn " +
-                                    "FROM            bak_dosen INNER JOIN " +
-                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                    "IF(@nidn IS NULL) " +
-                                    "BEGIN " +
-                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
-                                  "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
-                                "", con);
-                            CmdPersetujuan.Transaction = trans;
-                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                            CmdPersetujuan.ExecuteNonQuery();
-
                         }
 
                         // Angsuran 1 Angkatan mulai 2012/2013 ke bawah .... ==> Biaya Saja
@@ -2521,43 +2156,6 @@ namespace Padu.account
                                 (new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
                             this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
-
-                            //5.) INSERT PERSETUJUAN KRS 
-                            SqlCommand CmdPersetujuan = new SqlCommand("" +
-                                  "DECLARE @IdPersetujuan BIGINT " +
-                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                                  "IF(@IdPersetujuan IS NULL) " +
-                                  "BEGIN " +
-                                    "DECLARE @nidn VARCHAR(20) " +
-                                    "SELECT        @nidn = bak_dosen.nidn " +
-                                    "FROM            bak_dosen INNER JOIN " +
-                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                    "IF(@nidn IS NULL) " +
-                                    "BEGIN " +
-                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester, 0) " +
-                                  "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
-                                "", con);
-                            CmdPersetujuan.Transaction = trans;
-                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
-                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                            CmdPersetujuan.ExecuteNonQuery();
-
                         }
 
                         trans.Commit();
@@ -2774,52 +2372,17 @@ namespace Padu.account
                         //// - ========================================================================================================================
                         //// - ========================================================================================================================
 
+
+
                         //4. -------------- Filter Cek Pembayaran UKT ----------------
                         // filter sama seperti cek download KRS
                         SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar, TransUntidar);
                         CmdFilterSemGasal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                        CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
                         CmdFilterSemGasal.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
 
                         CmdFilterSemGasal.ExecuteNonQuery();
-
-                        //5.) INSERT PERSETUJUAN KRS 
-                        SqlCommand CmdPersetujuan = new SqlCommand("" +
-                              "DECLARE @IdPersetujuan BIGINT " +
-                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                              "IF(@IdPersetujuan IS NULL) " +
-                              "BEGIN " +
-                                "DECLARE @nidn VARCHAR(20) " +
-                                "SELECT        @nidn = bak_dosen.nidn " +
-                                "FROM            bak_dosen INNER JOIN " +
-                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                "IF(@nidn IS NULL) " +
-                                "BEGIN " +
-                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                    "RETURN " +
-                                "END " +
-                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
-                              "END " +
-                              "ELSE " +
-                              "BEGIN " +
-                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                "IF(@@ROWCOUNT <> 1) " +
-                                "BEGIN " +
-                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                    "RETURN " +
-                                "END " +
-                              "END" +
-                            "", ConUntidar, TransUntidar);
-
-                        CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                        CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
-                        CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                        CmdPersetujuan.ExecuteNonQuery();
-
 
 
                         // 5.---------- Simpan Perubahan --------------
@@ -2924,43 +2487,6 @@ namespace Padu.account
                                         cmdInKRS.ExecuteNonQuery();
                                     }
                                 }
-
-                                // ---- INSERT PERSETUJUAN KRS  -----
-                                SqlCommand CmdPersetujuan = new SqlCommand("" +
-                                      "DECLARE @IdPersetujuan BIGINT " +
-                                      "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                                      "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                                      "IF(@IdPersetujuan IS NULL) " +
-                                      "BEGIN " +
-                                        "DECLARE @nidn VARCHAR(20) " +
-                                        "SELECT        @nidn = bak_dosen.nidn " +
-                                        "FROM            bak_dosen INNER JOIN " +
-                                                                 "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                        "IF(@nidn IS NULL) " +
-                                        "BEGIN " +
-                                            "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                            "RETURN " +
-                                        "END " +
-                                        "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester, 0) " +
-                                      "END " +
-                                      "ELSE " +
-                                      "BEGIN " +
-                                        "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                        "IF(@@ROWCOUNT <> 1) " +
-                                        "BEGIN " +
-                                            "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                            "RETURN " +
-                                        "END " +
-                                      "END" +
-                                    "", con);
-                                CmdPersetujuan.Transaction = trans;
-
-                                CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                                CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
-                                CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                                CmdPersetujuan.ExecuteNonQuery();
 
                                 trans.Commit();
                                 trans.Dispose();
@@ -3158,42 +2684,6 @@ namespace Padu.account
                             CmdFilterSemGasal.ExecuteNonQuery();
 
 
-                            //5. ---- INSERT PERSETUJUAN KRS  -----
-                            SqlCommand CmdPersetujuan = new SqlCommand("" +
-                                  "DECLARE @IdPersetujuan BIGINT " +
-                                  "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
-                                  "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
-                                  "IF(@IdPersetujuan IS NULL) " +
-                                  "BEGIN " +
-                                    "DECLARE @nidn VARCHAR(20) " +
-                                    "SELECT        @nidn = bak_dosen.nidn " +
-                                    "FROM            bak_dosen INNER JOIN " +
-                                                             "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
-                                    "IF(@nidn IS NULL) " +
-                                    "BEGIN " +
-                                        "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                    "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
-                                  "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
-                                "", ConUntidar, TransUntidar);
-
-                            CmdPersetujuan.CommandType = System.Data.CommandType.Text;
-
-                            CmdPersetujuan.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
-                            CmdPersetujuan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-
-                            CmdPersetujuan.ExecuteNonQuery();
-
                             // 5.---------- Simpan Perubahan --------------
                             TransUntidar.Commit();
                             TransUKT.Commit();
@@ -3271,6 +2761,7 @@ namespace Padu.account
                 // Kategori Tahun Masuk Tidak Terdaftar
                 string msg = "alert('Kategori Tahun Masuk Tidak Terdaftar ')";
                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
+
             }
         }
 

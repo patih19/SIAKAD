@@ -371,6 +371,7 @@ namespace akademik.am
                 }
                 catch (Exception ex)
                 {
+                    Response.Write(ex.Message.ToString());
                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
                     return;
                 }

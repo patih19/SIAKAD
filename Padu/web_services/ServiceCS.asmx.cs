@@ -35,7 +35,7 @@ namespace SIM.WEB_SERVICE
         public CascadingDropDownNameValue[] semester(string knownCategoryValues, string category)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            SqlCommand sqlCommand = new SqlCommand("select TOP 2 bak_kal.thn from bak_kal group by thn ORDER BY thn ASC");
+            SqlCommand sqlCommand = new SqlCommand("select TOP 2 bak_kal.thn from bak_kal group by thn ORDER BY thn DESC");
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();

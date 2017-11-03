@@ -127,6 +127,7 @@ namespace Portal
             }
             catch (Exception ex)
             {
+                Response.Write(ex.ToString());
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
             }
         }
