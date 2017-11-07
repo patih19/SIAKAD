@@ -1582,7 +1582,7 @@ namespace Padu.pasca
                         }
                     }
 
-                    this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
+                    //this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
 
                     // 4. =================== Cek KRS Semester Ini, error jika Sudah ada =======================
                     SqlCommand CekKRS = new SqlCommand("SpCekKrs", con);

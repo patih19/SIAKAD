@@ -101,10 +101,10 @@
                 <asp:Panel ID="PanelEditKRS" runat="server">
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <ContentTemplate>
-                            <asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
+                            <%--<asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
                                 <strong>Jumlah maksimal SKS :</strong>
                                 <asp:Label ID="LbMaxSKS" runat="server" Text="" Style="font-weight: 700"></asp:Label>
-                            </asp:Panel>
+                            </asp:Panel>--%>
                             <p></p>
                             <span class="auto-style1"><strong>Batal Tambah/Edit KRS Hanya Bisa Dilakukan 4x !!</strong></span><br />
                             <strong>Jumlah SKS =</strong>

@@ -127,6 +127,7 @@
     <Content Include="account\Info.aspx" />
     <Content Include="account\ukt.aspx" />
     <Content Include="account\KRS.aspx" />
+    <Content Include="account\Transkrip.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -446,6 +447,13 @@
     </Compile>
     <Compile Include="account\KRS.aspx.designer.cs">
       <DependentUpon>KRS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="account\Transkrip.aspx.cs">
+      <DependentUpon>Transkrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="account\Transkrip.aspx.designer.cs">
+      <DependentUpon>Transkrip.aspx</DependentUpon>
     </Compile>
     <Compile Include="Padu_login.aspx.cs">
       <DependentUpon>Padu_login.aspx</DependentUpon>

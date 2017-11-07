@@ -296,6 +296,7 @@
                                                             <asp:ListItem>Kamis</asp:ListItem>
                                                             <asp:ListItem>Jumat</asp:ListItem>
                                                             <asp:ListItem>Sabtu</asp:ListItem>
+                                                            <asp:ListItem>Minggu</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>

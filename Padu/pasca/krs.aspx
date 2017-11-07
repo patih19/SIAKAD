@@ -6,7 +6,7 @@
             width: 42px;
         }
     </style>
-<%--    <style type="text/css">
+    <style type="text/css">
         .style2 {
             color: #FF3300;
         }
@@ -46,7 +46,7 @@
                 height: 95px;
                 width: 95px;
             }
-    </style>--%>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -142,10 +142,10 @@
                 <asp:Panel ID="PanelKRS" runat="server">
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
-                                <asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
+                                <%--<asp:Panel ID="PanelBdk" runat="server" CssClass="form-control" BackColor="#FFFF99">
                                     <strong>Jumlah maksimal SKS :</strong>
                                     <asp:Label ID="LbMaxSKS" runat="server" Text="" style="font-weight: 700"></asp:Label>
-                                </asp:Panel>
+                                </asp:Panel>--%>
                                 <p></p>
                                 <strong>Jumlah SKS dipilih :</strong>
                                 <asp:Label ID="LbJumlahSKS" runat="server" style="font-weight: 700"></asp:Label>

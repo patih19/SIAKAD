@@ -764,6 +764,7 @@
     <Content Include="JadwalKuliah3.aspx" />
     <Content Include="MonitorRuang.aspx" />
     <Content Include="DosenWali.aspx" />
+    <Content Include="Cuti.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -987,6 +988,13 @@
     </Compile>
     <Compile Include="DosenWali.aspx.designer.cs">
       <DependentUpon>DosenWali.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuti.aspx.cs">
+      <DependentUpon>Cuti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuti.aspx.designer.cs">
+      <DependentUpon>Cuti.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

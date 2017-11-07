@@ -294,7 +294,7 @@ namespace Padu.pasca
 
                     }
 
-                    this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
+                    //this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
 
                     // 2. ----- Get status Batal Tambah KRS ( Max 2x ) ----------------
                     SqlCommand CmdCntKRS = new SqlCommand("SpCntBatalKRS", con);

@@ -130,24 +130,6 @@ namespace Padu.pasca {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// PanelBdk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelBdk;
-        
-        /// <summary>
-        /// LbMaxSKS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbMaxSKS;
-        
-        /// <summary>
         /// LbJumlahSKS control.
         /// </summary>
         /// <remarks>
