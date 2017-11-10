@@ -1470,6 +1470,7 @@ a.list-group-item:focus {
 }
 .panel .panel-heading .panel-title {
   margin-left: 7px;
+    width: 158px;
 }
 .panel .panel-heading .panel-title-box {
   float: left;

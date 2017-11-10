@@ -165,6 +165,7 @@
     <Content Include="am\AddJadwalMku.aspx" />
     <Content Include="am\JadwalMku.aspx" />
     <Content Include="am\AktifKRS.aspx" />
+    <Content Include="am\UpdateStatus.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.3.3.6.css" />
@@ -850,6 +851,13 @@
     </Compile>
     <Compile Include="am\AktifKRS.aspx.designer.cs">
       <DependentUpon>AktifKRS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="am\UpdateStatus.aspx.cs">
+      <DependentUpon>UpdateStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="am\UpdateStatus.aspx.designer.cs">
+      <DependentUpon>UpdateStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front.Master.cs">
       <DependentUpon>Front.Master</DependentUpon>

@@ -13,6 +13,7 @@ namespace Portal
     public partial class WebForm15 : Tu
     {
         private int NomorJadwal;
+
         public int NoJadwal
         {
             get { return NomorJadwal; }

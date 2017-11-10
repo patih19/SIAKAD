@@ -128,6 +128,7 @@
     <Content Include="account\ukt.aspx" />
     <Content Include="account\KRS.aspx" />
     <Content Include="account\Transkrip.aspx" />
+    <Content Include="account\PengajuanCuti.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -280,6 +281,7 @@
     <Content Include="pasca\Scripts\bootstrap.js" />
     <Content Include="pasca\Scripts\bootstrap.min.js" />
     <Content Include="pasca\Pasca.Master" />
+    <Content Include="doc\Form-Permohonan-Cuti.docx" />
     <None Include="pasca\Scripts\jquery-3.1.1-vsdoc.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.min.js" />
@@ -454,6 +456,13 @@
     </Compile>
     <Compile Include="account\Transkrip.aspx.designer.cs">
       <DependentUpon>Transkrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="account\PengajuanCuti.aspx.cs">
+      <DependentUpon>PengajuanCuti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="account\PengajuanCuti.aspx.designer.cs">
+      <DependentUpon>PengajuanCuti.aspx</DependentUpon>
     </Compile>
     <Compile Include="Padu_login.aspx.cs">
       <DependentUpon>Padu_login.aspx</DependentUpon>

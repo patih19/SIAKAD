@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KRS.aspx.cs" Inherits="Padu.account.WebForm12" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
- <%--   <style type="text/css">
+    <style type="text/css">
         .style2
         {
             color: #FF3300;
@@ -41,7 +41,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>--%>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -69,6 +69,8 @@
                         class="glyphicon glyphicon-file"></span>&nbsp;Kartu Ujian</a>
                     <a href="<%= Page.ResolveUrl("~/account/Transkrip") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;Transkrip Nilai</a>
+                    <a href="<%= Page.ResolveUrl("~/account/PengajuanCuti") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-file"></span>&nbsp;Pengajuan Cuti</a>
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">SYSTEM</a>

@@ -209,6 +209,7 @@
     <Content Include="css\theme-night.css" />
     <Content Include="css\theme-serenity-head-light.css" />
     <Content Include="css\theme-serenity.css" />
+    <Content Include="cuti\loading135.gif" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\loading135.gif" />
@@ -764,7 +765,7 @@
     <Content Include="JadwalKuliah3.aspx" />
     <Content Include="MonitorRuang.aspx" />
     <Content Include="DosenWali.aspx" />
-    <Content Include="Cuti.aspx" />
+    <Content Include="PermohonanCuti.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -989,12 +990,12 @@
     <Compile Include="DosenWali.aspx.designer.cs">
       <DependentUpon>DosenWali.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cuti.aspx.cs">
-      <DependentUpon>Cuti.aspx</DependentUpon>
+    <Compile Include="PermohonanCuti.aspx.cs">
+      <DependentUpon>PermohonanCuti.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cuti.aspx.designer.cs">
-      <DependentUpon>Cuti.aspx</DependentUpon>
+    <Compile Include="PermohonanCuti.aspx.designer.cs">
+      <DependentUpon>PermohonanCuti.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

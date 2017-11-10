@@ -26,6 +26,8 @@
                         class="glyphicon glyphicon-file"></span>&nbsp;Kartu Ujian</a>
                     <a href="<%= Page.ResolveUrl("~/account/Transkrip") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;Transkrip Nilai</a>
+                    <a href="<%= Page.ResolveUrl("~/account/PengajuanCuti") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-file"></span>&nbsp;Pengajuan Cuti</a>
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">SYSTEM</a>
