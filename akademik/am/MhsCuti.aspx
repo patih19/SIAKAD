@@ -327,7 +327,7 @@
                         <asp:Label ID="LbNPM" runat="server" CssClass="hidden"></asp:Label>
                         <asp:Label ID="LbStatus" runat="server" CssClass="hidden"></asp:Label>
                         <div style="text-align:center">---- ========== <strong>PERUBAHAN STATUS MAHASISWA</strong> =========== ---</div>
-                        <hr />
+                        <%--<hr />
                         Menjadi Mahasiswa <strong>Aktif/DO/Non Aktif</strong> 
                         <table class="table-condensed" style="background-color: #FEE6B4">
                             <tr>
@@ -399,7 +399,7 @@
                                     &nbsp;
                                 </td>
                             </tr>
-                        </table>
+                        </table>--%>
                         <hr />
                         Menjadi Mahasiswa <strong>Lulus</strong>
                         <table class="table-condensed" style="background-color: AliceBlue">

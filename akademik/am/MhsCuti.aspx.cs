@@ -1382,21 +1382,21 @@ namespace akademik.am
 
         protected void BtnUpdateAktif_Click(object sender, EventArgs e)
         {
-            if (this.DLStatusAktif.SelectedValue == "-1" || this.DLStatusAktif.SelectedItem.Text == "Status")
-            {
-                string message = "alert('PILIH STATUS MAHASISWA')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                ModalPopupExtender1.Show();
-                return;
-            }
+            //if (this.DLStatusAktif.SelectedValue == "-1" || this.DLStatusAktif.SelectedItem.Text == "Status")
+            //{
+            //    string message = "alert('PILIH STATUS MAHASISWA')";
+            //    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            //    ModalPopupExtender1.Show();
+            //    return;
+            //}
 
-            if (this.DLStatusAktif.SelectedValue != "A" && this.DLStatusAktif.SelectedValue != "D" && this.DLStatusAktif.SelectedValue != "K" && this.DLStatusAktif.SelectedValue != "N")
-            {
-                string message = "alert('STATUS MAHASISWA TIDAK BENAR')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                ModalPopupExtender1.Show();
-                return;
-            }
+            //if (this.DLStatusAktif.SelectedValue != "A" && this.DLStatusAktif.SelectedValue != "D" && this.DLStatusAktif.SelectedValue != "K" && this.DLStatusAktif.SelectedValue != "N")
+            //{
+            //    string message = "alert('STATUS MAHASISWA TIDAK BENAR')";
+            //    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            //    ModalPopupExtender1.Show();
+            //    return;
+            //}
             
             try
             {
@@ -1408,7 +1408,7 @@ namespace akademik.am
                     SqlCommand CmdUpStatus = new SqlCommand("UPDATE dbo.bak_mahasiswa SET status=@status,smstr_cuti=NULL WHERE npm=@NPM", con);
                     CmdUpStatus.CommandType = System.Data.CommandType.Text;
                     CmdUpStatus.Parameters.AddWithValue("@npm", this.LbNPM.Text);
-                    CmdUpStatus.Parameters.AddWithValue("@status", this.DLStatusAktif.SelectedValue);
+                    //CmdUpStatus.Parameters.AddWithValue("@status", this.DLStatusAktif.SelectedValue);
 
                     CmdUpStatus.ExecuteNonQuery();
 
@@ -1451,29 +1451,29 @@ namespace akademik.am
 
         protected void BtnUpdateCuti_Click(object sender, EventArgs e)
         {
-            if (this.DLStatusCuti.SelectedValue == "-1" || this.DLStatusCuti.SelectedItem.Text == "Status")
-            {
-                string message = "alert('PILIH STATUS MAHASISWA')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                ModalPopupExtender1.Show();
-                return;
-            }
+            //if (this.DLStatusCuti.SelectedValue == "-1" || this.DLStatusCuti.SelectedItem.Text == "Status")
+            //{
+            //    string message = "alert('PILIH STATUS MAHASISWA')";
+            //    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            //    ModalPopupExtender1.Show();
+            //    return;
+            //}
 
-            if (this.DLStatusCuti.SelectedValue != "C")
-            {
-                string message = "alert('STATUS MAHASISWA TIDAK BENAR')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                ModalPopupExtender1.Show();
-                return;
-            }
+            //if (this.DLStatusCuti.SelectedValue != "C")
+            //{
+            //    string message = "alert('STATUS MAHASISWA TIDAK BENAR')";
+            //    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            //    ModalPopupExtender1.Show();
+            //    return;
+            //}
 
-            if (this.TbSmstrCuti.Text.Length != 5)
-            {
-                string message = "alert('INVALID SEMESTER CUTI')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                ModalPopupExtender1.Show();
-                return;
-            }
+            //if (this.TbSmstrCuti.Text.Length != 5)
+            //{
+            //    string message = "alert('INVALID SEMESTER CUTI')";
+            //    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            //    ModalPopupExtender1.Show();
+            //    return;
+            //}
 
             try
             {
@@ -1485,7 +1485,7 @@ namespace akademik.am
                     SqlCommand CmdUpStatus = new SqlCommand("UPDATE dbo.bak_mahasiswa SET status='C',smstr_cuti=@smster WHERE npm=@NPM", con);
                     CmdUpStatus.CommandType = System.Data.CommandType.Text;
                     CmdUpStatus.Parameters.AddWithValue("@npm", this.LbNPM.Text);
-                    CmdUpStatus.Parameters.AddWithValue("@smster", TbSmstrCuti.Text);
+                    //CmdUpStatus.Parameters.AddWithValue("@smster", TbSmstrCuti.Text);
 
                     CmdUpStatus.ExecuteNonQuery();
 

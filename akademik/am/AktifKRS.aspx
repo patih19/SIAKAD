@@ -52,7 +52,7 @@
                             CssClass="btn btn-primary" OnClick="BtnAktifKRS_Click" />
                     </div>
                 </div>
-                <p></p>
+                <%--<p></p>
                 <asp:Chart ID="Chart1" runat="server" Height="700px" Width="750px" >
                     <Series>
                         <asp:Series Name="Series1" ChartArea="ChartArea1" IsValueShownAsLabel="true" CustomProperties="PointWidth=.8" ChartType="Bar" >
@@ -91,7 +91,7 @@
                         </asp:ChartArea>
                     </ChartAreas>
                     <BorderSkin BorderColor="DarkRed" />
-                </asp:Chart>
+                </asp:Chart>--%>
                 <p></p>
                 <asp:Panel ID="PanelMhsKrs" runat="server">
                     <div class="panel panel-default">
@@ -99,7 +99,7 @@
                             Daftar Mahasiwa KRS
                         </div>
                         <div class="panel-body">
-                            <asp:GridView ID="GvMhsAktifKrs" CssClass=" table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+                            <asp:GridView ID="GvMhsAktifKrs" CssClass=" table" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="GvMhsAktifKrs_RowDataBound" ShowFooter="True">
                                 <AlternatingRowStyle BackColor="White" />
                                 <EditRowStyle BackColor="#2461BF" />
                                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

@@ -238,51 +238,6 @@ namespace akademik.am {
         protected global::System.Web.UI.WebControls.Label LbStatus;
         
         /// <summary>
-        /// DLStatusAktif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLStatusAktif;
-        
-        /// <summary>
-        /// BtnAktif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAktif;
-        
-        /// <summary>
-        /// DLStatusCuti control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLStatusCuti;
-        
-        /// <summary>
-        /// TbSmstrCuti control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TbSmstrCuti;
-        
-        /// <summary>
-        /// BtnCuti control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCuti;
-        
-        /// <summary>
         /// DLStatus2 control.
         /// </summary>
         /// <remarks>

@@ -103,8 +103,8 @@ namespace akademik.am
                         {
                             this.LbMsgUpdate.Text = "Data mahasiswa pada semester ini sudah diupdate";
                             this.LbMsgUpdate.ForeColor = System.Drawing.Color.Green;
-                            this.BtnUpdateStatus.Enabled = false;
-                            this.BtnUpdateStatus.Visible = false;
+                            //this.BtnUpdateStatus.Enabled = false;
+                            //this.BtnUpdateStatus.Visible = false;
                         }
                         else
                         {

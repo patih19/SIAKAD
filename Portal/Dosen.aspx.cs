@@ -28,8 +28,14 @@ namespace Portal
                 try
                 {
                     con.Open();
-                    SqlCommand CmdDosen = new SqlCommand("SpGetDosenByProdi", con);
-                    CmdDosen.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand CmdDosen = new SqlCommand(""+
+                        "SELECT     bak_dosen.no, bak_dosen.nama, bak_dosen.nidn, bak_dosen.nik, bak_dosen.nip, bak_dosen.pangkat, bak_dosen.jabatan, bak_dosen.tmlahir, bak_dosen.tglahir, bak_dosen.pendidikan, "+
+                                              "bak_dosen.prodi, bak_dosen.hp, bak_dosen.alamat, bak_dosen.aktif, bak_prog_study.prog_study "+
+                        "FROM         bak_dosen INNER JOIN "+
+                                              "bak_prog_study ON bak_dosen.prodi = bak_prog_study.id_prog_study "+
+                        "WHERE       prodi = @prodi AND aktif = 'yes' AND tim = '0' ORDER BY nama ASC" +
+                        "", con);
+                    CmdDosen.CommandType = System.Data.CommandType.Text;
 
                     CmdDosen.Parameters.AddWithValue("@prodi", this.Session["level"].ToString());
 

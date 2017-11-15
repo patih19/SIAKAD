@@ -110,5 +110,8 @@ namespace akademik.am
             }
         }
 
+        protected void GvMhsAktifKrs_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+        }
     }
 }

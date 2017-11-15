@@ -68,7 +68,7 @@
                             </div>
                             <div class="panel-body">
                                 <asp:Label ID="LbMsgUpdate" runat="server" Style="font-weight: 700"></asp:Label>
-                                <asp:Button ID="BtnUpdateStatus" runat="server" OnClick="BtnUpdateStatus_Click" Text="Update" />
+                                <%--<asp:Button ID="BtnUpdateStatus" runat="server" OnClick="BtnUpdateStatus_Click" Text="Update" />--%>
                             </div>
                         </div>
 
