@@ -75,7 +75,7 @@ namespace Padu.account
                                                  "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
                                                  "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
                                                  "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
-                        "WHERE (bak_mahasiswa.status NOT IN('L')) AND(LEFT(bak_mahasiswa.thn_angkatan, 4) > 2014) AND bak_prog_study.jenjang = 'S1' "+
+                        "WHERE (bak_mahasiswa.status NOT IN('L')) AND(LEFT(bak_mahasiswa.thn_angkatan, 4) > 2014) AND bak_prog_study.jenjang IN ( 'S1','D3' )"+
                         "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.status, bak_mahasiswa.thn_angkatan, bak_prog_study.id_prog_study "+
                         "UNION ALL "+
                         "SELECT        bak_cuti_nonaktif.npm, bak_mahasiswa.nama, bak_cuti_nonaktif.semester, bak_prog_study.id_prog_study, bak_prog_study.prog_study AS PROGRAM_STUDI, bak_cuti_nonaktif.status AS setatus "+

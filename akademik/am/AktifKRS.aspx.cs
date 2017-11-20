@@ -42,7 +42,7 @@ namespace akademik.am
                                                  "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN " +
                                                  "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN " +
                                                  "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study " +
-                        " WHERE(bak_jadwal.semester = @semester ) " +
+                        " WHERE(bak_jadwal.semester = @semester ) AND (bak_mahasiswa.status='A') " +
                         " GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.id_prog_study, bak_mahasiswa.thn_angkatan " +
 
                         " Select prog_study AS PROGRAM_STUDI, thn_angkatan, COUNT(*) as jumlah " +
