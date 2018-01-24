@@ -48,6 +48,7 @@ namespace akademik.am
                 TableJadwal.Columns.Add("Kegiatan");
                 TableJadwal.Columns.Add("Mulai");
                 TableJadwal.Columns.Add("Selesai");
+                TableJadwal.Columns.Add("Jenjang");
 
                 using (SqlDataReader rdr = CmdKal.ExecuteReader())
                 {
@@ -77,6 +78,7 @@ namespace akademik.am
                                 DateTime TglUjian = Convert.ToDateTime(rdr["tgl_sls"]);
                                 datarow["Selesai"] = TglUjian.ToString("dd-MM-yyyy");
                             }
+                            datarow["jenjang"] = rdr["tgl_mulai"].ToString().Trim();
 
                             TableJadwal.Rows.Add(datarow);
                         }
@@ -108,6 +110,7 @@ namespace akademik.am
                 TableJadwal2.Columns.Add("Kegiatan");
                 TableJadwal2.Columns.Add("Mulai");
                 TableJadwal2.Columns.Add("Selesai");
+                TableJadwal2.Columns.Add("Jenjang");
 
                 using (SqlDataReader rdr2 = CmdKal2.ExecuteReader())
                 {
@@ -137,6 +140,8 @@ namespace akademik.am
                                 DateTime TglUjian = Convert.ToDateTime(rdr2["tgl_sls"]);
                                 datarow["Selesai"] = TglUjian.ToString("dd-MM-yyyy");
                             }
+
+                            datarow["jenjang"] = rdr2["tgl_mulai"].ToString().Trim();
 
                             TableJadwal2.Rows.Add(datarow);
                         }
@@ -191,6 +196,7 @@ namespace akademik.am
                     TableJadwal.Columns.Add("Kegiatan");
                     TableJadwal.Columns.Add("Mulai");
                     TableJadwal.Columns.Add("Selesai");
+                    TableJadwal.Columns.Add("Jenjang");
 
                     using (SqlDataReader rdr = CmdKal.ExecuteReader())
                     {
@@ -220,6 +226,8 @@ namespace akademik.am
                                     DateTime TglUjian = Convert.ToDateTime(rdr["tgl_sls"]);
                                     datarow["Selesai"] = TglUjian.ToString("dd-MM-yyyy");
                                 }
+
+                                datarow["Jenjang"] = rdr["jenjang"].ToString().Trim();
 
                                 TableJadwal.Rows.Add(datarow);
                             }
@@ -254,6 +262,7 @@ namespace akademik.am
                     TableJadwal2.Columns.Add("Kegiatan");
                     TableJadwal2.Columns.Add("Mulai");
                     TableJadwal2.Columns.Add("Selesai");
+                    TableJadwal2.Columns.Add("Jenjang");
 
                     using (SqlDataReader rdr2 = CmdKal2.ExecuteReader())
                     {
@@ -283,6 +292,7 @@ namespace akademik.am
                                     DateTime TglSls = Convert.ToDateTime(rdr2["tgl_sls"]);
                                     datarow["Selesai"] = TglSls.ToString("dd-MM-yyyy");
                                 }
+                                datarow["Jenjang"] = rdr2["jenjang"].ToString().Trim();
 
                                 TableJadwal2.Rows.Add(datarow);
                             }
@@ -334,6 +344,12 @@ namespace akademik.am
                 return;
             }
 
+            if (this.DLJenjang.SelectedValue.Trim() == "-1")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Isi Jenjang');", true);
+                return;
+            }
+
 
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
@@ -347,6 +363,7 @@ namespace akademik.am
                 CmdKeg1.Parameters.AddWithValue("@keg", this.TbKeg.Text);
                 CmdKeg1.Parameters.AddWithValue("@tgl_mulai", Request.Form[this.TbMulai.UniqueID]);
                 CmdKeg1.Parameters.AddWithValue("@tgl_selesai", Request.Form[this.TbSelesai.UniqueID]);
+                CmdKeg1.Parameters.AddWithValue("@jenjang", this.DLJenjang.SelectedValue.Trim());
 
                 CmdKeg1.ExecuteNonQuery();
             }
@@ -380,6 +397,12 @@ namespace akademik.am
                 return;
             }
 
+            if (this.DLJenjang2.SelectedValue.Trim() == "-1")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Isi Jenjang');", true);
+                return;
+            }
+
 
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
@@ -393,6 +416,7 @@ namespace akademik.am
                 CmdKeg1.Parameters.AddWithValue("@keg", this.TbKeg2.Text);
                 CmdKeg1.Parameters.AddWithValue("@tgl_mulai", Request.Form[this.TbMulai2.UniqueID]);
                 CmdKeg1.Parameters.AddWithValue("@tgl_selesai", Request.Form[this.TbSelesai2.UniqueID]);
+                CmdKeg1.Parameters.AddWithValue("@jenjang", this.DLJenjang2.SelectedValue.Trim());
 
                 CmdKeg1.ExecuteNonQuery();
             }

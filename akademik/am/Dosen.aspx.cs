@@ -250,12 +250,12 @@ namespace akademik.am
                     // loop to cek status dosen
                     for (int i = 0; i < this.GVDosen.Rows.Count; i++)
                     {
-                        SqlCommand CmdAktif = new SqlCommand("SpGetDosenByProdi", con);
-                        CmdAktif.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand CmdAktif = new SqlCommand("select aktif from bak_dosen where nidn=@nidn", con);
+                        CmdAktif.CommandType = System.Data.CommandType.Text;
 
-                        CmdAktif.Parameters.AddWithValue("@prodi", this.DLProdi.SelectedValue);
+                        CmdAktif.Parameters.AddWithValue("@nidn", this.GVDosen.Rows[i].Cells[0].Text.Trim());
 
-                        using (SqlDataReader rdr = CmdDosen.ExecuteReader())
+                        using (SqlDataReader rdr = CmdAktif.ExecuteReader())
                         {
                             if (rdr.HasRows)
                             {
@@ -266,7 +266,7 @@ namespace akademik.am
                                         CheckBox ch = (CheckBox)this.GVDosen.Rows[i].FindControl("CBAktif");
                                         ch.Checked = true;
                                     }
-                                    else if (rdr["aktif"].ToString() != "yes")
+                                    else if ((rdr["aktif"].ToString().Trim() == "no") || (rdr["aktif"].ToString().Trim() == "") || (rdr["aktif"] == DBNull.Value))
                                     {
                                         CheckBox ch = (CheckBox)this.GVDosen.Rows[i].FindControl("CBAktif");
                                         ch.Checked = false;
@@ -458,12 +458,12 @@ namespace akademik.am
                     for (int i = 0; i < this.GVDosen.Rows.Count; i++)
                     {
 
-                        SqlCommand CmdAktif = new SqlCommand("SpGetDosenByProdi", con);
-                        CmdAktif.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand CmdAktif = new SqlCommand("select aktif from bak_dosen where nidn=@nidn", con);
+                        CmdAktif.CommandType = System.Data.CommandType.Text;
 
-                        CmdAktif.Parameters.AddWithValue("@prodi", this.DLProdi.SelectedValue);
+                        CmdAktif.Parameters.AddWithValue("@nidn", this.GVDosen.Rows[i].Cells[0].Text.Trim());
 
-                        using (SqlDataReader rdr = CmdDosen.ExecuteReader())
+                        using (SqlDataReader rdr = CmdAktif.ExecuteReader())
                         {
                             if (rdr.HasRows)
                             {
@@ -474,7 +474,7 @@ namespace akademik.am
                                         CheckBox ch = (CheckBox)this.GVDosen.Rows[i].FindControl("CBAktif");
                                         ch.Checked = true;
                                     }
-                                    else
+                                    else if ((rdr["aktif"].ToString().Trim() == "no") || (rdr["aktif"].ToString().Trim() == "") || (rdr["aktif"] == DBNull.Value))
                                     {
                                         CheckBox ch = (CheckBox)this.GVDosen.Rows[i].FindControl("CBAktif");
                                         ch.Checked = false;

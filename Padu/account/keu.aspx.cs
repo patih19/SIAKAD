@@ -350,6 +350,8 @@ namespace Padu.account
             LbNPM2.Text = _NPM;
             LBKelas2.Text = person.kelas;
             LBTahun2.Text = person.thn_angkatan;
+            LbDsenPA.Text = person.DosenPA;
+
             
             //---Fill GV Beban Awal ---
             string ConString = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;

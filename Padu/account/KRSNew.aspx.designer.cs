@@ -292,6 +292,24 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Label LbTextValidasi;
         
         /// <summary>
+        /// PanelPA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelPA;
+        
+        /// <summary>
+        /// LbDosenPA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbDosenPA;
+        
+        /// <summary>
         /// GVListKrs control.
         /// </summary>
         /// <remarks>
@@ -310,13 +328,13 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Panel PanelValidasiKRS;
         
         /// <summary>
-        /// GVPesan control.
+        /// RepeaterPesan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVPesan;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterPesan;
         
         /// <summary>
         /// BtnDwnKrs control.

@@ -72,6 +72,9 @@ namespace Padu.account
         {
             if (!Page.IsPostBack)
             {
+                Response.Redirect("~/account/KRSNew");
+                return;
+
                 _JenisKRS = "";
 
                 _TotalSKS = 0;

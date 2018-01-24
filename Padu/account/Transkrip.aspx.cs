@@ -71,6 +71,7 @@ namespace Padu.account
                     LbThnAngkatan.Text = mhs.thn_angkatan.ToString();
                     LbNPM.Text = mhs.npm.ToString();
                     LbIdProdi.Text = mhs.id_prodi.ToString();
+
                 }
                 catch (Exception)
                 {
@@ -138,6 +139,36 @@ namespace Padu.account
             using (SqlConnection con = new SqlConnection(CS))
             {
                 con.Open();
+
+                // -- Cek Masa INPUT NILAI
+                // -- Edit Jadwal Kuliah Tidak Diperbolehkan Pada Saat Masa Input NILAI --
+                SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
+                CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
+
+                CmdCekMasa.Parameters.AddWithValue("@semester", "20171");
+                CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
+                CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
+
+                SqlParameter Status = new SqlParameter();
+                Status.ParameterName = "@output";
+                Status.SqlDbType = System.Data.SqlDbType.VarChar;
+                Status.Size = 20;
+                Status.Direction = System.Data.ParameterDirection.Output;
+                CmdCekMasa.Parameters.Add(Status);
+
+                CmdCekMasa.ExecuteNonQuery();
+
+                if (Status.Value.ToString() == "IN")
+                {
+                    con.Close();
+                    con.Dispose();
+
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
+                    return;
+                }
+
+
+
                 // --------------------- Fill Gridview  ------------------------
                 SqlCommand CmdKRS = new SqlCommand("SpGetTranskrip", con);
                 CmdKRS.CommandType = System.Data.CommandType.StoredProcedure;

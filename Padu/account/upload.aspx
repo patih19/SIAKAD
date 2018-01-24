@@ -22,7 +22,7 @@
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">FASILITAS</a>
-                    <a href="<%= Page.ResolveUrl("~/account/KRS") %>" class="list-group-item"><span
+                    <a href="<%= Page.ResolveUrl("~/account/KRSNew") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-check"></span>&nbsp;KRS</a>
                     <a href="<%= Page.ResolveUrl("~/account/KHS") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;KHS</a>

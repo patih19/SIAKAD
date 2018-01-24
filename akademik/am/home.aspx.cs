@@ -66,41 +66,7 @@ namespace akademik.am
                 TahunAkademik();
 
                 // open last semester //
-                try
-                {
-                    string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(CS))
-                    {
-                        con.Open();
-
-                        SqlCommand CmdJadwal = new SqlCommand("" +
-                            "SELECT top 1    bak_jadwal.semester "+
-                            "FROM         bak_jadwal INNER JOIN "+
-                                                  "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
-                                                  "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
-                            "WHERE jenjang not in ('s2') "+
-                            "GROUP BY bak_jadwal.semester "+
-                            "ORDER BY semester DESC "+
-                            "", con);
-                        CmdJadwal.CommandType = System.Data.CommandType.Text;
-
-                        using (SqlDataReader rdr = CmdJadwal.ExecuteReader())
-                        {
-                            if (rdr.HasRows)
-                            {
-                                while(rdr.Read())
-                                {
-                                    PopulateMhsAktif(rdr["semester"].ToString().Trim());
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
-                    return;
-                }
+                LastSemester();
             }
         }
 
@@ -113,6 +79,45 @@ namespace akademik.am
             _TotalLulus = 0;
 
             PopulateMhsAktif(this.DLTahun.SelectedValue.ToString().Trim() + this.DLSemester.SelectedValue.ToString().Trim());
+        }
+
+        protected void LastSemester()
+        {
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    con.Open();
+
+                    SqlCommand CmdJadwal = new SqlCommand("" +
+                        "SELECT top 1    bak_jadwal.semester " +
+                        "FROM         bak_jadwal INNER JOIN " +
+                                              "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN " +
+                                              "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study " +
+                        "WHERE jenjang not in ('s2') " +
+                        "GROUP BY bak_jadwal.semester " +
+                        "ORDER BY semester DESC " +
+                        "", con);
+                    CmdJadwal.CommandType = System.Data.CommandType.Text;
+
+                    using (SqlDataReader rdr = CmdJadwal.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                PopulateMhsAktif(rdr["semester"].ToString().Trim());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                return;
+            }
         }
 
         protected void TahunAkademik()

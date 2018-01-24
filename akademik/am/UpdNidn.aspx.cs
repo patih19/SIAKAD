@@ -102,25 +102,54 @@ namespace akademik.am
             using (SqlConnection con = new SqlConnection(CS))
             {
                 con.Open();
-                SqlCommand CmdPasswd = new SqlCommand("update bak_dosen set nidn = @newnidn where nidn = @oldnidn", con);
-                CmdPasswd.CommandType = System.Data.CommandType.Text;
+                SqlTransaction Tran = con.BeginTransaction();
 
-                CmdPasswd.Parameters.AddWithValue("@oldnidn", this._NIDN);
-                CmdPasswd.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
+                try
+                {
+                    SqlCommand CmdPasswd = new SqlCommand("update bak_dosen set nidn = @newnidn where nidn = @oldnidn", con, Tran);
+                    CmdPasswd.CommandType = System.Data.CommandType.Text;
 
-                CmdPasswd.ExecuteNonQuery();
+                    SqlCommand CmdPersetujuanKRS = new SqlCommand("update bak_persetujuan_krs set nidn = @newnidn where nidn = @oldnidn", con, Tran);
+                    CmdPersetujuanKRS.CommandType = System.Data.CommandType.Text;
 
-                this.LbResult.Text = System.String.Empty;
-                this.TbOldNIDN.Text = System.String.Empty;
-                this.TbNewNIDN.Text = System.String.Empty;
+                    SqlCommand CmdPembimbing = new SqlCommand("update bak_skripsi_pembimbing_skripsi set nidn_i = @newnidn, nidn_ii = @newnidn where nidn = @oldnidn", con, Tran);
+                    CmdPembimbing.CommandType = System.Data.CommandType.Text;
 
-                this.PanelUbahNIDN.Enabled = false;
-                this.PanelUbahNIDN.Visible = false;
+                    CmdPasswd.Parameters.AddWithValue("@oldnidn", this._NIDN);
+                    CmdPasswd.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
 
-                this._NIDN = "";
+                    CmdPersetujuanKRS.Parameters.AddWithValue("@oldnidn", this._NIDN);
+                    CmdPersetujuanKRS.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
 
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('UPDATE NIDN BERHASIL');", true);
-                return;
+                    CmdPembimbing.Parameters.AddWithValue("@oldnidn", this._NIDN);
+                    CmdPembimbing.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
+
+                    CmdPasswd.ExecuteNonQuery();
+                    CmdPersetujuanKRS.ExecuteNonQuery();
+                    CmdPembimbing.ExecuteNonQuery();
+
+                    this.LbResult.Text = System.String.Empty;
+                    this.TbOldNIDN.Text = System.String.Empty;
+                    this.TbNewNIDN.Text = System.String.Empty;
+
+                    this.PanelUbahNIDN.Enabled = false;
+                    this.PanelUbahNIDN.Visible = false;
+
+                    this._NIDN = "";
+
+                    Tran.Commit();
+
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('UPDATE NIDN BERHASIL');", true);
+
+                } catch(Exception ex)
+                {
+                    Tran.Rollback();
+
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                    return;
+                }
+
+
             }
 
         }

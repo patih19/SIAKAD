@@ -16,6 +16,7 @@ namespace Padu.account
         public string kelas { get; set; }
         public string Prodi { get; set; }
         public string id_prodi { get; set; }
+        public string DosenPA { get; set; }
 
         public void ReadMahasiswa(string npm)
         {
@@ -38,7 +39,15 @@ namespace Padu.account
                             kelas = rdr["kelas"].ToString();
                             thn_angkatan = rdr["thn_angkatan"].ToString();
                             Prodi = rdr["prog_study"].ToString();
-                            id_prodi = rdr["id_prog_study"].ToString();
+                            id_prodi = rdr["id_prog_study"].ToString();                            
+                            if (rdr["dosen"] != DBNull.Value)
+                            {
+                                DosenPA = rdr["dosen"].ToString().Trim();
+                            } else
+                            {
+                                DosenPA = "Belum memiliki Pembimbing Akademik";
+                            }
+
                         }
                     }
                 }

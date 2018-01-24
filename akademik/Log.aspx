@@ -17,7 +17,7 @@
     <div>
         <section class="container">
             <asp:Image ID="Image1" runat="server" 
-            ImageUrl="~/images/Untidar Kemriting.png" />
+            ImageUrl="~/images/logoUntidar17.png" Height="200px" />
             <br />
             <br />
             <div class="login">

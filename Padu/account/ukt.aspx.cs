@@ -124,6 +124,14 @@ namespace Padu.account
                                     this.LbBeasiswa.Text = "-";
                                     _Bidikmisi = "N";
                                 }
+                                if (rdr["dosen"] != DBNull.Value)
+                                {
+                                    this.LbDosenPa.Text = rdr["dosen"].ToString().Trim();
+                                } else
+                                {
+                                    this.LbDosenPa.Text = "Belum memiliki Pembimbing Akademik";
+                                }
+
                             }
                         }
                         else

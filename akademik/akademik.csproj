@@ -372,6 +372,7 @@
     <Content Include="images\logo-tdr.png" />
     <Content Include="images\Logo-Untidar-64.png" />
     <Content Include="am\KHSCard.aspx" />
+    <Content Include="images\logoUntidar17.png" />
     <Content Include="images\Untidar Kemriting.png" />
     <Content Include="Log.aspx" />
     <Content Include="Scripts\bootstrap.js" />

@@ -31,7 +31,7 @@
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">FASILITAS</a>
-                    <a href="<%= Page.ResolveUrl("~/account/KRS") %>" class="list-group-item"><span
+                    <a href="<%= Page.ResolveUrl("~/account/KRSNew") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-check"></span>&nbsp;KRS</a>
                     <a href="<%= Page.ResolveUrl("~/account/KHS") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;KHS</a>
@@ -63,7 +63,7 @@
                 </div> -->
             </div>
         <div class="col-md-9">
-        <%--<div class="col-md-12">
+            <%--<div class="col-md-12">
                 <table class="table-condensed table-bordered">
                     <tr>
                         <td>
@@ -161,6 +161,13 @@
                         </td>
                         <td>
                             &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Pembimbing Akademik</td>
+                        <td colspan="3">
+                            <asp:Label ID="LbDsenPA" runat="server"></asp:Label>
                         </td>
                     </tr>
                 </table>

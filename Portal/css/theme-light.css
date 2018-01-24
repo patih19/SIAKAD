@@ -3086,9 +3086,9 @@ blockquote.pull-right {
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background: #F8FAFC;
 }
 .table > thead > tr > th {
+  /* background: #f1f5f9; */
   color: #56688A;
   font-size: 12px;
 }

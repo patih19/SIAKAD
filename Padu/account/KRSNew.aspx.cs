@@ -15,7 +15,7 @@ namespace Padu.account
     //public partial class WebForm4 : System.Web.UI.Page
     public partial class WebForm4 : Mhs_account
     {
-        //instance object mahasiswa 
+        //instance object mahasiswa
         Mhs mhs = new Mhs();
 
         public decimal _PrevIPS
@@ -100,6 +100,7 @@ namespace Padu.account
                     LbKdProdi.Text = mhs.id_prodi.ToString();
                     LbProdi.Text = mhs.Prodi.ToString();
                     LbTahun.Text = mhs.thn_angkatan.ToString();
+                    LbDosenPA.Text = mhs.DosenPA.ToString().Trim();
 
                 }
                 catch (Exception)
@@ -1839,7 +1840,7 @@ namespace Padu.account
                                                          "bak_bimbingan_krs.tgl_pesan_dosen " +
                                 "FROM            bak_persetujuan_krs INNER JOIN " +
                                                          "bak_bimbingan_krs ON bak_persetujuan_krs.id_persetujuan = bak_bimbingan_krs.id_persetujuan " +
-                                "WHERE npm = @npm AND semester = @semester AND jenis = 'krs' " +
+                                "WHERE npm = @npm AND semester = @semester AND jenis = 'krs' ORDER BY bak_bimbingan_krs.tgl_pesan_dosen DESC" +
                                 "", con);
                             CmdPesanDosen.CommandType = System.Data.CommandType.Text;
 
@@ -1863,9 +1864,8 @@ namespace Padu.account
                                         TblPesan.Rows.Add(datarow);
                                     }
 
-                                    //Fill Gridview Pesan
-                                    this.GVPesan.DataSource = TblPesan;
-                                    this.GVPesan.DataBind();
+                                    this.RepeaterPesan.DataSource = TblPesan;
+                                    this.RepeaterPesan.DataBind();
 
                                     this.PanelValidasiKRS.Enabled = true;
                                     this.PanelValidasiKRS.Visible = true;

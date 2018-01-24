@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KRSNew.aspx.cs" Inherits="Padu.account.WebForm4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../css/timeline.css" rel="stylesheet" />
     <style type="text/css">
         .style2
         {
@@ -61,7 +62,7 @@
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">FASILITAS</a>
-                    <a href="<%= Page.ResolveUrl("~/account/KRS") %>" class="list-group-item"><span
+                    <a href="<%= Page.ResolveUrl("~/account/KRSNew") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-check"></span>&nbsp;KRS</a>
                     <a href="<%= Page.ResolveUrl("~/account/KHS") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;KHS</a>
@@ -303,7 +304,11 @@
                             </asp:Panel>
                             <asp:Panel ID="PanelListKRS" runat="server">
                                 <div style="color:red"><strong>
-                                <asp:Label ID="LbTextValidasi" runat="server" Text=""></asp:Label></strong> </div> <p></p>
+                                <asp:Label ID="LbTextValidasi" runat="server" Text=""></asp:Label></strong> </div> <br />
+                                <asp:Panel ID="PanelPA" runat="server" CssClass="form-control" BackColor="#FFFF99" >
+                                    Pembimbing Akademik : <asp:Label ID="LbDosenPA" runat="server" Text=""></asp:Label>
+                                </asp:Panel>
+                                <br />
                                 <asp:GridView ID="GVListKrs" runat="server" CssClass="table table-striped table-bordered"
                                     CellPadding="4" ForeColor="#333333" GridLines="None"
                                     OnRowDataBound="GVListKrs_RowDataBound">
@@ -319,22 +324,27 @@
                                     <SortedDescendingCellStyle BackColor="#D4DFE1" />
                                     <SortedDescendingHeaderStyle BackColor="#15524A" />
                                 </asp:GridView>
+                                <br />
                                 <asp:Panel ID="PanelValidasiKRS" runat="server">
-                                    <br />
-                                    <strong>Pesan dosen pembimbing:</strong> 
-                                    <asp:GridView ID="GVPesan" CssClass="table table-hover" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                        <EditRowStyle BackColor="#999999" />
-                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                                    </asp:GridView>
+                                    <strong>Pesan dosen pembimbing:</strong>
+                                    <p></p>
+                                    <asp:Repeater ID="RepeaterPesan" runat="server">
+                                        <ItemTemplate>
+                                            <ul class="timeline">
+                                                <li>
+                                                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h5 style="color:#efa700" class="timeline-title"><%# Eval("Tanggal") %></h5>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p><%# Eval("Pesan") %></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
                                     <p></p>
                                 </asp:Panel>
                                 <asp:Button ID="BtnDwnKrs" runat="server" Text="Download"

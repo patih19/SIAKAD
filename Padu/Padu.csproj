@@ -136,6 +136,7 @@
     <Content Include="css\keuangan.css" />
     <Content Include="css\login.css" />
     <Content Include="css\print.css" />
+    <Content Include="css\timeline.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\Alur Bayar UTS.png" />
     <Content Include="images\Lg-Kemenristek.png" />

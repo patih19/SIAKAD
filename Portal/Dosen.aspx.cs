@@ -33,7 +33,7 @@ namespace Portal
                                               "bak_dosen.prodi, bak_dosen.hp, bak_dosen.alamat, bak_dosen.aktif, bak_prog_study.prog_study "+
                         "FROM         bak_dosen INNER JOIN "+
                                               "bak_prog_study ON bak_dosen.prodi = bak_prog_study.id_prog_study "+
-                        "WHERE       prodi = @prodi AND aktif = 'yes' AND tim = '0' ORDER BY nama ASC" +
+                        "WHERE       prodi = @prodi AND aktif = 'yes' AND (dosen_tim IS NULL OR dosen_tim != 'yes') ORDER BY nama ASC" +
                         "", con);
                     CmdDosen.CommandType = System.Data.CommandType.Text;
 

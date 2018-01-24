@@ -75,10 +75,19 @@
                         </tr>
                         <tr>
                             <td>
-                                Tahun
-                            </td>
+                                Jenjang</td>
                             <td>
-                                <asp:TextBox ID="TbTahun" runat="server" CssClass="form-control" Width="70px" ReadOnly="true"></asp:TextBox>
+                                <asp:DropDownList ID="DLJenjang" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="-1">jenjang</asp:ListItem>
+                                    <asp:ListItem>S1</asp:ListItem>
+                                    <asp:ListItem>S2</asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tahun </td>
+                            <td>
+                                <asp:TextBox ID="TbTahun" runat="server" CssClass="form-control" ReadOnly="true" Width="70px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -154,11 +163,19 @@
                         </tr>
                         <tr>
                             <td>
-                                Tahun
-                            </td>
+                                Jenjang</td>
                             <td>
-                                <asp:TextBox ID="TbTahun2" runat="server" CssClass="form-control" ReadOnly="true"
-                                    Width="70px"></asp:TextBox>
+                                <asp:DropDownList ID="DLJenjang2" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="-1">jenjang</asp:ListItem>
+                                    <asp:ListItem>S1</asp:ListItem>
+                                    <asp:ListItem>S2</asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tahun </td>
+                            <td>
+                                <asp:TextBox ID="TbTahun2" runat="server" CssClass="form-control" ReadOnly="true" Width="70px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -264,9 +281,15 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="LbNoKeg" runat="server" BackColor="Transparent" ForeColor="Transparent"></asp:Label>
-                                &nbsp;
+                                Jenjang</td>
+                            <td>
+                                <asp:Label ID="LbJenjang" runat="server"></asp:Label>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="LbNoKeg" runat="server" BackColor="Transparent" ForeColor="Transparent"></asp:Label>
+                                &nbsp; </td>
                             <td>
                                 <asp:Button ID="BtnSvEdit" runat="server" OnClick="Button3_Click" Text="OK" />
                                 &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" />

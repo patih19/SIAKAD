@@ -314,9 +314,6 @@ namespace Portal
             CheckBox ch = (CheckBox)GvMhsAdd.Rows[index].FindControl("CbMhs");
             if (ch.Checked == true)
             {
-                string message = "alert('Checked')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-
                 string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(CS))
                 {
@@ -338,12 +335,13 @@ namespace Portal
 
                 //tandai mahasiswa 
                 CheckedMhsDibimbing(_NIDN);
+
+                // checked 
+                ch.Checked = true;
+                ch.Dispose();
             }
             else
             {
-                string message = "alert('UnChecked')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-
                 string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(CS))
                 {
@@ -365,6 +363,10 @@ namespace Portal
 
                 //tandai mahasiswa 
                 CheckedMhsDibimbing(_NIDN);
+
+                // uncheck 
+                ch.Checked = false;
+                ch.Dispose();
             }
         }
     }

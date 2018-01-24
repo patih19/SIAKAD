@@ -124,6 +124,13 @@
                                                 Daftar Mahasiswa                                               
                                                 <asp:GridView ID="GVPeserta" CssClass="table-condensed table-bordered" runat="server" CellPadding="4" GridLines="None" ForeColor="#333333">
                                                     <AlternatingRowStyle BackColor="White" />
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="No.">
+                                                            <ItemTemplate>
+                                                                <%# Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
                                                     <EditRowStyle BackColor="#7C6F57" />
                                                     <FooterStyle BackColor="#1C5E55" ForeColor="White" Font-Bold="True" />
                                                     <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -157,7 +164,7 @@
                                                                                 <ItemTemplate>
                                                                                     <asp:CheckBox ID="CbDosen" runat="server" AutoPostBack="True" OnCheckedChanged="CbDosen_CheckedChanged" />
                                                                                 </ItemTemplate>
-                                                                            </asp:TemplateField>
+                                                                            </asp:TemplateField>                                                                            
                                                                         </Columns>
                                                                         <EditRowStyle BackColor="#7C6F57" />
                                                                         <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />

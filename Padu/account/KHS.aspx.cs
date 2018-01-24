@@ -133,31 +133,32 @@ namespace Padu.account
                 {
                     con.Open();
 
-                    //// -- Cek Masa INPUT NILAI
-                    //// -- Edit Jadwal Kuliah Tidak Diperbolehkan Pada Saat Masa Input NILAI --
-                    //SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
-                    //CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
+                    // -- Cek Masa INPUT NILAI
+                    // -- Edit Jadwal Kuliah Tidak Diperbolehkan Pada Saat Masa Input NILAI --
+                    SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
+                    CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    //CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
-                    //CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
+                    CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                    CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
+                    CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
-                    //SqlParameter Status = new SqlParameter();
-                    //Status.ParameterName = "@output";
-                    //Status.SqlDbType = System.Data.SqlDbType.VarChar;
-                    //Status.Size = 20;
-                    //Status.Direction = System.Data.ParameterDirection.Output;
-                    //CmdCekMasa.Parameters.Add(Status);
+                    SqlParameter Status = new SqlParameter();
+                    Status.ParameterName = "@output";
+                    Status.SqlDbType = System.Data.SqlDbType.VarChar;
+                    Status.Size = 20;
+                    Status.Direction = System.Data.ParameterDirection.Output;
+                    CmdCekMasa.Parameters.Add(Status);
 
-                    //CmdCekMasa.ExecuteNonQuery();
+                    CmdCekMasa.ExecuteNonQuery();
 
-                    //if (Status.Value.ToString() == "IN")
-                    //{
-                    //    con.Close();
-                    //    con.Dispose();
+                    if (Status.Value.ToString() == "IN")
+                    {
+                        con.Close();
+                        con.Dispose();
 
-                    //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
-                    //    return;
-                    //}
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
+                        return;
+                    }
 
                     // --------------------- Fill Gridview  ------------------------
                     SqlCommand CmdListKRS = new SqlCommand("SpGetKHS", con);
