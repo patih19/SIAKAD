@@ -137,6 +137,7 @@
     <Content Include="css\login.css" />
     <Content Include="css\print.css" />
     <Content Include="css\timeline.css" />
+    <Content Include="doc\AlurKRSBaru.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\Alur Bayar UTS.png" />
     <Content Include="images\Lg-Kemenristek.png" />
@@ -283,6 +284,7 @@
     <Content Include="pasca\Scripts\bootstrap.min.js" />
     <Content Include="pasca\Pasca.Master" />
     <Content Include="doc\Form-Permohonan-Cuti.docx" />
+    <Content Include="doc\AlurKRSBaru.pdf" />
     <None Include="pasca\Scripts\jquery-3.1.1-vsdoc.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.min.js" />

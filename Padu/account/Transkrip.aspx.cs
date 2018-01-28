@@ -134,18 +134,35 @@ namespace Padu.account
                 return;
             }
 
-
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
             {
                 con.Open();
 
+                string StrTopSemester = "";
+
+                // --- Top Semester 
+                // --- D3 sama dengan S1 --
+                SqlCommand TopSemester = new SqlCommand("SELECT TOP 1 semester FROM dbo.bak_kal WHERE jenjang='S1' AND semester <> 'new' ORDER BY semester DESC", con);
+                TopSemester.CommandType = CommandType.Text;
+
+                using (SqlDataReader rdr = TopSemester.ExecuteReader())
+                {
+                    if (rdr.HasRows)
+                    {
+                        while(rdr.Read())
+                        {
+                            StrTopSemester = rdr["semester"].ToString().Trim();
+                        }
+                    }
+                }
+
                 // -- Cek Masa INPUT NILAI
-                // -- Edit Jadwal Kuliah Tidak Diperbolehkan Pada Saat Masa Input NILAI --
+                // -- Tidak Diperbolehkan Pada Saat Masa Input NILAI --
                 SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
                 CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
-                CmdCekMasa.Parameters.AddWithValue("@semester", "20171");
+                CmdCekMasa.Parameters.AddWithValue("@semester", StrTopSemester);
                 CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
                 CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
@@ -166,8 +183,6 @@ namespace Padu.account
                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
                     return;
                 }
-
-
 
                 // --------------------- Fill Gridview  ------------------------
                 SqlCommand CmdKRS = new SqlCommand("SpGetTranskrip", con);

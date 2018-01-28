@@ -171,8 +171,8 @@
                                     </td>
                                     <td>
                                         
-                                        <asp:Button ID="BtnOpenAktv" runat="server" Text="submit" 
-                                            onclick="BtnOpenAktv_Click" />
+                                        <%--<asp:Button ID="BtnOpenAktv" runat="server" Text="submit" 
+                                            onclick="BtnOpenAktv_Click" />--%> Status : Off
                                         
                                     </td>
                                 </tr>

@@ -134,7 +134,7 @@ namespace Padu.account
                     con.Open();
 
                     // -- Cek Masa INPUT NILAI
-                    // -- Edit Jadwal Kuliah Tidak Diperbolehkan Pada Saat Masa Input NILAI --
+                    // -- Tidak Diperbolehkan Pada Saat Masa Input NILAI --
                     SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
                     CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 

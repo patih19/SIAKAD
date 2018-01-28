@@ -1,23 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="Info.aspx.cs" Inherits="Padu.account.WebForm10" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .style1
-        {
-            font-size: x-large;
-        }
-        .style2
-        {
-            background-color: #FF6600;
-        }
-        .style4
-        {
-            background-color: #FFCC00;
-        }
-        .style5
-        {
-            background-color: #FF9900;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container top-main-form" style="background: #fafafa">
@@ -69,46 +51,12 @@
             <div class="col-md-9">
                 <div class="col-md-12">
                     <div class="text-center">
-                        <span class="style1">PENGUMUMAN</span></div>
+                        <span style="font-size: large" >ALUR PENGISIAN DAN BIMBIGAN KRS</span></div>
                     <br />
-                <p>Diberitahukan kepada seluruh Mahasiswa aktif Universitas Tidar bahwa 
-                    <span class="style2"><span class="style4">untuk  dapat mengikuti Ujian</span></span><span 
-                        class="style4"> Tengah Semester (UTS)  dan 
-                Ujian Akhir Semester (UAS)</span> Mahasiswa diwajibkan membayar tagihan semester ini 
-                    sampai dengan <span class="style5">hari Jumat tanggal 8 April 2016.</span></p>
-                <table class=" table-bordered table-condensed">
-                    <tr>
-                        <td colspan="2"><strong>Mahasiswa Baru (2015/2016)</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Non Bidikmisi</td>
-                        <td>Melunasi tagihah semester ini bagi yang belum lunas, bagi yang sudah lunas dapat 
-                            mengunduh kartu ujian</td>
-                    </tr>
-                    <tr>
-                        <td>Bidikmisi</td>
-                        <td>Mengunduh kartu ujian</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><strong>Mahasiswa Lama (Non 2015/2016)</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Non Bidikmisi</td>
-                        <td>Melunasi tagihah semester ini</td>
-                    </tr>
-                    <tr>
-                        <td>Bidikmisi</td>
-                        <td>Melakukan aktivasi kemudian lapor di bagian Pelayanan Keuangan</td>
-                    </tr>
-                </table>
-                <br />
-                <p><strong><em>Bagi Mahasiswa yang masih memiliki tunggakan dapat dikonsultasikan di bagian Pelayanan Keuangan</em></strong></p>
-                
-                    <br />
-                    <br />
-                    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Alur Bayar UTS.png" />
-                    <br />
-                    Kartu Ujian dapat diunduh melalui menu <strong>&quot;Kartu Ujian&quot;</strong><br /><br />
+                    <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/AlurKRSBaru.png" /><p></p>
+                    <div class="alert alert-success" role="alert">
+                            <span >Mahasiswa bidikmisi tahun 2014/2015 dan sebelumnya tidak ada perubahan alur aktivasi pembayaran </span>
+                        </div>
                 </div>
             </div>
         </div>

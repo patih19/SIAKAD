@@ -22,7 +22,7 @@ namespace Padu
             }
             else if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
             {
-                Response.Redirect("~/account/Keuangan.aspx");
+                Response.Redirect("~/account/info.aspx");
             }
             else if (this.Session["Name"] != null && this.Session["password"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
             {
@@ -49,7 +49,7 @@ namespace Padu
             {
                 if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
                 {
-                    Response.Redirect("~/account/home.aspx");
+                    Response.Redirect("~/account/info.aspx");
                 }
                 else if (this.Session["Name"] != null && this.Session["password"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
                 {
@@ -132,7 +132,7 @@ namespace Padu
 
                     if (this.Session["jenjang"].ToString().Trim() == "S1" || this.Session["jenjang"].ToString().Trim() == "D3")
                     {
-                        Response.Redirect("~/account/Keuangan.aspx");
+                        Response.Redirect("~/account/info.aspx");
                     }
                     else
                     {
@@ -143,7 +143,7 @@ namespace Padu
             }
             else if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim()== "S1") ||(this.Session["jenjang"].ToString().Trim() == "D3")))
             {
-                Response.Redirect("~/account/Keuangan.aspx");
+                Response.Redirect("~/account/info.aspx");
             } else
             {
                 Response.Redirect("~/pasca/Keuangan.aspx");
