@@ -178,6 +178,10 @@ namespace Padu.account
                                 {
                                     datarow["Satus"] = "Diizinkan";
                                     this.PanelDwnFormCuti.Visible = false;
+
+                                    this.PanelNilai.Visible = true;
+                                    this.PanelNilai.Enabled = true;
+
                                 }
                                 else if (rdr["status"].ToString().Trim() == "no")
                                 {
@@ -230,22 +234,22 @@ namespace Padu.account
                     "ORDER BY semester DESC "+
                     "IF (@@ROWCOUNT <= 2) "+
                     "BEGIN "+
-                        
-                        //--a. filter pastikan bakpk sudah update data status mhs pd semester berjalan
-                        "SELECT TOP(1) @SemBerjalan = bak_jadwal.semester " +
+
+                        //--a. Get Semester Aktif Berjalan
+                        "SELECT        TOP (1) @SemBerjalan=bak_jadwal.semester " +
                         "FROM            bak_jadwal INNER JOIN "+
                                                  "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
                                                  "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
-                        "WHERE bak_prog_study.jenjang NOT IN ('S2') "+
-                        "GROUP BY bak_jadwal.semester "+
-                        "ORDER BY bak_jadwal.semester DESC "+
+                        "WHERE (bak_prog_study.jenjang NOT IN('S2')) AND(bak_prog_study.id_prog_study = @prodi) "+
+                        "GROUP BY bak_jadwal.semester, bak_prog_study.id_prog_study "+
+                        "ORDER BY bak_jadwal.semester DESC " +
 
-                        "SELECT id_update FROM dbo.bak_update_status_mhs WHERE semester = @SemBerjalan "+
-                        "IF(@@ROWCOUNT = 0) "+
-                        "BEGIN "+
-                            "RAISERROR('ERROR UPADTE DATA MAHASISWA SEMESTER INI BELUM DILAKUKAN HUBUNGI BAKPK', 16, 10) "+
-                            "RETURN "+
-                        "END "+
+                        //"SELECT id_update FROM dbo.bak_update_status_mhs WHERE semester = @SemCuti " +
+                        //"IF(@@ROWCOUNT = 0) "+
+                        //"BEGIN "+
+                        //    "RAISERROR('ERROR UPADTE DATA MAHASISWA SEMESTER INI BELUM DILAKUKAN HUBUNGI BAKPK', 16, 10) "+
+                        //    "RETURN "+
+                        //"END "+
 
                         //--b. Pastikan semester cuti yg diilih data status mhs BELUM diupdate
                         "SELECT id_update FROM dbo.bak_update_status_mhs WHERE semester = @SemCuti " +
@@ -315,6 +319,7 @@ namespace Padu.account
 
                     CmdPengajuanCuti.Parameters.AddWithValue("@NpmSkripsi", this.Session["Name"].ToString());
                     CmdPengajuanCuti.Parameters.AddWithValue("@SemCuti", this.DLTahun.SelectedValue.Trim() + this.DLSemester.SelectedValue.Trim());
+                    CmdPengajuanCuti.Parameters.AddWithValue("@prodi", this.Session["prodi"].ToString());
 
                     CmdPengajuanCuti.ExecuteNonQuery();
                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('PENGAJUAN CUTI BERHASIL');", true);

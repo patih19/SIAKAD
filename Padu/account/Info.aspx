@@ -53,7 +53,7 @@
                     <div class="text-center">
                         <span style="font-size: large" >ALUR PENGISIAN DAN BIMBIGAN KRS</span></div>
                     <br />
-                    <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/AlurKRSBaru.png" /><p></p>
+                    <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/DIAGRAM ALIR SIPADU_0102-1.jpg" /><p></p>
                     <div class="alert alert-success" role="alert">
                             <span >Mahasiswa bidikmisi tahun 2014/2015 dan sebelumnya tidak ada perubahan alur aktivasi pembayaran </span>
                         </div>

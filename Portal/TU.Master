@@ -148,6 +148,7 @@
                                     <li><a href="<%= Page.ResolveUrl("~/RekapSKS") %>">Pengambilan SKS</a></li>
                                     <li><a href="<%= Page.ResolveUrl("~/Aktif") %>">Mahasiswa Aktif</a></li>
                                     <li><a href="<%= Page.ResolveUrl("~/AktvMhs") %>">Aktivitas Perkuliahan</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/ValidasiKRS") %>">Validasi KRS</a></li>
                                 </ul>
                             </li>
                         </ul>

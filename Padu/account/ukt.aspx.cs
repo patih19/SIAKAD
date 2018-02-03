@@ -64,6 +64,39 @@ namespace Padu.account
         }
         // -------------- End Logout ----------------------------
 
+
+        private void TahunAkademik()
+        {
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    //------------------------------------------------------------------------------------
+                    con.Open();
+
+                    SqlCommand CmdJadwal = new SqlCommand("select TOP 1 bak_kal.thn AS thn, CAST(bak_kal.thn AS VARCHAR(50)) + '/' +CAST(bak_kal.thn +1 AS VARCHAR(50) ) AS ThnAkm  FROM bak_kal WHERE jenjang IN ('S1') group by thn ORDER BY thn DESC", con);
+                    CmdJadwal.CommandType = System.Data.CommandType.Text;
+
+                    this.DLTahun.DataSource = CmdJadwal.ExecuteReader();
+                    this.DLTahun.DataTextField = "ThnAkm";
+                    this.DLTahun.DataValueField = "thn";
+                    this.DLTahun.DataBind();
+
+                    con.Close();
+                    con.Dispose();
+                }
+
+                this.DLTahun.Items.Insert(0, new ListItem("-- Tahun Akademik --", "-1"));
+
+            }
+            catch (Exception ex)
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                return;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -112,6 +145,8 @@ namespace Padu.account
                                 this.LbNPM.Text = _NPM.ToString().Trim();
                                 this.LbNama.Text = rdr["nama"].ToString().Trim();
                                 this.LbAngkatan.Text = rdr["thn_angkatan"].ToString().Trim();
+                                this.LbUkt.Text = rdr["biaya"].ToString().Trim();
+
                                 _ThnAngkatan = rdr["thn_angkatan"].ToString().Trim();
                                 this.LbProdi.Text = rdr["prog_study"].ToString();
                                 if (rdr["bdk"].ToString().Trim() == "1")
@@ -145,6 +180,11 @@ namespace Padu.account
                             this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data Pembayaran Tidak Ditemukan');", true);
                             return;
                         }
+
+
+                        string FormattedString4Ukt = string.Format
+                            (new System.Globalization.CultureInfo("id"), "{0:c}", Convert.ToInt32(this.LbUkt.Text));
+                        this.LbUkt.Text = FormattedString4Ukt;
 
                         rdr.Close();
                         rdr.Dispose();
@@ -208,9 +248,11 @@ namespace Padu.account
                         rdr.Close();
                         rdr.Dispose();
                     }
-                    
 
-                    // 7.---------- Simpan Perubahan --------------
+                    //3. ------- Populate Tahun Akademik -----
+                    TahunAkademik();
+
+                    // 4.---------- Simpan Perubahan --------------
                     TransUntidar.Commit();
                     TransUKT.Commit();
                     TransUntidar.Dispose();
@@ -315,6 +357,7 @@ namespace Padu.account
 
         protected void BtnAktivasi_Click(object sender, EventArgs e)
         {
+
             if (this.DLTahun.SelectedItem.Text.Trim() == "")
             {
                 string msg = "alert('Pilih Tahun')";
@@ -322,7 +365,14 @@ namespace Padu.account
                 return;
             }
 
-            if (DLTahun.SelectedItem.Text.Length != 4)
+            if (this.DLTahun.SelectedItem.Text.Trim() == "-- Tahun Akademik --")
+            {
+                string msg = "alert('Pilih Tahun')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
+                return;
+            }
+
+            if (DLTahun.SelectedItem.Value.Length != 4)
             {
                 string msg = "alert('Pilih Tahun')";
                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
@@ -493,7 +543,7 @@ namespace Padu.account
                 SqlCommand CmdPost = new SqlCommand("SpInsertPostingMhsUkt", ConUKT, TransUKT);
                 CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
                 CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
+                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
                 CmdPost.ExecuteNonQuery();
 
                 this.PanelPembayaran.Enabled = false;
@@ -579,7 +629,7 @@ namespace Padu.account
                 SqlCommand CmdPost = new SqlCommand("SpInsertPostingMhsUkt", ConUKT, TransUKT);
                 CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
                 CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
+                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
                 CmdPost.ExecuteNonQuery();
 
                 this.PanelPembayaran.Enabled = false;
@@ -632,7 +682,14 @@ namespace Padu.account
                 return;
             }
 
-            if (DLTahun.SelectedItem.Text.Length != 4)
+            if (this.DLTahun.SelectedItem.Text.Trim() == "-- Tahun Akademik --")
+            {
+                string msg = "alert('Pilih Tahun')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
+                return;
+            }
+
+            if (DLTahun.SelectedItem.Value.Length != 4)
             {
                 string msg = "alert('Pilih Tahun')";
                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
@@ -747,7 +804,7 @@ namespace Padu.account
                     SqlCommand CmdValBdk = new SqlCommand("SELECT id,semester,status,last_update FROM dbo.keu_aktivasi_bidikmisi WHERE semester=@semester ", con);
                     CmdValBdk.CommandType = System.Data.CommandType.Text;
 
-                    CmdValBdk.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
+                    CmdValBdk.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
 
                     using (SqlDataReader rdr = CmdValBdk.ExecuteReader())
                     {

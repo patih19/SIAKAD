@@ -230,6 +230,18 @@
                                     </asp:DropDownList>
                                 </td>
                             </tr>--%>
+                            <tr>
+                                <td>SKS *</td>
+                                <td>
+                                    <asp:TextBox ID="TbSKS2" runat="server" CssClass="form-control"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Semester *</td>
+                                <td>
+                                    <asp:TextBox ID="TbSemester2" runat="server" CssClass="form-control"></asp:TextBox>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="panel-footer">

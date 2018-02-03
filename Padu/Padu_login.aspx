@@ -69,7 +69,8 @@
                                 <br />
                                 <asp:Button CssClass="btn btn-primary" ID="Button1" runat="server" Text="Sign in"
                                     OnClick="Button1_Click" />
-                                &nbsp;<asp:Label ID="LoginResult" runat="server"></asp:Label>
+                                &nbsp;<br /><br />
+                                <asp:Label ID="LoginResult" runat="server"></asp:Label>
                                 <br />
                                 <br />
                                 <span class="style4">SISTEM INFORMASI TERPADU MAHASISWA<br />

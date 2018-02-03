@@ -78,7 +78,7 @@ namespace akademik.am
                                 DateTime TglUjian = Convert.ToDateTime(rdr["tgl_sls"]);
                                 datarow["Selesai"] = TglUjian.ToString("dd-MM-yyyy");
                             }
-                            datarow["jenjang"] = rdr["tgl_mulai"].ToString().Trim();
+                            datarow["jenjang"] = rdr["jenjang"].ToString().Trim();
 
                             TableJadwal.Rows.Add(datarow);
                         }
@@ -141,7 +141,7 @@ namespace akademik.am
                                 datarow["Selesai"] = TglUjian.ToString("dd-MM-yyyy");
                             }
 
-                            datarow["jenjang"] = rdr2["tgl_mulai"].ToString().Trim();
+                            datarow["jenjang"] = rdr2["jenjang"].ToString().Trim();
 
                             TableJadwal2.Rows.Add(datarow);
                         }

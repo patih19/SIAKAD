@@ -347,7 +347,7 @@
                                     </asp:Repeater>
                                     <p></p>
                                 </asp:Panel>
-                                <asp:Button ID="BtnDwnKrs" runat="server" Text="Download"
+                                <asp:Button ID="BtnDwnKrs" runat="server" Text="Unduh KRS"
                                     CssClass="btn btn-success" OnClick="BtnDwnKrs_Click" />
                             </asp:Panel>
                         </div>

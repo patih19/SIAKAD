@@ -175,6 +175,24 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.TextBox TbMakul2;
         
         /// <summary>
+        /// TbSKS2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbSKS2;
+        
+        /// <summary>
+        /// TbSemester2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbSemester2;
+        
+        /// <summary>
         /// BtnUpdate2 control.
         /// </summary>
         /// <remarks>

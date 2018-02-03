@@ -1644,6 +1644,7 @@ namespace Padu.account
                     {
                         con.Open();
 
+
                         // --------------------- Fill Gridview  ------------------------
                         SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
                         CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;

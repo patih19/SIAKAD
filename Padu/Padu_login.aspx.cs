@@ -109,7 +109,7 @@ namespace Padu
                     {
                         con.Open();
                         SqlCommand cmdLogin = new SqlCommand(""+
-                            "SELECT npm, jenjang FROM dbo.bak_mahasiswa INNER JOIN bak_prog_study ON  dbo.bak_prog_study.id_prog_study = dbo.bak_mahasiswa.id_prog_study "+
+                            "SELECT npm, jenjang, dbo.bak_prog_study.id_prog_study FROM dbo.bak_mahasiswa INNER JOIN bak_prog_study ON  dbo.bak_prog_study.id_prog_study = dbo.bak_mahasiswa.id_prog_study " +
                             "WHERE npm = @npm "+
                             "", con);
                         cmdLogin.CommandType = System.Data.CommandType.Text;
@@ -121,7 +121,8 @@ namespace Padu
                             {
                                 while (rdr.Read())
                                 {
-                                    this.Session["jenjang"] = rdr["jenjang"].ToString();
+                                    this.Session["jenjang"] = rdr["jenjang"].ToString().Trim();
+                                    this.Session["prodi"] = rdr["id_prog_study"].ToString().Trim();
                                 }
                             }
                         }

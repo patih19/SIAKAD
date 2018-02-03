@@ -67,6 +67,15 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Label LbAngkatan;
         
         /// <summary>
+        /// LbUkt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbUkt;
+        
+        /// <summary>
         /// LbTerbayar control.
         /// </summary>
         /// <remarks>
@@ -148,13 +157,13 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.GridView GvHistoryPaid;
         
         /// <summary>
-        /// CascadingDLTahun control.
+        /// LinkDwnPanduan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown CascadingDLTahun;
+        protected global::System.Web.UI.WebControls.HyperLink LinkDwnPanduan;
         
         /// <summary>
         /// DLTahun control.
@@ -173,6 +182,15 @@ namespace Padu.account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DLSemester;
+        
+        /// <summary>
+        /// BtnOpenAktv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnOpenAktv;
         
         /// <summary>
         /// PanelAktivasi control.

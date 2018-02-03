@@ -84,7 +84,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. Upload Surat Izin Cuti Kuliah</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. Upload Surat Izin Cuti</a>
                                             </h5>
                                         </div>
                                         <div id="collapseTwo" class="panel-collapse collapse in">

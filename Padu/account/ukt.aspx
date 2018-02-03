@@ -98,6 +98,13 @@
                                     </td>
 			                    </tr>			
 			                    <tr>
+				                    <td>UKT</td>
+				                    <td class="text-center">:</td>
+				                    <td>
+                                        <asp:Label ID="LbUkt" runat="server" Text="Rp0"></asp:Label>
+                                    </td>
+			                    </tr>			
+			                    <tr>
 				                    <td>Jumlah Terbayar</td>
 				                    <td class="text-center">:</td>
 				                    <td>
@@ -145,7 +152,8 @@
                     </div>
                         <div class="alert alert-warning" role="alert">
                             <span class="style2">Pembayaran biaya UKT hanya dapat dibayarkan melalui <strong>Bank
-                                BPD Jawa Tengah</strong> dengan cara menunjukkan NPM anda kepada Teller bank</span>
+                                BPD Jawa Tengah</strong> dengan cara menunjukkan NPM anda kepada Teller bank, panduan aktifasi pembayaran </span>
+                            <asp:HyperLink ID="LinkDwnPanduan" runat="server" CssClass="btn btn-success" NavigateUrl="~/doc/Panduan Aktifasi Pembayaran.pdf" Target="_blank">  download </asp:HyperLink>
                         </div>
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">
@@ -155,24 +163,26 @@
                             <table class="table-condensed">
                                 <tr>
                                     <td>
-                                        <ajaxToolkit:CascadingDropDown ID="CascadingDLTahun" TargetControlID="DLTahun" runat="server"
+                                        <%--<ajaxToolkit:CascadingDropDown ID="CascadingDLTahun" TargetControlID="DLTahun" runat="server"
                                             Category="DLTahun" ServicePath="~/web_services/ServiceCS.asmx" ServiceMethod="OneTopSemester"
                                             LoadingText="Loading" PromptText="Tahun">
                                         </ajaxToolkit:CascadingDropDown>
+                                        <asp:DropDownList CssClass="form-control" ID="DLTahun" runat="server">
+                                        </asp:DropDownList>--%>
                                         <asp:DropDownList CssClass="form-control" ID="DLTahun" runat="server">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
                                         <asp:DropDownList ID="DLSemester" runat="server" CssClass="form-control">
                                             <asp:ListItem Value="-1">Semester</asp:ListItem>
-                                            <asp:ListItem>1</asp:ListItem>
-                                            <asp:ListItem>2</asp:ListItem>
+                                            <asp:ListItem Value="1">1 (Gasal)</asp:ListItem>
+                                            <asp:ListItem Value="2">2 (Genap)</asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                     <td>
                                         
-                                        <%--<asp:Button ID="BtnOpenAktv" runat="server" Text="submit" 
-                                            onclick="BtnOpenAktv_Click" />--%> Status : Off
+                                        <asp:Button ID="BtnOpenAktv" runat="server" Text="submit" 
+                                            onclick="BtnOpenAktv_Click" />
                                         
                                     </td>
                                 </tr>

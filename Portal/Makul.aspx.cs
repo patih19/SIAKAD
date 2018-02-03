@@ -53,6 +53,7 @@ namespace Portal
                     //TableMakul.Columns.Add("SKS Praktikum");
                     //TableMakul.Columns.Add("SKS Praktikum Lap");
                     TableMakul.Columns.Add("Total SKS");
+                    TableMakul.Columns.Add("Semester");
                     TableMakul.Columns.Add("KURIKULUM");
                     //TableMakul.Columns.Add("Jenis");
 
@@ -101,6 +102,7 @@ namespace Portal
                                 //    }
                                 //}
 
+                                datarow["Semester"] = rdr["semester"].ToString();
                                 datarow["KURIKULUM"] = rdr["kurikulum"].ToString();
 
                                 TableMakul.Rows.Add(datarow);
@@ -233,16 +235,20 @@ namespace Portal
 
             //// ================ SCRIPT VALID =====================/////
             ////============== Edit SKS Mata Kuliah ====================== //
+            ////============== SCRIPT INSIDENTAL =========================//
+
             //ModalPopupExtender2.Show();
 
             //// get row index
             //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             //int index2 = gvRow.RowIndex;
 
-            //this.LbIdMakul2.Text = this.GVMakul.Rows[index2].Cells[1].Text;
-            //_KodeMakul2 = this.GVMakul.Rows[index2].Cells[1].Text;
+            //this.LbIdMakul2.Text = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
+            //_KodeMakul2 = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
             //this.TbKdMakul2.Text = _KodeMakul;
-            //this.TbMakul2.Text = this.GVMakul.Rows[index2].Cells[2].Text;
+            //this.TbMakul2.Text = this.GVMakul.Rows[index2].Cells[1].Text.Trim();
+            //this.TbSKS2.Text = this.GVMakul.Rows[index2].Cells[2].Text.Trim();
+            //this.TbSemester2.Text = this.GVMakul.Rows[index2].Cells[3].Text.Trim();
 
             ////============= End Edit SKS Mata Kuliah ====================== //
 
@@ -369,7 +375,8 @@ namespace Portal
                     CmdUpStatus.CommandType = System.Data.CommandType.StoredProcedure;
                     CmdUpStatus.Parameters.AddWithValue("@OldKdMakul", this.LbIdMakul2.Text.Trim());
                     CmdUpStatus.Parameters.AddWithValue("@NewKdMakul", this.TbKdMakul2.Text.Trim());
-                    //CmdUpStatus.Parameters.AddWithValue("@Semester", this.TbSemester2.Text.Trim());
+                    CmdUpStatus.Parameters.AddWithValue("@SksMakul", this.TbSKS2.Text.Trim() );
+                    CmdUpStatus.Parameters.AddWithValue("@SemMakul", this.TbSemester2.Text.Trim() );
                     CmdUpStatus.Parameters.AddWithValue("@Makul", this.TbMakul2.Text);
 
                     CmdUpStatus.ExecuteNonQuery();
