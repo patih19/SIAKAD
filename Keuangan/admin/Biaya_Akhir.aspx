@@ -45,8 +45,8 @@
                         </span>&nbsp;Tagihan</a>
                     <a href="<%= Page.ResolveUrl("~/admin/Masa_Bayar.aspx") %>" class="list-group-item"><span class="glyphicon glyphicon-book ">
                         </span>&nbsp;Masa Pembayaran</a>
-                    <a href="<%= Page.ResolveUrl("~/admin/Post.aspx") %>" class="list-group-item"><span class="glyphicon glyphicon-book ">
-                        </span>&nbsp;Posting Pembayaran</a>
+                    <a href="<%= Page.ResolveUrl("~/admin/InputTagihan.aspx") %>" class="list-group-item"><span class="glyphicon glyphicon-book ">
+                        </span>&nbsp;Posting Kekurangan</a>
                     <a href="<%= Page.ResolveUrl("~/admin/Edit_Bayar.aspx") %>" class="list-group-item"><span class="glyphicon glyphicon-book ">
                         </span>&nbsp;Perbarui Pembayaran</a>
                     <a href="<%= Page.ResolveUrl("~/admin/Beban_Awal.aspx") %>" class="list-group-item"><span class="glyphicon glyphicon-book ">

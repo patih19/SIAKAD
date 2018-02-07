@@ -151,17 +151,6 @@
                                                             <td>
                                                                 <asp:DropDownList ID="DLProdiDosen" runat="server" AutoPostBack="True" CssClass="form-control"
                                                                     OnSelectedIndexChanged="DLProdiDosen_SelectedIndexChanged">
-                                                                    <asp:ListItem Value="-1">Program Studi</asp:ListItem>
-                                                                    <asp:ListItem Value="20-201">S1 TEKNIK ELEKTRO</asp:ListItem>
-                                                                    <asp:ListItem Value="21-201">S1 TEKNIK MESIN</asp:ListItem>
-                                                                    <asp:ListItem Value="21-401">D3 TEKNIK MESIN</asp:ListItem>
-                                                                    <asp:ListItem Value="22-201">S1 TEKNIK SIPIL</asp:ListItem>
-                                                                    <asp:ListItem Value="54-211">S1 AGROTEKNOLOGI</asp:ListItem>
-                                                                    <asp:ListItem Value="60-201">S1 EKONOMI PEMBANGUNAN</asp:ListItem>
-                                                                    <asp:ListItem Value="62-401">D3 AKUNTANSI</asp:ListItem>
-                                                                    <asp:ListItem Value="63-201">S1 ILMU ADMINISTRASI NEGARA</asp:ListItem>
-                                                                    <asp:ListItem Value="88-201">S1 PENDIDIKAN BAHASA DAN SASTRA INDONESIA</asp:ListItem>
-                                                                    <asp:ListItem Value="88-203">S1 PENDIDIKAN BAHASA INGGRIS</asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
                                                         </tr>

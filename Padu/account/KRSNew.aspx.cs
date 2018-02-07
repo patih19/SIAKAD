@@ -63,9 +63,11 @@ namespace Padu.account
             this.Session["Name"] = (object)null;
             this.Session["Passwd"] = (object)null;
             this.Session["jenjang"] = (object)null;
+            this.Session["prodi"] = (object)null;
             this.Session.Remove("Name");
             this.Session.Remove("Passwd");
             this.Session.Remove("jenjang");
+            this.Session.Remove("prodi");
             this.Session.RemoveAll();
             this.Response.Redirect("~/Padu_login.aspx");
         }
@@ -1891,6 +1893,8 @@ namespace Padu.account
                                     }
                                 }
 
+                                this.PanelInfo.Visible = true;
+
                                 this.LbTextValidasi.Text = "----- KRS BELUM DIVALIDASI PEMBIMBING AKADEMIK ----";
                             }
                             else if (ReadValid == "Valid")
@@ -1979,6 +1983,8 @@ namespace Padu.account
                                         ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                     }
                                 }
+
+                                this.PanelInfo.Visible = false;
 
                                 // --- Enable download ---
                                 this.BtnDwnKrs.Visible = true;
@@ -2079,6 +2085,8 @@ namespace Padu.account
 
                             this.PanelValidasiKRS.Visible = false;
                             this.PanelPA.Visible = false;
+
+                            this.PanelInfo.Visible = false;
                         }
                     }
                 }

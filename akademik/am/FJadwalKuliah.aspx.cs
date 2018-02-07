@@ -65,6 +65,36 @@ namespace akademik.am
             }
         }
 
+        private void PopulateProdi2()
+        {
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    //------------------------------------------------------------------------------------
+                    con.Open();
+
+                    SqlCommand CmdJadwal = new SqlCommand("SELECT id_prog_study,prog_study FROM dbo.bak_prog_study", con);
+                    CmdJadwal.CommandType = System.Data.CommandType.Text;
+
+                    this.DLProdiDosen.DataSource = CmdJadwal.ExecuteReader();
+                    this.DLProdiDosen.DataTextField = "prog_study";
+                    this.DLProdiDosen.DataValueField = "id_prog_study";
+                    this.DLProdiDosen.DataBind();
+
+                    con.Close();
+                    con.Dispose();
+                }
+                this.DLProdiDosen.Items.Insert(0, new ListItem("-- Program Studi --", "-1"));
+            }
+            catch (Exception ex)
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                return;
+            }
+        }
+
         protected void BtnJadwal_Click(object sender, EventArgs e)
         {
             //set label thn & semester
@@ -266,6 +296,8 @@ namespace akademik.am
             //unhide panel edit jadwal
             this.PanelEditJadwal.Enabled = true;
             this.PanelEditJadwal.Visible = true;
+
+            PopulateProdi2();
 
             //read record you want to display
             string CS = ConfigurationManager.ConnectionStrings["FEEDER"].ConnectionString;

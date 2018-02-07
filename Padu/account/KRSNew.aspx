@@ -257,7 +257,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                     <ContentTemplate>
                                         <hr />
-                                        <span class="style2"><strong>Batal Tambah/Edit KRS Hanya Bisa Dilakukan 4x !!</strong></span><br />
+                                        <span class="style2"><strong>Batal Tambah/Edit KRS Bisa Dilakukan 8x !!</strong></span><br />
                                         <br />
                                         <strong>Jumlah SKS =</strong>
                                         <asp:Label ID="LbJumlahEditSKS" runat="server" Style="font-weight: 700"></asp:Label>
@@ -307,6 +307,9 @@
                                 <asp:Label ID="LbTextValidasi" runat="server" Text=""></asp:Label></strong> </div> <br />
                                 <asp:Panel ID="PanelPA" runat="server" CssClass="form-control" BackColor="#FFFF99" >
                                     Pembimbing Akademik : <asp:Label ID="LbDosenPA" runat="server" Text=""></asp:Label>
+                                </asp:Panel> 
+                                <asp:Panel ID="PanelInfo" runat="server" CssClass="form-control" BackColor="#FFFF99" >                                   
+                                    <p>KRS tidak divalidasi akan berdampak tidak dapat mengikuti perkuliahan dan nilai tidak dapat diinput</></p>
                                 </asp:Panel>
                                 <br />
                                 <asp:GridView ID="GVListKrs" runat="server" CssClass="table table-striped table-bordered"

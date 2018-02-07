@@ -61,8 +61,12 @@ namespace Padu.account
             //Your Code here....
             this.Session["Name"] = (object)null;
             this.Session["Passwd"] = (object)null;
+            this.Session["jenjang"] = (object)null;
+            this.Session["prodi"] = (object)null;
             this.Session.Remove("Name");
             this.Session.Remove("Passwd");
+            this.Session.Remove("prodi");
+            this.Session.Remove("jenjang");
             this.Session.RemoveAll();
             this.Response.Redirect("~/Padu_login.aspx");
         }

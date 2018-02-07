@@ -16,15 +16,15 @@ namespace Padu
         // prevent back after login on page init
         protected override void OnInit(EventArgs e)
         {
-            if (this.Session["Name"] == null && this.Session["password"] == null && this.Session["jenjang"] == null)
+            if (this.Session["Name"] == null && this.Session["password"] == null && this.Session["prodi"] == null && this.Session["jenjang"] == null)
             {
                
             }
-            else if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
+            else if (this.Session["Name"] != null && this.Session["password"] != null && this.Session["prodi"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
             {
                 Response.Redirect("~/account/info.aspx");
             }
-            else if (this.Session["Name"] != null && this.Session["password"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
+            else if (this.Session["Name"] != null && this.Session["password"] != null && this.Session["prodi"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
             {
                 Response.Redirect("~/pasca/Keuangan.aspx");
             }
@@ -47,11 +47,11 @@ namespace Padu
 
             if (Page.IsPostBack) // user must login first
             {
-                if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
+                if (this.Session["Name"] != null && this.Session["password"] != null && this.Session["prodi"] != null && ((this.Session["jenjang"].ToString().Trim() == "S1") || (this.Session["jenjang"].ToString().Trim() == "D3")))
                 {
                     Response.Redirect("~/account/info.aspx");
                 }
-                else if (this.Session["Name"] != null && this.Session["password"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
+                else if (this.Session["Name"] != null && this.Session["password"] != null && this.Session["prodi"] != null && (this.Session["jenjang"].ToString().Trim() == "S2"))
                 {
                     Response.Redirect("~/pasca/Keuangan.aspx");
                 }
@@ -93,7 +93,7 @@ namespace Padu
         // login button
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (this.Session["Name"] == null && this.Session["password"] == null && this.Session["jenjang"] == null)
+            if (this.Session["Name"] == null && this.Session["password"] == null && this.Session["prodi"] == null  && this.Session["jenjang"] == null)
             {
                 string usr = this.TextBoxUsername.Text.Trim();
                 string password = this.TextBoxPasswd.Text.Trim();
@@ -142,7 +142,7 @@ namespace Padu
                         
                 }
             }
-            else if (this.Session["Name"] != null && this.Session["password"] != null && ((this.Session["jenjang"].ToString().Trim()== "S1") ||(this.Session["jenjang"].ToString().Trim() == "D3")))
+            else if (this.Session["Name"] != null && this.Session["password"] != null && this.Session["prodi"] != null  && ((this.Session["jenjang"].ToString().Trim()== "S1") ||(this.Session["jenjang"].ToString().Trim() == "D3")))
             {
                 Response.Redirect("~/account/info.aspx");
             } else

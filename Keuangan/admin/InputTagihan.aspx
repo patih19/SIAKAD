@@ -1,12 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/keu_admin.Master" AutoEventWireup="true" CodeBehind="Pass.aspx.cs" Inherits="Keuangan.admin.WebForm13" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/keu_admin.Master" AutoEventWireup="true" CodeBehind="InputTagihan.aspx.cs" Inherits="Keuangan.admin.InputTagihan" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
-    </ajaxToolkit:ToolkitScriptManager>
     <div class="container top-main-form" style="background: #fafafa">
         <div class=" row top-buffer">
-            <!-- MENU -->
+            <!----------------------- MENU -------------------->
             <div class="col-md-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">AKUN</a> 
@@ -52,39 +50,58 @@
                 </div>
             </div>
             <!-- END MENU -->
+
             <!-- CONTENT -->
             <div class="col-md-9">
+                <span class="style4"><strong>POSTING KEKURANGAN PEMBAYARAN</strong>
+                </span>
+                <br />
+                <br />
                 <div class="panel panel-default">
                     <div class="panel-heading ui-draggable-handle">
-                        <strong>Ganti Password</strong></div>
+                        <strong>Input Tagihan</strong>
+                    </div>
                     <div class="panel-body">
-                        <table class=" table-condensed table-bordered">
+                        <p></p>
+                        <table class="table table-condensed">
                             <tr>
+                                <td>NPM</td>
                                 <td>
-                                    <asp:TextBox ID="TbOldPassword" runat="server" CssClass="form-control" 
-                                        placeholder="Password Lama" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="TbNpm" runat="server" Placeholder="Ketik NPM " CssClass="form-control"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <asp:TextBox ID="TbNewPassword" runat="server" CssClass="form-control" 
-                                        placeholder="Password Baru" TextMode="Password"></asp:TextBox>
+                                <td >Semester</td>
+                                <td >
+                                    <asp:TextBox ID="TbSemester" Placeholder="contoh : 20172 " runat="server" CssClass="form-control"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <asp:TextBox ID="TbReNewPassword" runat="server" CssClass="form-control" 
-                                        placeholder="Ulangi Password Baru" TextMode="Password"></asp:TextBox>
+                                <td >Biaya</td>
+                                <td >
+                                    <asp:TextBox ID="TbBiaya" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </td>
                             </tr>
-                        </table>
+                            <tr>
+                                <td >Angsuran</td>
+                                <td >
+                                    <asp:DropDownList ID="DLAngsuran" runat="server" CssClass="form-control">
+                                        <asp:ListItem Value="-1">Angsuran Ke</asp:ListItem>
+                                        <asp:ListItem>1</asp:ListItem>
+                                        <asp:ListItem>2</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            </table>
                     </div>
                     <div class="panel-footer">
-                        <asp:Button ID="BtnSavePassword" runat="server" CssClass="btn btn-success" 
-                            Text="Simpan" onclick="BtnSavePassword_Click" />
+                        <asp:Button ID="BtnPostKekurangan" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="BtnPostKekurangan_Click" />
                     </div>
                 </div>
-            </div> <!-- END Contenet -->
-        </div> <!-- END CONTENT -->
-    </div>
+            </div>
+            <!--  END Contenet  -->
+
+        </div>
+        <!-- END CONTENT -->
+</div>
 </asp:Content>

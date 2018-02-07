@@ -1004,7 +1004,26 @@ namespace Portal
                 con.Open();
                 try
                 {
-                    SqlCommand CmdDosen = new SqlCommand("UPDATE bak_jadwal SET quota=@quota where no_jadwal=@no_jadwal", con);
+                    SqlCommand CmdDosen = new SqlCommand(" "+
+                        "DECLARE @JumlahPeserta INT "+
+                        "DECLARE @NomorJadwal INT "+
+
+                        "SELECT        @NomorJadwal = bak_jadwal.no_jadwal, @jumlahPeserta = COUNT(*) "+
+                        "FROM            bak_jadwal INNER JOIN "+
+                                                 "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal "+
+                        "WHERE dbo.bak_jadwal.no_jadwal=@no_jadwal "+
+                        "GROUP BY bak_jadwal.no_jadwal "+
+
+                        "IF (@quota <= @JumlahPeserta) "+
+                        "BEGIN "+
+                            "RAISERROR('Jumlah Peserta Saat Ini Melebihi Quota Diinput, PERMINTAAN DITOLAK !!!', 16, 10) "+
+                            "RETURN "+
+                        "END "+
+                        "ELSE "+
+                        "BEGIN "+
+                            "UPDATE bak_jadwal SET quota = @quota where no_jadwal = @no_jadwal "+
+                        "END "+
+                        "", con);
                     CmdDosen.CommandType = System.Data.CommandType.Text;
 
                     CmdDosen.Parameters.AddWithValue("@no_jadwal", this.GVJadwal.Rows[index].Cells[4].Text.Trim());
@@ -1018,7 +1037,9 @@ namespace Portal
                 }
                 catch (Exception ex)
                 {
-                    Response.Write(ex.Message.ToString());
+                    //Response.Write(ex.Message.ToString());
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('"+ex.Message.ToString()+ "');", true);
+                    return;
                 }
             }
         }
