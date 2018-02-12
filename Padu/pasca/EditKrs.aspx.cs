@@ -792,6 +792,20 @@ namespace Padu.pasca
                         }
                     }
 
+                    //------ SET KRS VALID => S2 -----//
+                    SqlCommand CmdKRSValid = new SqlCommand("" +
+                        "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( " +
+                            "SELECT        bak_krs.no " +
+                            "FROM            bak_jadwal INNER JOIN " +
+                            "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal " +
+                            "WHERE npm = @npm AND semester = @semester ) " +
+                        "", con, trans);
+                    CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                    CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                    CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                    CmdKRSValid.ExecuteNonQuery();
+
                     trans.Commit();
                     trans.Dispose();
 

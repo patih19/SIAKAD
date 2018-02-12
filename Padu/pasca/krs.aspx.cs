@@ -428,82 +428,82 @@ namespace Padu.pasca
                                 if (ch.Checked == true)
                                 {
                                     // ---------- INSERT TAGIHAN TESIS (+Post Tagihan) ----------
-                                    SqlCommand CmdSkripsi = new SqlCommand(""+
-                                    "DECLARE @NO INT "+
-                                    "DECLARE @Makul NVARCHAR(100) "+
-                                    "DECLARE @MakulAkhir VARCHAR(20) "+
-                                    "DECLARE @SKS INT "+
+                                    SqlCommand CmdSkripsi = new SqlCommand("" +
+                                    "DECLARE @NO INT " +
+                                    "DECLARE @Makul NVARCHAR(100) " +
+                                    "DECLARE @MakulAkhir VARCHAR(20) " +
+                                    "DECLARE @SKS INT " +
 
-                                    "SELECT @NO = no, @Makul = makul, @SKS = sks, @MakulAkhir = makul_akhir FROM UntidarDb.dbo.bak_makul WHERE kode_makul = @KodeMakul "+
-                                    "IF(@MakulAkhir = 'yes') "+
-                                    "BEGIN "+
+                                    "SELECT @NO = no, @Makul = makul, @SKS = sks, @MakulAkhir = makul_akhir FROM UntidarDb.dbo.bak_makul WHERE kode_makul = @KodeMakul " +
+                                    "IF(@MakulAkhir = 'yes') " +
+                                    "BEGIN " +
                                         "DECLARE @NoNIMTesis VARCHAR(12) " +
-                                        "DECLARE @Th_Angkatan varchar(9) "+
-                                        "DECLARE @KELAS VARCHAR(15) "+
-                                        "DECLARE @IDPRODI VARCHAR(6) "+
-                                        "DECLARE @PRODI VARCHAR(60) "+
-                                        "DECLARE @NAMA VARCHAR(70) "+
+                                        "DECLARE @Th_Angkatan varchar(9) " +
+                                        "DECLARE @KELAS VARCHAR(15) " +
+                                        "DECLARE @IDPRODI VARCHAR(6) " +
+                                        "DECLARE @PRODI VARCHAR(60) " +
+                                        "DECLARE @NAMA VARCHAR(70) " +
 
-                                        "SELECT      @NoNIMTesis = bak_mahasiswa.npm, @NAMA = bak_mahasiswa.nama, @Th_Angkatan = bak_mahasiswa.thn_angkatan, @KELAS = bak_mahasiswa.kelas, @IDPRODI = bak_mahasiswa.id_prog_study, @PRODI = bak_prog_study.prog_study "+
-                                        "FROM        UntidarDb.dbo.bak_mahasiswa INNER JOIN "+
-                                                    "UntidarDb.dbo.bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study "+
-                                        "WHERE       npm = @NoNPM "+
+                                        "SELECT      @NoNIMTesis = bak_mahasiswa.npm, @NAMA = bak_mahasiswa.nama, @Th_Angkatan = bak_mahasiswa.thn_angkatan, @KELAS = bak_mahasiswa.kelas, @IDPRODI = bak_mahasiswa.id_prog_study, @PRODI = bak_prog_study.prog_study " +
+                                        "FROM        UntidarDb.dbo.bak_mahasiswa INNER JOIN " +
+                                                    "UntidarDb.dbo.bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study " +
+                                        "WHERE       npm = @NoNPM " +
 
-                                        "DECLARE @ID INT "+
-                                        "DECLARE @SPP DECIMAL "+
-                                        "DECLARE @SARDIK DECIMAL "+
-                                        "DECLARE @BIAYA DECIMAL "+
+                                        "DECLARE @ID INT " +
+                                        "DECLARE @SPP DECIMAL " +
+                                        "DECLARE @SARDIK DECIMAL " +
+                                        "DECLARE @BIAYA DECIMAL " +
 
-                                        "SELECT @ID = id_biaya, @SPP = SPP, @SARDIK = sardik FROM dbo.keu_biaya WHERE thn_angkatan = @Th_Angkatan AND id_prog_study = @IDPRODI "+
-                                        "IF(@@ROWCOUNT = 0) "+
-                                        "BEGIN "+
-                                            "RAISERROR('Tagihan Periodik Ini Belum Dibuat ...', 16, 10) "+
-                                            "RETURN "+
-                                        "END "+
+                                        "SELECT @ID = id_biaya, @SPP = SPP, @SARDIK = sardik FROM dbo.keu_biaya WHERE thn_angkatan = @Th_Angkatan AND id_prog_study = @IDPRODI " +
+                                        "IF(@@ROWCOUNT = 0) " +
+                                        "BEGIN " +
+                                            "RAISERROR('Tagihan Periodik Ini Belum Dibuat ...', 16, 10) " +
+                                            "RETURN " +
+                                        "END " +
 
-                                        "SET @BIAYA = @SPP "+
+                                        "SET @BIAYA = @SPP " +
 
-                                        "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM AND billRef5 = 'TESIS' "+
-                                        "IF(@@ROWCOUNT >= 1) "+
-                                        "BEGIN "+
-                                            "RAISERROR('Posting Tagihan Skripsi Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) "+
-                                            "RETURN "+
-                                        "END "+
+                                        "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM AND billRef5 = 'TESIS' " +
+                                        "IF(@@ROWCOUNT >= 1) " +
+                                        "BEGIN " +
+                                            "RAISERROR('Posting Tagihan Skripsi Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) " +
+                                            "RETURN " +
+                                        "END " +
 
-                                        "SELECT * FROM keu_tagihan WHERE npm = @NoNPM AND jenis_tagihan = 'TESIS' "+
+                                        "SELECT * FROM keu_tagihan WHERE npm = @NoNPM AND jenis_tagihan = 'TESIS' " +
 
-                                        "IF(@@ROWCOUNT >= 1) "+
-                                        "BEGIN "+
-                                            "RAISERROR('Tagihan Skripsi Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) "+
-                                            "RETURN "+
-                                        "END "+
-                                        "ELSE "+
-                                        "BEGIN "+
+                                        "IF(@@ROWCOUNT >= 1) " +
+                                        "BEGIN " +
+                                            "RAISERROR('Tagihan Skripsi Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) " +
+                                            "RETURN " +
+                                        "END " +
+                                        "ELSE " +
+                                        "BEGIN " +
 
-                                            "INSERT INTO keu_tagihan(npm, biaya, jenis_tagihan, semester, tgl) "+
-                                            "VALUES(@NoNPM, @BIAYA, 'TESIS', @Semester, GETDATE()) "+
-                                        "END "+
+                                            "INSERT INTO keu_tagihan(npm, biaya, jenis_tagihan, semester, tgl) " +
+                                            "VALUES(@NoNPM, @BIAYA, 'TESIS', @Semester, GETDATE()) " +
+                                        "END " +
 
-                                        "DECLARE @nomorTesis INT "+
-                                        "DECLARE @NewNomorTesis VARCHAR(50) "+
-                                        "DECLARE @PreFixTesis VARCHAR(10) = '10' "+
+                                        "DECLARE @nomorTesis INT " +
+                                        "DECLARE @NewNomorTesis VARCHAR(50) " +
+                                        "DECLARE @PreFixTesis VARCHAR(10) = '10' " +
 
-                                        "SELECT @nomorTesis = ISNULL(MAX(keu_posting_bank.nomor), 0) + 1 from keu_posting_bank "+
-                                        "SELECT @NewNomorTesis = @PreFixTesis + RIGHT('00000000' + CAST(@nomorTesis AS VARCHAR(8)), 8) "+
+                                        "SELECT @nomorTesis = ISNULL(MAX(keu_posting_bank.nomor), 0) + 1 from keu_posting_bank " +
+                                        "SELECT @NewNomorTesis = @PreFixTesis + RIGHT('00000000' + CAST(@nomorTesis AS VARCHAR(8)), 8) " +
 
-                                        "INSERT INTO bpd.dbo.keu_posting_bank "+
-                                                "(billingNo,payeeId,name,billRef1,billRef2,billRef3,billRef4,billRef5,amount_total,cicilan,post_date, status, keterangan) "+
-                                        "VALUES(@NewNomorTesis,  @NoNPM, @NAMA, @PRODI, @KELAS, @Th_Angkatan, @semester, 'TESIS', @BIAYA, NULL, GETDATE(), 'unpaid', 'BIAYA TESIS') "+
-
-                                        "INSERT INTO dbo.keu_posting_bank "+
+                                        "INSERT INTO bpd.dbo.keu_posting_bank " +
                                                 "(billingNo,payeeId,name,billRef1,billRef2,billRef3,billRef4,billRef5,amount_total,cicilan,post_date, status, keterangan) " +
                                         "VALUES(@NewNomorTesis,  @NoNPM, @NAMA, @PRODI, @KELAS, @Th_Angkatan, @semester, 'TESIS', @BIAYA, NULL, GETDATE(), 'unpaid', 'BIAYA TESIS') " +
-                                    "END "+
-                                    "ELSE "+
-                                    "BEGIN "+
-                                        "RAISERROR('Buka Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) "+
-                                        "RETURN "+
-                                    "END "+
+
+                                        "INSERT INTO dbo.keu_posting_bank " +
+                                                "(billingNo,payeeId,name,billRef1,billRef2,billRef3,billRef4,billRef5,amount_total,cicilan,post_date, status, keterangan) " +
+                                        "VALUES(@NewNomorTesis,  @NoNPM, @NAMA, @PRODI, @KELAS, @Th_Angkatan, @semester, 'TESIS', @BIAYA, NULL, GETDATE(), 'unpaid', 'BIAYA TESIS') " +
+                                    "END " +
+                                    "ELSE " +
+                                    "BEGIN " +
+                                        "RAISERROR('Buka Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) " +
+                                        "RETURN " +
+                                    "END " +
                                     "", ConPasca, TransPasca);
                                     CmdSkripsi.CommandType = System.Data.CommandType.Text;
 
@@ -537,6 +537,22 @@ namespace Padu.pasca
                                     cmdInKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
                                     cmdInKRS.Parameters.AddWithValue("@no_jadwal", GVAmbilKRS.Rows[i].Cells[2].Text);
                                     cmdInKRS.ExecuteNonQuery();
+
+
+                                    //------ SET KRS VALID => S2 -----//
+                                    SqlCommand CmdKRSValid = new SqlCommand(""+
+                                        "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( "+
+                                            "SELECT        bak_krs.no "+
+                                            "FROM            bak_jadwal INNER JOIN "+
+                                            "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal "+
+                                            "WHERE npm = @npm AND semester = @semester ) " +
+                                        "", ConUntidar, TransUntidar);
+                                    CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                                    CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                                    CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                                    CmdKRSValid.ExecuteNonQuery();
+
 
                                     // ----- Simpan Perubahan -----
                                     TransUntidar.Commit();
@@ -596,87 +612,88 @@ namespace Padu.pasca
 
 
                         //5.-- POSTING tahihan to BANK by using SpInsertPostingPerMhs --
-                        SqlCommand CmdPost = new SqlCommand(""+
-                            "DECLARE @NO2 INT "+
-                            "DECLARE @Makul2 NVARCHAR(100) "+
-                            "DECLARE @MakulAkhir2 VARCHAR(20) "+
-                            "DECLARE @SKS2 INT "+
+                        SqlCommand CmdPost = new SqlCommand("" +
+                                "DECLARE @NoNIM_KRS VARCHAR(12) " +
+                                "DECLARE @Th_Angkatan_KRS varchar(9) " +
+                                "DECLARE @KELAS_KRS VARCHAR(15) " +
+                                "DECLARE @IDPRODI_KRS VARCHAR(6) " +
+                                "DECLARE @PRODI_KRS VARCHAR(60) " +
+                                "DECLARE @NAMA_KRS VARCHAR(70) " +
 
-                            "SELECT @NO2 = no, @Makul2 = makul, @SKS2 = sks, @MakulAkhir2 = makul_akhir FROM UntidarDb.dbo.bak_makul WHERE kode_makul = @KodeMakul2 "+
+                                "SELECT      @NoNIM_KRS = bak_mahasiswa.npm, @NAMA_KRS = bak_mahasiswa.nama, @Th_Angkatan_KRS = bak_mahasiswa.thn_angkatan, @KELAS_KRS = bak_mahasiswa.kelas, @IDPRODI_KRS = bak_mahasiswa.id_prog_study, @PRODI_KRS = bak_prog_study.prog_study " +
+                                "FROM        UntidarDb.dbo.bak_mahasiswa INNER JOIN " +
+                                            "UntidarDb.dbo.bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study " +
+                                "WHERE       npm = @NoNPM2 " +
 
-                            "IF(@MakulAkhir2 = 'yes') "+
-                            "BEGIN "+
-                                "DECLARE @NoNIM_KRS VARCHAR(12) "+
-                                "DECLARE @Th_Angkatan_KRS varchar(9) "+
-                                "DECLARE @KELAS_KRS VARCHAR(15) "+
-                                "DECLARE @IDPRODI_KRS VARCHAR(6) "+
-                                "DECLARE @PRODI_KRS VARCHAR(60) "+
-                                "DECLARE @NAMA_KRS VARCHAR(70) "+
+                                "DECLARE @ID2 INT " +
+                                "DECLARE @SPP2 DECIMAL " +
+                                "DECLARE @SARDIK2 DECIMAL " +
+                                "DECLARE @BIAYA2 DECIMAL " +
 
-                                "SELECT      @NoNIM_KRS = bak_mahasiswa.npm, @NAMA_KRS = bak_mahasiswa.nama, @Th_Angkatan_KRS = bak_mahasiswa.thn_angkatan, @KELAS_KRS = bak_mahasiswa.kelas, @IDPRODI_KRS = bak_mahasiswa.id_prog_study, @PRODI_KRS = bak_prog_study.prog_study "+
-                                "FROM        UntidarDb.dbo.bak_mahasiswa INNER JOIN "+ 
-                                            "UntidarDb.dbo.bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study "+
-                                "WHERE       npm = @NoNPM2 "+
-                                 
-                                "DECLARE @ID2 INT "+
-                                "DECLARE @SPP2 DECIMAL "+
-                                "DECLARE @SARDIK2 DECIMAL "+
-                                "DECLARE @BIAYA2 DECIMAL "+
+                                "SELECT @ID2 = id_biaya, @SPP2 = SPP, @SARDIK2 = sardik FROM dbo.keu_biaya WHERE thn_angkatan = @Th_Angkatan_KRS AND id_prog_study = @IDPRODI_KRS " +
+                                "IF(@@ROWCOUNT = 0) " +
+                                "BEGIN " +
+                                    "RAISERROR('Tagihan Periodik Ini Belum Dibuat ...', 16, 10) " +
+                                    "RETURN " +
+                                "END " +
 
-                                "SELECT @ID2 = id_biaya, @SPP2 = SPP, @SARDIK2 = sardik FROM dbo.keu_biaya WHERE thn_angkatan = @Th_Angkatan_KRS AND id_prog_study = @IDPRODI_KRS "+
-                                "IF(@@ROWCOUNT = 0) "+
-                                "BEGIN "+
-                                    "RAISERROR('Tagihan Periodik Ini Belum Dibuat ...', 16, 10) "+
-                                    "RETURN "+
-                                "END "+
+                                "SET @BIAYA2 = @SPP2 + @SARDIK2 " +
 
-                                "SET @BIAYA2 = @SPP2 + @SARDIK2 "+
+                                "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM2 AND billRef4 = @Semester2 AND keterangan = 'ANGSURAN SEMESTER' " +
+                                "IF(@@ROWCOUNT >= 1) " +
+                                "BEGIN " +
+                                    "RAISERROR('Posting Tagihan Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) " +
+                                    "RETURN " +
+                                "END " +
 
-                                "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM2 AND billRef4 = @Semester2 AND keterangan = 'ANGSURAN SEMESTER' "+
-                                "IF(@@ROWCOUNT >= 1) "+
-                                "BEGIN "+
-                                    "RAISERROR('Posting Tagihan Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) "+
-                                    "RETURN "+
-                                "END "+
+                                "SELECT * FROM keu_tagihan WHERE npm = @NoNPM2 AND semester = @Semester2 AND jenis_tagihan = 'ANGSURAN SEMESTER' " +
+                                "IF(@@ROWCOUNT >= 1) " +
 
-                                "SELECT * FROM keu_tagihan WHERE npm = @NoNPM2 AND semester = @Semester2 AND jenis_tagihan = 'ANGSURAN SEMESTER' "+
-                                "IF(@@ROWCOUNT >= 1) "+
+                                "BEGIN " +
+                                    "RAISERROR('Tagihan Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) " +
+                                    "RETURN " +
+                                "END " +
+                                "ELSE " +
+                                "BEGIN " +
+                                    "INSERT INTO keu_tagihan(npm, biaya, jenis_tagihan, semester, tgl) " +
+                                    "VALUES(@NoNPM2, @BIAYA2, 'ANGSURAN SEMESTER', @Semester2, GETDATE()) " +
+                                "END " +
 
-                                "BEGIN "+
-                                    "RAISERROR('Tagihan Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) "+
-                                    "RETURN "+
-                                "END "+ 
-                                "ELSE "+
-                                "BEGIN "+
-                                    "INSERT INTO keu_tagihan(npm, biaya, jenis_tagihan, semester, tgl) "+
-                                    "VALUES(@NoNPM2, @BIAYA2, 'ANGSURAN SEMESTER', @Semester2, GETDATE()) "+
-                                "END "+
+                                "DECLARE @nomorKrs INT " +
+                                "DECLARE @NewNomorKrs VARCHAR(50) " +
+                                "DECLARE @PreFixKrs VARCHAR(10) = '10' " +
 
-                                "DECLARE @nomorKrs INT "+
-                                "DECLARE @NewNomorKrs VARCHAR(50) "+
-                                "DECLARE @PreFixKrs VARCHAR(10) = '10' "+
+                                "SELECT @nomorKrs = ISNULL(MAX(keu_posting_bank.nomor), 0) + 1 from keu_posting_bank " +
+                                "SELECT @NewNomorKrs = @PreFixKrs + RIGHT('00000000' + CAST(@nomorKrs AS VARCHAR(8)), 8) " +
 
-                                "SELECT @nomorKrs = ISNULL(MAX(keu_posting_bank.nomor), 0) + 1 from keu_posting_bank "+
-                                "SELECT @NewNomorKrs = @PreFixKrs + RIGHT('00000000' + CAST(@nomorKrs AS VARCHAR(8)), 8) "+
+                                "INSERT INTO bpd.dbo.keu_posting_bank " +
+                                                         "(billingNo, payeeId, name, billRef1, billRef2, billRef3, billRef4, billRef5, amount_total, cicilan, post_date, status, keterangan) " +
+                                "VALUES(@NewNomorKrs, @NoNPM2, @NAMA_KRS, @PRODI_KRS, @KELAS_KRS, @Th_Angkatan_KRS, @semester2, NULL, @BIAYA2, NULL, GETDATE(), 'unpaid', 'ANGSURAN SEMESTER') " +
 
-                                "INSERT INTO bpd.dbo.keu_posting_bank "+
-                                                         "(billingNo, payeeId, name, billRef1, billRef2, billRef3, billRef4, billRef5, amount_total, cicilan, post_date, status, keterangan) "+
-                                "VALUES(@NewNomorKrs, @NoNPM2, @NAMA_KRS, @PRODI_KRS, @KELAS_KRS, @Th_Angkatan_KRS, @semester2, NULL, @BIAYA2, NULL, GETDATE(), 'unpaid', 'ANGSURAN SEMESTER') "+
-
-                                "INSERT INTO keu_posting_bank "+
-                                                         "(billingNo, payeeId, name, billRef1, billRef2, billRef3, billRef4, billRef5, amount_total, cicilan, post_date, status, keterangan) "+
-                                "VALUES(@NewNomorKrs, @NoNPM2, @NAMA_KRS, @PRODI_KRS, @KELAS_KRS, @Th_Angkatan_KRS, @semester2, NULL, @BIAYA2, NULL, GETDATE(), 'unpaid', 'ANGSRAN SEMESTER') "+
-                            "END "+
-                            "ELSE "+
-                            "BEGIN "+
-                                "RAISERROR('Buka Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) "+
-                                "RETURN "+
-                            "END "+
+                                "INSERT INTO keu_posting_bank " +
+                                                         "(billingNo, payeeId, name, billRef1, billRef2, billRef3, billRef4, billRef5, amount_total, cicilan, post_date, status, keterangan) " +
+                                "VALUES(@NewNomorKrs, @NoNPM2, @NAMA_KRS, @PRODI_KRS, @KELAS_KRS, @Th_Angkatan_KRS, @semester2, NULL, @BIAYA2, NULL, GETDATE(), 'unpaid', 'ANGSRAN SEMESTER') " +
                             "", ConPasca, TransPasca);
-                        CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        CmdPost.CommandType = System.Data.CommandType.Text;
                         CmdPost.Parameters.AddWithValue("@NoNPM2", this.Session["Name"].ToString());
                         CmdPost.Parameters.AddWithValue("@Semester2", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
                         CmdPost.ExecuteNonQuery();
+
+
+                        //------ SET KRS VALID => S2 -----//
+                        SqlCommand CmdKRSValid = new SqlCommand("" +
+                            "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( " +
+                                "SELECT        bak_krs.no " +
+                                "FROM            bak_jadwal INNER JOIN " +
+                                "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal " +
+                                "WHERE npm = @npm AND semester = @semester ) " +
+                            "", ConUntidar, TransUntidar);
+                        CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                        CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                        CmdKRSValid.ExecuteNonQuery();
 
                         //string FormattedString9 = string.Format
                         //    (new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
@@ -787,6 +804,21 @@ namespace Padu.pasca
                                     cmdInKRS.ExecuteNonQuery();
                                 }
                             }
+
+                            //------ SET KRS VALID => S2 -----//
+                            SqlCommand CmdKRSValid = new SqlCommand("" +
+                                "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( " +
+                                    "SELECT        bak_krs.no " +
+                                    "FROM            bak_jadwal INNER JOIN " +
+                                    "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal " +
+                                    "WHERE npm = @npm AND semester = @semester ) " +
+                                "", con, trans);
+                            CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                            CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                            CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                            CmdKRSValid.ExecuteNonQuery();
+
 
                             trans.Commit();
                             trans.Dispose();
@@ -1003,6 +1035,20 @@ namespace Padu.pasca
                                         cmdInKRS.Parameters.AddWithValue("@no_jadwal", GVAmbilKRS.Rows[i].Cells[2].Text);
                                         cmdInKRS.ExecuteNonQuery();
 
+                                        //------ SET KRS VALID => S2 -----//
+                                        SqlCommand CmdKRSValid = new SqlCommand("" +
+                                            "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( " +
+                                                "SELECT        bak_krs.no " +
+                                                "FROM            bak_jadwal INNER JOIN " +
+                                                "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal " +
+                                                "WHERE npm = @npm AND semester = @semester ) " +
+                                            "", ConUntidar, TransUntidar);
+                                        CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                                        CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                                        CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                                        CmdKRSValid.ExecuteNonQuery();
+
                                         // ----- Simpan Perubahan -----
                                         TransUntidar.Commit();
                                         TransPasca.Commit();
@@ -1059,18 +1105,9 @@ namespace Padu.pasca
                                 }
                             }
 
-
+                            
                             //5.-- POSTING tahihan to BANK by using SpInsertPostingPerMhs --
                             SqlCommand CmdPost = new SqlCommand("" +
-                                "DECLARE @NO2 INT " +
-                                "DECLARE @Makul2 NVARCHAR(100) " +
-                                "DECLARE @MakulAkhir2 VARCHAR(20) " +
-                                "DECLARE @SKS2 INT " +
-
-                                "SELECT @NO2 = no, @Makul2 = makul, @SKS2 = sks, @MakulAkhir2 = makul_akhir FROM UntidarDb.dbo.bak_makul WHERE kode_makul = @KodeMakul2 " +
-
-                                "IF(@MakulAkhir2 = 'yes') " +
-                                "BEGIN " +
                                     "DECLARE @NoNIM_KRS VARCHAR(12) " +
                                     "DECLARE @Th_Angkatan_KRS varchar(9) " +
                                     "DECLARE @KELAS_KRS VARCHAR(15) " +
@@ -1131,14 +1168,9 @@ namespace Padu.pasca
                                     "INSERT INTO keu_posting_bank " +
                                                              "(billingNo, payeeId, name, billRef1, billRef2, billRef3, billRef4, billRef5, amount_total, cicilan, post_date, status, keterangan) " +
                                     "VALUES(@NewNomorKrs, @NoNPM2, @NAMA_KRS, @PRODI_KRS, @KELAS_KRS, @Th_Angkatan_KRS, @semester2, NULL, @BIAYA2, NULL, GETDATE(), 'unpaid', 'ANGSRAN SEMESTER') " +
-                                "END " +
-                                "ELSE " +
-                                "BEGIN " +
-                                    "RAISERROR('Buka Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) " +
-                                    "RETURN " +
-                                "END " +
                                 "", ConPasca, TransPasca);
-                            CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
+                            CmdPost.CommandType = System.Data.CommandType.Text;
+
                             CmdPost.Parameters.AddWithValue("@NoNPM2", this.Session["Name"].ToString());
                             CmdPost.Parameters.AddWithValue("@Semester2", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
                             CmdPost.ExecuteNonQuery();
@@ -1147,6 +1179,22 @@ namespace Padu.pasca
                             //    (new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
                             //this.LbPostSuccess.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
                             //this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
+
+
+                            //------ SET KRS VALID => S2 -----//
+                            SqlCommand CmdKRSValid = new SqlCommand("" +
+                                "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( " +
+                                    "SELECT        bak_krs.no " +
+                                    "FROM            bak_jadwal INNER JOIN " +
+                                    "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal " +
+                                    "WHERE npm = @npm AND semester = @semester ) " +
+                                "", ConUntidar, TransUntidar);
+                            CmdKRSValid.CommandType = System.Data.CommandType.Text;
+
+                            CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                            CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
+                            CmdKRSValid.ExecuteNonQuery();
+
 
                             // 6.---------- Simpan Perubahan --------------
                             TransUntidar.Commit();
@@ -1275,7 +1323,7 @@ namespace Padu.pasca
                         }
                     }
 
-                    // --------- Mahasiswa Baru ----------
+                    // C. ========= Mahasiswa Baru =========
                     if (this.LbTahun.Text.Trim() == TahunMhs)
                     {
                         // 1. ------ Cek Masa KRS -------
@@ -1384,7 +1432,7 @@ namespace Padu.pasca
                     }
                     else
                     {
-                        // ------------ INPUT KRS MAHASISWA LAMA -------------- //
+                        // D. ============= INPUT KRS MAHASISWA LAMA ==============//
                         // 1. ------ Cek Masa KRS -------
                         SqlCommand CmdCekMasa = new SqlCommand("" +
                             "DECLARE @tgl_mulai DATE " +
@@ -1491,7 +1539,7 @@ namespace Padu.pasca
 
                     }
 
-                    // 3. ================= Cek IP Semester Sebelumnya & Get Max SKS ================ ////
+                    // E. ================= Cek IP Semester Sebelumnya & Get Max SKS ================ ////
                     if (this.LbTahun.Text.Trim() == TahunMhs)
                     {
                         // ---------- MAHASISWA BARU ----------------//
@@ -1584,7 +1632,7 @@ namespace Padu.pasca
 
                     //this.LbMaxSKS.Text = _MaxKRS.ToString().Trim();
 
-                    // 4. =================== Cek KRS Semester Ini, error jika Sudah ada =======================
+                    // F. =================== Cek KRS Semester Ini, error jika Sudah ada =======================
                     SqlCommand CekKRS = new SqlCommand("SpCekKrs", con);
                     CekKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -1593,7 +1641,35 @@ namespace Padu.pasca
 
                     CekKRS.ExecuteNonQuery();
 
-                    // 5. ================= Fill Gridview  =======================
+                    //G. ============= Read PIUTANG ==================//
+                    bool hutang = false;
+
+                    SqlCommand CmdCekPiutang = new SqlCommand("SELECT payeeId, status FROM keu_posting_bank WHERE payeeId=@NPM", ConPasca);
+                    CmdCekPiutang.CommandType = System.Data.CommandType.Text;
+                    CmdCekPiutang.Parameters.AddWithValue("@NPM", this.Session["Name"].ToString());
+
+                    using (SqlDataReader rdr = CmdCekPiutang.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                if (rdr["status"].ToString().Trim() == "unpaid")
+                                {
+                                    hutang = true;
+                                }
+                            }
+
+                        }
+                    }
+
+                    if (hutang == true)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Anda Tercatat Belum Melunasi Tagihan');", true);
+                        return;
+                    }
+
+                    // H. ================= Fill Gridview  =======================
                     SqlCommand CmdKRS = new SqlCommand("SpListKRS2", con);
                     CmdKRS.CommandType = System.Data.CommandType.StoredProcedure;
 

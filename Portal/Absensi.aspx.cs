@@ -142,6 +142,7 @@ namespace Portal
                 DataTable TableMakul = new DataTable();
                 TableMakul.Columns.Add("NPM");
                 TableMakul.Columns.Add("Nama");
+                TableMakul.Columns.Add("Validasi KRS");
 
                 using (SqlDataReader rdr = CmdMakul.ExecuteReader())
                 {
@@ -155,6 +156,15 @@ namespace Portal
                             DataRow datarow = TableMakul.NewRow();
                             datarow["NPM"] = rdr["npm"];
                             datarow["Nama"] = rdr["nama"];
+
+                            if(rdr["valid"] == DBNull.Value)
+                            {
+                                datarow["Validasi KRS"] = "BELUM DIVALIDASI";
+                            }
+                            else if (rdr["valid"].ToString().Trim() == "1")
+                            {
+                                datarow["Validasi KRS"] = "DISETUJUI";
+                            }
 
                             TableMakul.Rows.Add(datarow);
                         }
