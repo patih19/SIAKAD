@@ -308,6 +308,7 @@
     <Content Include="pasca\password.aspx" />
     <Content Include="pasca\ViewKrs.aspx" />
     <Content Include="pasca\EditKrs.aspx" />
+    <Content Include="pasca\UpdateBiodata.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1-vsdoc.js" />
@@ -537,6 +538,13 @@
     </Compile>
     <Compile Include="pasca\EditKrs.aspx.designer.cs">
       <DependentUpon>EditKrs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pasca\UpdateBiodata.aspx.cs">
+      <DependentUpon>UpdateBiodata.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pasca\UpdateBiodata.aspx.designer.cs">
+      <DependentUpon>UpdateBiodata.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="web_services\ServiceCS.asmx.cs">

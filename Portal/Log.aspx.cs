@@ -15,7 +15,7 @@ namespace Portal
         //prevent back after login on page init
         protected override void OnInit(EventArgs e)
         {
-            if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null)
+            if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null || this.Session["jenjang"] == null)
             {
                 // ---- avoid back after logout -----
                 Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
@@ -33,7 +33,7 @@ namespace Portal
                 HttpContext.Current.Response.Cache.SetNoStore();
                 // --- End aviod back after logout -------
             }
-            else if (this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null && this.Session["Name"] != null)
+            else if (this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null && this.Session["Name"] != null && this.Session["jenjang"] != null)
             {
                 // kehalaman smuntidar staff
                 Response.Redirect("~/home.aspx");
@@ -60,11 +60,11 @@ namespace Portal
 
             if (Page.IsPostBack) // user must login first
             {
-                if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null)
+                if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null || this.Session["jenjang"] == null)
                 {
                     return;
                 }
-                else if (this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null && this.Session["Name"] != null)
+                else if (this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null && this.Session["Name"] != null && this.Session["jenjang"] != null)
                 {
                     // kehalaman home
                     Response.Redirect("~/home.aspx");
@@ -86,7 +86,7 @@ namespace Portal
                 return;
             }
 
-            if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null)
+            if (this.Session["Name"] == null || this.Session["system"] == null || this.Session["level"] == null || this.Session["jenjang"] == null)
             {
                 if (!Autentication(this.TbUser.Text, this.TBPasswd.Text))
                 {
@@ -121,6 +121,8 @@ namespace Portal
                                         this.Session["level"] = rdr["tingkatan"].ToString();
                                         //prodi
                                         this.Session["Prodi"] = rdr["kelompok"].ToString();
+                                        //jenjang
+                                        this.Session["jenjang"] = rdr["jenjang"].ToString();
 
                                         Response.Redirect("~/home.aspx");
                                     }
@@ -137,7 +139,7 @@ namespace Portal
                     }
                 }
             }
-            else if (this.Session["Name"] != null && this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null)
+            else if (this.Session["Name"] != null && this.Session["system"].ToString() == "portalsiamik" && this.Session["level"] != null && this.Session["jenjang"] != null)
             {
                 Response.Redirect("~/home.aspx");
             }

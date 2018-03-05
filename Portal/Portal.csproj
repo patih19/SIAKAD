@@ -770,6 +770,7 @@
     <Content Include="DosenWali.aspx" />
     <Content Include="PermohonanCuti.aspx" />
     <Content Include="ValidasiKRS.aspx" />
+    <Content Include="MhsTunggu.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1007,6 +1008,13 @@
     </Compile>
     <Compile Include="ValidasiKRS.aspx.designer.cs">
       <DependentUpon>ValidasiKRS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MhsTunggu.aspx.cs">
+      <DependentUpon>MhsTunggu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MhsTunggu.aspx.designer.cs">
+      <DependentUpon>MhsTunggu.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

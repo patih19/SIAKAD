@@ -302,7 +302,8 @@ namespace Portal
 
                     CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DlSemester.SelectedValue);
                     CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
-
+                    CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
+                    
                     SqlParameter Status = new SqlParameter();
                     Status.ParameterName = "@output";
                     Status.SqlDbType = System.Data.SqlDbType.VarChar;

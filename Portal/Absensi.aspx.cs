@@ -157,7 +157,7 @@ namespace Portal
                             datarow["NPM"] = rdr["npm"];
                             datarow["Nama"] = rdr["nama"];
 
-                            if(rdr["valid"] == DBNull.Value)
+                            if(rdr["valid"] == DBNull.Value || rdr["valid"].ToString().Trim() == "0")
                             {
                                 datarow["Validasi KRS"] = "BELUM DIVALIDASI";
                             }

@@ -32,7 +32,7 @@
         }
     </script>
 
-        <script type="text/jscript">
+    <script type="text/jscript">
         $(document).ready(function () {
             $('#ctl00_ContentPlaceHolder1_GVDosenAdd').DataTable({
                 'dom': '<"top"f>rtip',
@@ -57,6 +57,7 @@
 
         });
     </script>
+
     <style type="text/css">
         .mdl
         {
@@ -89,6 +90,7 @@
             width: 95px;
         }
     </style>
+
     <style type="text/css">
         .top {
             float: left;

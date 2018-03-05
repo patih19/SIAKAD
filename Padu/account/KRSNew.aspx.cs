@@ -723,7 +723,7 @@ namespace Padu.account
                                     //CmdCekMasa.Transaction = trans;
                                     CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                                    CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                                    CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedValue.Trim());
                                     CmdCekMasaBatal.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
                                     CmdCekMasaBatal.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
@@ -2784,26 +2784,63 @@ namespace Padu.account
 
                         if (Status.Value.ToString() == "OUT")
                         {
-                            PanelKRS.Enabled = false;
-                            PanelKRS.Visible = false;
 
-                            this.PanelEditKRS.Visible = false;
-                            this.PanelKRS.Visible = false;
-                            this.DLSemester.SelectedValue = "Semester";
+                            //------ Cek Masa Batal Tambah -------
+                            SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                            CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                            TransUntidar.Rollback();
-                            TransUKT.Rollback();
+                            CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedValue.Trim());
+                            CmdCekMasaBatal.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
+                            CmdCekMasaBatal.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
-                            ConUntidar.Close();
-                            ConUKT.Close();
-                            ConUntidar.Dispose();
-                            ConUKT.Dispose();
+                            SqlParameter StatusBtl = new SqlParameter();
+                            StatusBtl.ParameterName = "@output";
+                            StatusBtl.SqlDbType = System.Data.SqlDbType.VarChar;
+                            StatusBtl.Size = 20;
+                            StatusBtl.Direction = System.Data.ParameterDirection.Output;
+                            CmdCekMasaBatal.Parameters.Add(StatusBtl);
+
+                            CmdCekMasaBatal.ExecuteNonQuery();
+
+                            if (StatusBtl.Value.ToString() == "OUT")
+                            {
+                                TransUntidar.Rollback();
+                                TransUKT.Rollback();
+
+                                ConUntidar.Close();
+                                ConUKT.Close();
+                                ConUntidar.Dispose();
+                                ConUKT.Dispose();
+
+                                this.DLSemester.SelectedValue = "Semester";
+
+                                string message = "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS Mahasiswa Baru...')";
+                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
+                                return;
+                            }
+
+                            //PanelKRS.Enabled = false;
+                            //PanelKRS.Visible = false;
+
+                            //this.PanelEditKRS.Visible = false;
+                            //this.PanelKRS.Visible = false;
+                            //this.DLSemester.SelectedValue = "Semester";
+
+                            //TransUntidar.Rollback();
+                            //TransUKT.Rollback();
+
+                            //ConUntidar.Close();
+                            //ConUKT.Close();
+                            //ConUntidar.Dispose();
+                            //ConUKT.Dispose();
 
                             //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...');", true);
 
-                            string message = "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...')";
-                            ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                            return;
+                            //string message = "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...')";
+                            //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                            //return;
                         }
 
                         // 2. ----=============== Update Data KHS ==================---- //
@@ -3156,26 +3193,65 @@ namespace Padu.account
 
                             if (Status.Value.ToString() == "OUT")
                             {
-                                PanelKRS.Enabled = false;
-                                PanelKRS.Visible = false;
 
-                                this.PanelEditKRS.Visible = false;
-                                this.PanelKRS.Visible = false;
-                                this.DLSemester.SelectedValue = "Semester";
+                                //------ Cek Masa Batal Tambah -------
+                                SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                                CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                                TransUntidar.Rollback();
-                                TransUKT.Rollback();
+                                CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedValue.Trim());
+                                CmdCekMasaBatal.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
+                                CmdCekMasaBatal.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
-                                ConUntidar.Close();
-                                ConUKT.Close();
-                                ConUntidar.Dispose();
-                                ConUKT.Dispose();
+                                SqlParameter StatusBtl = new SqlParameter();
+                                StatusBtl.ParameterName = "@output";
+                                StatusBtl.SqlDbType = System.Data.SqlDbType.VarChar;
+                                StatusBtl.Size = 20;
+                                StatusBtl.Direction = System.Data.ParameterDirection.Output;
+                                CmdCekMasaBatal.Parameters.Add(StatusBtl);
 
-                                //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...');", true);
+                                CmdCekMasaBatal.ExecuteNonQuery();
 
-                                string message = "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...')";
-                                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
-                                return;
+                                if (StatusBtl.Value.ToString() == "OUT")
+                                {
+                                    TransUntidar.Rollback();
+                                    TransUKT.Rollback();
+
+                                    ConUntidar.Close();
+                                    ConUKT.Close();
+                                    ConUntidar.Dispose();
+                                    ConUKT.Dispose();
+
+                                    this.DLSemester.SelectedValue = "Semester";
+
+                                    string message = "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS Mahasiswa Baru...')";
+                                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                                    //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
+                                    return;
+                                }
+
+
+
+                                //PanelKRS.Enabled = false;
+                                //PanelKRS.Visible = false;
+
+                                //this.PanelEditKRS.Visible = false;
+                                //this.PanelKRS.Visible = false;
+                                //this.DLSemester.SelectedValue = "Semester";
+
+                                //TransUntidar.Rollback();
+                                //TransUKT.Rollback();
+
+                                //ConUntidar.Close();
+                                //ConUKT.Close();
+                                //ConUntidar.Dispose();
+                                //ConUKT.Dispose();
+
+                                ////this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...');", true);
+
+                                //string message = "alert('Tidak Ada Jadwal KRS, Proses dibatalkan ...')";
+                                //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                                //return;
                             }
 
                             // 2. ----=============== Update Data KHS ==================---- //

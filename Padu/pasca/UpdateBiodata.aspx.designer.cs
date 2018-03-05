@@ -10,177 +10,177 @@
 namespace Padu.pasca {
     
     
-    public partial class Pasca {
+    public partial class UpdateBiodata {
         
         /// <summary>
-        /// Head1 control.
+        /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// Link1 control.
+        /// TbNIK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link1;
+        protected global::System.Web.UI.WebControls.TextBox TbNIK;
         
         /// <summary>
-        /// Link2 control.
+        /// TbTmpLahir control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link2;
+        protected global::System.Web.UI.WebControls.TextBox TbTmpLahir;
         
         /// <summary>
-        /// Link3 control.
+        /// TBTtl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link3;
+        protected global::System.Web.UI.WebControls.TextBox TBTtl;
         
         /// <summary>
-        /// Link4 control.
+        /// DLGender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link4;
+        protected global::System.Web.UI.WebControls.DropDownList DLGender;
         
         /// <summary>
-        /// Link5 control.
+        /// DLAgama control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link5;
+        protected global::System.Web.UI.WebControls.DropDownList DLAgama;
         
         /// <summary>
-        /// Link6 control.
+        /// DropDownListProv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlLink Link6;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListProv;
         
         /// <summary>
-        /// head control.
+        /// CascadingDropDownProv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::AjaxControlToolkit.CascadingDropDown CascadingDropDownProv;
         
         /// <summary>
-        /// form1 control.
+        /// DropDownListKab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListKab;
         
         /// <summary>
-        /// Img1 control.
+        /// CascadingDropDownKotakab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Img1;
+        protected global::AjaxControlToolkit.CascadingDropDown CascadingDropDownKotakab;
         
         /// <summary>
-        /// keluar control.
+        /// DropDownListKec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor keluar;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListKec;
         
         /// <summary>
-        /// NavDashdoard control.
+        /// CascadingDropDownKec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavDashdoard;
+        protected global::AjaxControlToolkit.CascadingDropDown CascadingDropDownKec;
         
         /// <summary>
-        /// NavBiodata control.
+        /// DropDownListDesa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavBiodata;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListDesa;
         
         /// <summary>
-        /// NavMasterKRS control.
+        /// CascadingDropDownDesa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavMasterKRS;
+        protected global::AjaxControlToolkit.CascadingDropDown CascadingDropDownDesa;
         
         /// <summary>
-        /// SubNavMasterKRS control.
+        /// TbAlamat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SubNavMasterKRS;
+        protected global::System.Web.UI.WebControls.TextBox TbAlamat;
         
         /// <summary>
-        /// NavKHS control.
+        /// TbKdPOS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavKHS;
+        protected global::System.Web.UI.WebControls.TextBox TbKdPOS;
         
         /// <summary>
-        /// NavPassword control.
+        /// TBHp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NavPassword;
+        protected global::System.Web.UI.WebControls.TextBox TBHp;
         
         /// <summary>
-        /// logout control.
+        /// TbEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor logout;
+        protected global::System.Web.UI.WebControls.TextBox TbEmail;
         
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// BtnSvBiodata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Button BtnSvBiodata;
     }
 }

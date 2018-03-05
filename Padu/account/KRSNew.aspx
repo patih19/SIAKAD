@@ -309,7 +309,7 @@
                                     Pembimbing Akademik : <asp:Label ID="LbDosenPA" runat="server" Text=""></asp:Label>
                                 </asp:Panel> 
                                 <asp:Panel ID="PanelInfo" runat="server" CssClass="form-control" BackColor="#FFFF99" >                                   
-                                    <p>KRS tidak divalidasi akan berdampak tidak dapat mengikuti perkuliahan dan nilai tidak dapat diinput</></p>
+                                    <p>KRS tidak divalidasi akan berdampak tidak dapat mengikuti perkuliahan dan nilai tidak dapat diinput</p>
                                 </asp:Panel>
                                 <br />
                                 <asp:GridView ID="GVListKrs" runat="server" CssClass="table table-striped table-bordered"

@@ -51,6 +51,18 @@
             <div class="col-md-9">
                 <div class="col-md-12">
                     <div class="text-center">
+                        <span style="font-size: large" >KUISIONER PENILAIAN KINERJA DOSEN OLEH MAHASISWA</span></div>
+                    <p></p>
+                    <div class="panel panel-default">
+                        <div class="panel-heading ui-draggable-handle">
+                            <strong>From Kuisioner Penilaian </strong>
+                        </div>
+                        <div class="panel-body">
+                             Penilaian kinerja dosen oleh mahasiswa melalui laman berikut, <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://goo.gl/forms/7Q92YtcaahMTqs042" Target="_blank">kuisioner</asp:HyperLink> 
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="text-center">
                         <span style="font-size: large" >ALUR PENGISIAN DAN BIMBIGAN KRS</span></div>
                     <br />
                     <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/DIAGRAM ALIR SIPADU_0102-1.jpg" /><p></p>

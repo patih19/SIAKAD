@@ -88,6 +88,12 @@
                                 Home
                             </a>
                         </li>
+                        <li runat="server" id="NavBiodata">
+                            <a href="<%= Page.ResolveUrl("~/pasca/UpdateBiodata") %>">
+                                <i class="fa fa-list-alt"></i>
+                                Biodata
+                            </a>
+                        </li>
                         <li runat="server" id="NavMasterKRS"  class="dropdown">
                             <a href="javascript:;">
                                 <i class="fa fa-file-text"></i>
