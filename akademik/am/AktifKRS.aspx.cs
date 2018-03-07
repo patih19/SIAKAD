@@ -36,14 +36,21 @@ namespace akademik.am
                         " DECLARE @ColName NVARCHAR(MAX) = '' " +
                         " DECLARE @SQL NVARCHAR(max) = '' " +
 
-                        " SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.id_prog_study, bak_mahasiswa.thn_angkatan " +
-                        " INTO #TempMhsAktif " +
-                        " FROM            bak_jadwal INNER JOIN " +
-                                                 "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN " +
-                                                 "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN " +
-                                                 "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study " +
-                        " WHERE(bak_jadwal.semester = @semester ) AND (bak_mahasiswa.status='A') " +
-                        " GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.id_prog_study, bak_mahasiswa.thn_angkatan " +
+                        "SELECT * INTO #TempMhsAktif FROM ( "+
+	                        "SELECT MhsKrs.npm, MhsKrs.nama, MhsKrs.semester, MhsKrs.prog_study, MhsKrs.id_prog_study, MhsKrs.thn_angkatan FROM( "+
+                                "SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.id_prog_study, bak_mahasiswa.thn_angkatan "+
+                                "FROM            bak_jadwal INNER JOIN "+
+                                                        "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
+                                                        "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
+                                                        "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
+                                "WHERE (bak_jadwal.semester = @semester) "+
+                                "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.id_prog_study, bak_mahasiswa.thn_angkatan "+
+                            ") AS MhsKrs LEFT OUTER JOIN "+
+                            "( "+
+                                "SELECT npm, status FROM bak_cuti_nonaktif WHERE  semester = @semester "+
+                            ") AS StatusBerjalan on MhsKRS.npm = StatusBerjalan.npm "+
+                            "WHERE StatusBerjalan.status = 'A' OR StatusBerjalan.status IS NULL "+
+                        ") AS MhsAktif "+
 
                         " Select prog_study AS PROGRAM_STUDI, thn_angkatan, COUNT(*) as jumlah " +
                         " INTO #TempPivot " +

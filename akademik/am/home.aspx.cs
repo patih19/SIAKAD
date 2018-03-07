@@ -165,27 +165,38 @@ namespace akademik.am
                     SqlCommand CmdJadwal = new SqlCommand(""+
                         "SELECT A.id_prog_study, A.prog_study, A.jumlah_aktif, N.jumlah_nonaktif, C.jumlah_cuti, K.jumlah_keluar, L.jumlah_lulus FROM "+
                         "( "+
-                            //-- ============== new perhitungan Aktif ================= -- 
-                            "SELECT id_prog_study, prog_study, semester, setatus, COUNT(*) AS jumlah_aktif FROM "+
-                            "( "+
-                                "SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.id_prog_study, bak_prog_study.prog_study, 'A' AS setatus "+
-                                "FROM            bak_jadwal INNER JOIN "+
-                                                            "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
-                                                            "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
-                                                            "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
-                                "WHERE(dbo.bak_mahasiswa.status  IN('A')) AND(LEFT(bak_mahasiswa.thn_angkatan, 4) > 2000) AND bak_prog_study.jenjang IN('S2') AND semester = @SemNewHitungJumlah "+
-                                "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.status, bak_mahasiswa.thn_angkatan, bak_prog_study.id_prog_study "+
-                                "UNION ALL "+
-                                "SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.id_prog_study, bak_prog_study.prog_study, 'A' AS setatus "+
-                                "FROM            bak_jadwal INNER JOIN "+
-                                                            "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
-                                                            "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
-                                                            "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
-                                "WHERE (dbo.bak_mahasiswa.status  IN('A')) AND(LEFT(bak_mahasiswa.thn_angkatan, 4) > 2000) AND bak_prog_study.jenjang NOT IN ('S2') AND dbo.bak_jadwal.semester = @SemNewHitungJumlah "+
-                                "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.status, bak_mahasiswa.thn_angkatan, bak_prog_study.id_prog_study "+
-                            ") AS StatusMhs "+
-                            "GROUP BY StatusMhs.id_prog_study, StatusMhs.prog_study, StatusMhs.semester, StatusMhs.setatus "+
-                        ") AS A LEFT OUTER JOIN "+
+                           // -- ============== new perhitungan Aktif ================= --
+                            "SELECT * FROM( "+
+                                "SELECT StatusMhs.id_prog_study, StatusMhs.prog_study, StatusMhs.semester, StatusMhs.setatus, COUNT(*) AS jumlah_aktif FROM "+
+                                "( "+
+                                    //-- === Mhs KRS === --
+                                    "SELECT MhsKRS.id_prog_study, MhsKRS.nama, MhsKRS.npm, MhsKRS.prog_study, MhsKRS.semester, StatusBerjalan.status as setatus FROM( "+
+                                        "SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.id_prog_study, bak_prog_study.prog_study "+
+                                        "FROM            bak_jadwal INNER JOIN "+
+                                                                    "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
+                                                                    "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
+                                                                    "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
+                                        "WHERE (LEFT(bak_mahasiswa.thn_angkatan, 4) > 1990) AND bak_prog_study.jenjang IN('S2') AND semester = @SemNewHitungJumlah "+
+                                        "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.status, bak_mahasiswa.thn_angkatan, bak_prog_study.id_prog_study "+
+                                        "UNION ALL "+
+                                        "SELECT        bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.id_prog_study, bak_prog_study.prog_study "+
+                                        "FROM            bak_jadwal INNER JOIN "+
+                                                                    "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal INNER JOIN "+
+                                                                    "bak_mahasiswa ON bak_krs.npm = bak_mahasiswa.npm INNER JOIN "+
+                                                                    "bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study "+
+                                        "WHERE(LEFT(bak_mahasiswa.thn_angkatan, 4) > 1990) AND bak_prog_study.jenjang NOT IN('S2') AND dbo.bak_jadwal.semester = @SemNewHitungJumlah "+
+                                        "GROUP BY bak_mahasiswa.npm, bak_mahasiswa.nama, bak_jadwal.semester, bak_prog_study.prog_study, bak_mahasiswa.status, bak_mahasiswa.thn_angkatan, bak_prog_study.id_prog_study "+
+                                    ") AS MhsKRS LEFT OUTER JOIN "+
+                                    "( "+
+                                    // -- == Status Berjalan == --
+                                        "SELECT npm, status FROM bak_cuti_nonaktif WHERE  semester = @SemNewHitungJumlah "+
+                                    ") AS StatusBerjalan on MhsKRS.npm = StatusBerjalan.npm "+
+                                ") AS StatusMhs "+
+                                "WHERE StatusMhs.setatus = 'A' or StatusMhs.setatus is NULL "+
+                                "GROUP BY StatusMhs.id_prog_study, StatusMhs.prog_study, StatusMhs.semester, StatusMhs.setatus "+
+                            ") as MhsAktifKRS"+ 
+
+                        ") AS A LEFT OUTER JOIN " +
                         "( "+
                             //-- ============== new perhitungan Non Aktif ================= --
                             "SELECT id_prog_study, prog_study, semester, setatus, COUNT(*) AS jumlah_nonaktif FROM "+
