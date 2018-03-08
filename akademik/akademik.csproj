@@ -169,6 +169,7 @@
     <Content Include="am\AktifKRS.aspx" />
     <Content Include="am\UpdateStatus.aspx" />
     <Content Include="am\DataDosen.aspx" />
+    <Content Include="am\MhsPerProv.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.3.3.6.css" />
@@ -869,6 +870,13 @@
     </Compile>
     <Compile Include="am\DataDosen.aspx.designer.cs">
       <DependentUpon>DataDosen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="am\MhsPerProv.aspx.cs">
+      <DependentUpon>MhsPerProv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="am\MhsPerProv.aspx.designer.cs">
+      <DependentUpon>MhsPerProv.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front.Master.cs">
       <DependentUpon>Front.Master</DependentUpon>
