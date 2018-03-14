@@ -27,7 +27,7 @@
                                                             <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control">
                                                             </asp:DropDownList>
                                                             <ajaxToolkit:CascadingDropDown ID="CascadingDLTahun" TargetControlID="DLTahun" runat="server"
-                                                                Category="DLTahun" ServicePath="~/web_services/ServiceCS.asmx" ServiceMethod="semester"
+                                                                Category="DLTahun" ServicePath="~/web_services/ServiceCS.asmx" ServiceMethod="semester3"
                                                                 LoadingText="Loading" PromptText="Tahun">
                                                             </ajaxToolkit:CascadingDropDown>
 

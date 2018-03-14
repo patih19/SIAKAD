@@ -55,6 +55,29 @@ namespace SIM.WEB_SERVICE
         }
 
         [WebMethod]
+        public CascadingDropDownNameValue[] semester3 (string knownCategoryValues, string category)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            // select TOP 1 semester from keu_biaya ORDER BY semester DESC
+            SqlCommand sqlCommand = new SqlCommand("select TOP 3 bak_kal.thn from bak_kal group by thn ORDER BY thn DESC");
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                sqlCommand.Connection = sqlConnection;
+                using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                {
+                    List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
+                    while (sqlDataReader.Read())
+                        list.Add(new CascadingDropDownNameValue(sqlDataReader["thn"].ToString(), sqlDataReader["thn"].ToString()));
+                    sqlDataReader.Close();
+                    sqlDataReader.Dispose();
+                    sqlConnection.Close();
+                    return list.ToArray();
+                }
+            }
+        }
+
+        [WebMethod]
         public CascadingDropDownNameValue[] tahun(string knownCategoryValues, string category)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
