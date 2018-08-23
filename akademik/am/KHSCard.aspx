@@ -17,13 +17,13 @@
             font-size: small;
         }
     </style>
-        <script type="text/javascript">
-                function fixform() {
-                    if (opener.document.getElementById("aspnetForm").target != "_blank") return;
-                    opener.document.getElementById("aspnetForm").target = "";
-                    opener.document.getElementById("aspnetForm").action = opener.location.href;
-                }
-        </script>
+    <script type="text/javascript">
+        function fixform() {
+            if (opener.document.getElementById("aspnetForm").target != "_blank") return;
+            opener.document.getElementById("aspnetForm").target = "";
+            opener.document.getElementById("aspnetForm").action = opener.location.href;
+        }
+    </script>
 </head>
 <body onload="fixform()">
     <form id="form1" runat="server">

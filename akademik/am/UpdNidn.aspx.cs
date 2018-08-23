@@ -106,27 +106,13 @@ namespace akademik.am
 
                 try
                 {
-                    SqlCommand CmdPasswd = new SqlCommand("update bak_dosen set nidn = @newnidn where nidn = @oldnidn", con, Tran);
-                    CmdPasswd.CommandType = System.Data.CommandType.Text;
+                    SqlCommand CmdUpdateNidn = new SqlCommand("SpUpdateNidn", con, Tran);
+                    CmdUpdateNidn.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlCommand CmdPersetujuanKRS = new SqlCommand("update bak_persetujuan_krs set nidn = @newnidn where nidn = @oldnidn", con, Tran);
-                    CmdPersetujuanKRS.CommandType = System.Data.CommandType.Text;
+                    CmdUpdateNidn.Parameters.AddWithValue("@oldnidn", this._NIDN);
+                    CmdUpdateNidn.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
 
-                    SqlCommand CmdPembimbing = new SqlCommand("update bak_skripsi_pembimbing_skripsi set nidn_i = @newnidn, nidn_ii = @newnidn where nidn = @oldnidn", con, Tran);
-                    CmdPembimbing.CommandType = System.Data.CommandType.Text;
-
-                    CmdPasswd.Parameters.AddWithValue("@oldnidn", this._NIDN);
-                    CmdPasswd.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
-
-                    CmdPersetujuanKRS.Parameters.AddWithValue("@oldnidn", this._NIDN);
-                    CmdPersetujuanKRS.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
-
-                    CmdPembimbing.Parameters.AddWithValue("@oldnidn", this._NIDN);
-                    CmdPembimbing.Parameters.AddWithValue("@newnidn", this.TbNewNIDN.Text);
-
-                    CmdPasswd.ExecuteNonQuery();
-                    CmdPersetujuanKRS.ExecuteNonQuery();
-                    CmdPembimbing.ExecuteNonQuery();
+                    CmdUpdateNidn.ExecuteNonQuery();
 
                     this.LbResult.Text = System.String.Empty;
                     this.TbOldNIDN.Text = System.String.Empty;
@@ -143,6 +129,8 @@ namespace akademik.am
 
                 } catch(Exception ex)
                 {
+                    Response.Write(ex.Message);
+
                     Tran.Rollback();
 
                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);

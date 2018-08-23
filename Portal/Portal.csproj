@@ -771,6 +771,8 @@
     <Content Include="PermohonanCuti.aspx" />
     <Content Include="ValidasiKRS.aspx" />
     <Content Include="MhsTunggu.aspx" />
+    <Content Include="JadwalUniv.aspx" />
+    <Content Include="AddJadwalUniv.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1015,6 +1017,20 @@
     </Compile>
     <Compile Include="MhsTunggu.aspx.designer.cs">
       <DependentUpon>MhsTunggu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JadwalUniv.aspx.cs">
+      <DependentUpon>JadwalUniv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JadwalUniv.aspx.designer.cs">
+      <DependentUpon>JadwalUniv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddJadwalUniv.aspx.cs">
+      <DependentUpon>AddJadwalUniv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddJadwalUniv.aspx.designer.cs">
+      <DependentUpon>AddJadwalUniv.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

@@ -233,24 +233,24 @@ namespace Portal
             ////============= End Edit SKS Mata Kuliah ====================== //
 
 
-            //// ================ SCRIPT VALID =====================/////
-            ////============== Edit SKS Mata Kuliah ====================== //
-            ////============== SCRIPT INSIDENTAL =========================//
+            // ================ SCRIPT VALID =====================/////
+            //============== Edit SKS Mata Kuliah ====================== //
+            //============== SCRIPT INSIDENTAL =========================//
 
-            //ModalPopupExtender2.Show();
+            ModalPopupExtender2.Show();
 
-            //// get row index
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //int index2 = gvRow.RowIndex;
+            // get row index
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index2 = gvRow.RowIndex;
 
-            //this.LbIdMakul2.Text = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
-            //_KodeMakul2 = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
-            //this.TbKdMakul2.Text = _KodeMakul;
-            //this.TbMakul2.Text = this.GVMakul.Rows[index2].Cells[1].Text.Trim();
-            //this.TbSKS2.Text = this.GVMakul.Rows[index2].Cells[2].Text.Trim();
-            //this.TbSemester2.Text = this.GVMakul.Rows[index2].Cells[3].Text.Trim();
+            this.LbIdMakul2.Text = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
+            _KodeMakul2 = this.GVMakul.Rows[index2].Cells[0].Text.Trim();
+            this.TbKdMakul2.Text = _KodeMakul;
+            this.TbMakul2.Text = this.GVMakul.Rows[index2].Cells[1].Text.Trim();
+            this.TbSKS2.Text = this.GVMakul.Rows[index2].Cells[2].Text.Trim();
+            this.TbSemester2.Text = this.GVMakul.Rows[index2].Cells[3].Text.Trim();
 
-            ////============= End Edit SKS Mata Kuliah ====================== //
+            //============= End Edit SKS Mata Kuliah ====================== //
 
 
         }

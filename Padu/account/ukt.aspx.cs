@@ -452,8 +452,68 @@ namespace Padu.account
             else
             {
                 // --------------==== BUKAN MABA ====-------------- //
-                // ---- {Bukan Maba} <=> {Maba Semester Genap} --- //
+                // ---- {Bukan Maba} <=> {Maba Semester Genap} ---- //
+
                 AktivasiMulaiSemesterDua();
+
+                // maksudnya semua mhahasiswa UKT di semester 1 nya tidak boleh aktivasi ulang
+                // segera perbaiki
+
+                //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Tagihan di Semester Satu, Proses Dibatalkan ...');", true);
+                //}
+                //else
+                //{
+                //    AktivasiMulaiSemesterDua();
+                //}
+               
+            }
+        }
+
+        protected bool CegahBayarSmesterSatu(string semester)
+        {
+            string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CSUKT))
+            {
+                string SemesterSatu = "";
+
+                con.Open();
+                try
+                {
+                    SqlCommand CmdValBdk = new SqlCommand(@" 
+                    DECLARE @ThnAngkatan VARCHAR(4) 
+                    SELECT @ThnAngkatan =LEFT(thn_angkatan,4) FROM UntidarDb.dbo.bak_mahasiswa WHERE npm=@npm 
+                    DECLARE @gasal VARCHAR(1) = '1' 
+                    SELECT (@ThnAngkatan+@gasal) AS SemesterSatu 
+                    ", con);
+
+                    CmdValBdk.CommandType = System.Data.CommandType.Text;
+
+                    CmdValBdk.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                    using (SqlDataReader rdr = CmdValBdk.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                SemesterSatu = rdr["SemesterSatu"].ToString();
+                            }
+                        }
+                    }
+
+                    if (semester == SemesterSatu)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
         }
 
@@ -537,6 +597,9 @@ namespace Padu.account
 
                 decimal biaya;
                 biaya = Convert.ToDecimal(Biaya.Value.ToString());
+
+
+
 
 
                 // 2.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----

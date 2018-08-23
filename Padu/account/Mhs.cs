@@ -48,7 +48,7 @@ namespace Padu.account
                                 DosenPA = rdr["dosen"].ToString().Trim();
                             } else
                             {
-                                DosenPA = "Belum memiliki Pembimbing Akademik";
+                                DosenPA = "Belum memiliki, hubungi operator program studi";
                             }
 
                         }

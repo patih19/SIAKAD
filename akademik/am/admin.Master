@@ -124,6 +124,8 @@
                                     <li><a href="<%= Page.ResolveUrl("~/am/JadwalKuliah") %>">Jadwal Perkuliahan</a></li>
                                     <li><a href="<%= Page.ResolveUrl("~/am/Absensi") %>">Presensi Perkuliahan</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/am/MonitorRuang") %>">Monitor Ruang</a></li>
+                                    <li class="divider"></li>
                                     <li><a href="#" class="dropup">Rekap Input Nilai<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="<%= Page.ResolveUrl("~/am/RekapInputNilai") %>">Fakultas</a></li>

@@ -197,7 +197,7 @@
                     </div>
 
                     <div runat="server" id="PanelContent" class="panel panel-default">
-                        <div class="panel-body">
+                        <div class="panel-body table table-responsive">
                             <asp:Panel ID="PanelKRS" runat="server">
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                     <ContentTemplate>

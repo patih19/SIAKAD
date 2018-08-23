@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalKuliah3.aspx.cs" Inherits="Portal.WebForm24" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalUniv.aspx.cs" Inherits="Portal.JadwalUniv" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="Scripts/DataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/DataTables/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -15,16 +15,6 @@
                     }
                 });
             }
-
-            $('#ctl00_ContentPlaceHolder1_GVJadwal').DataTable({
-                'iDisplayLength': 100,
-                'aLengthMenu': [[100, 200, 300, -1], [100, 200, 300, "All"]],
-                language: {
-                    search: "Pencarian :",
-                    searchPlaceholder: "Ketik Kata Kunci"
-                }
-            });
-
         }
     </script>
     <style type="text/css">
@@ -46,7 +36,7 @@
             background-color: #EEF7EE;
         }
     </style>
-    <%--<style type="text/css">
+    <style type="text/css">
         .mdl
         {
             position: fixed;
@@ -77,7 +67,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>--%>
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -140,8 +130,11 @@
                                 &nbsp;<asp:Button ID="BtnNewJadwal" OnClick="BtnNewJadwal_Click" runat="server" CssClass="btn btn-danger" Text="Buat Jadwal" />
                             </div>
                             <div class="panel-body">
+
+                                <H4>INPUT JADWAL KHUSUS PENDIDIKAN AGAMA NON ISLAM (JADWAL SAMA SE-UNIVERSITAS)</H4>
+
                                 <asp:GridView ID="GVJadwal" runat="server" CssClass="table table-condensed table-bordered table-hover"
-                                    OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender">
+                                    OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender" Visible="False">
                                     <Columns>
                                         <asp:TemplateField>
                                             <ItemTemplate>

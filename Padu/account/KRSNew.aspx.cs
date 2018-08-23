@@ -240,7 +240,7 @@ namespace Padu.account
 
                                         this.DLSemester.SelectedValue = "Semester";
 
-                                        string message = "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS Mahasiswa Baru...')";
+                                        string message = "alert('Tidak Ada Jadwal Pengisian Atau Batal Tambah KRS Mahasiswa Baru...')";
                                         ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
 
                                         //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
@@ -303,7 +303,7 @@ namespace Padu.account
                                         {
                                             if (rdr["status"].ToString().Trim() == "unpaid")
                                             {
-                                                string message = "alert('Lakukan Aktivasi Pembayaran UKT Semester Ini')";
+                                                string message = "alert('Tagihan Semester Ini Belum Lunas')";
                                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                                 return;
                                             }

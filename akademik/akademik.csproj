@@ -170,6 +170,7 @@
     <Content Include="am\UpdateStatus.aspx" />
     <Content Include="am\DataDosen.aspx" />
     <Content Include="am\MhsPerProv.aspx" />
+    <Content Include="am\MonitorRuang.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.3.3.6.css" />
@@ -877,6 +878,13 @@
     </Compile>
     <Compile Include="am\MhsPerProv.aspx.designer.cs">
       <DependentUpon>MhsPerProv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="am\MonitorRuang.aspx.cs">
+      <DependentUpon>MonitorRuang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="am\MonitorRuang.aspx.designer.cs">
+      <DependentUpon>MonitorRuang.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front.Master.cs">
       <DependentUpon>Front.Master</DependentUpon>

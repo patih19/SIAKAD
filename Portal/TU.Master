@@ -123,9 +123,11 @@
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Perkuliahan</strong>  
                                 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="<%= Page.ResolveUrl("~/JadwalUniv") %>">Jadwal Perkuliahan (Univ)</a></li>
                                     <li><a href="<%= Page.ResolveUrl("~/JadwalKuliah3") %>">Jadwal Perkuliahan</a></li>
+                                    <li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/Absensi") %>">Presensi Perkuliahan</a></li>
-                                     <li class="divider"></li>
+                                    <li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/MonitorRuang") %>">Monitor Ruang</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/RekapNilai") %>">Rekap Input Nilai</a></li>
