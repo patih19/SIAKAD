@@ -10,105 +10,105 @@
 namespace Portal {
     
     
-    public partial class WebForm4 {
+    public partial class Transkrip {
         
         /// <summary>
-        /// LbSemAktif1 control.
+        /// TBNpm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbSemAktif1;
+        protected global::System.Web.UI.WebControls.TextBox TBNpm;
         
         /// <summary>
-        /// DLTahun control.
+        /// BtnFilterMhs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLTahun;
+        protected global::System.Web.UI.WebControls.Button BtnFilterMhs;
         
         /// <summary>
-        /// DLSemester control.
+        /// PanelNilai control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLSemester;
+        protected global::System.Web.UI.WebControls.Panel PanelNilai;
         
         /// <summary>
-        /// BtnSubmit control.
+        /// Image1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSubmit;
+        protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
-        /// PanelRekapAktif control.
+        /// LbNPM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelRekapAktif;
+        protected global::System.Web.UI.WebControls.Label LbNPM;
         
         /// <summary>
-        /// GvMhsAktif control.
+        /// LbNama control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GvMhsAktif;
+        protected global::System.Web.UI.WebControls.Label LbNama;
         
         /// <summary>
-        /// LbSemAktif2 control.
+        /// LbProdi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbSemAktif2;
+        protected global::System.Web.UI.WebControls.Label LbProdi;
         
         /// <summary>
-        /// DLTahun2 control.
+        /// LbClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLTahun2;
+        protected global::System.Web.UI.WebControls.Label LbClass;
         
         /// <summary>
-        /// DLSemester2 control.
+        /// LbThnAngkatan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLSemester2;
+        protected global::System.Web.UI.WebControls.Label LbThnAngkatan;
         
         /// <summary>
-        /// BtnBimKRS control.
+        /// GVTrans control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBimKRS;
+        protected global::System.Web.UI.WebControls.GridView GVTrans;
         
         /// <summary>
-        /// GVBimbinganKRS control.
+        /// LbIPK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVBimbinganKRS;
+        protected global::System.Web.UI.WebControls.Label LbIPK;
     }
 }

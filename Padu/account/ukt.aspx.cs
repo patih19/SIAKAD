@@ -64,8 +64,7 @@ namespace Padu.account
             this.Session.RemoveAll();
             this.Response.Redirect("~/Padu_login.aspx");
         }
-        // -------------- End Logout ----------------------------
-
+        // -------------- End Logout ----------------------------//
 
         private void TahunAkademik()
         {
@@ -446,7 +445,7 @@ namespace Padu.account
                 else if (this.DLSemester.SelectedValue == "2")
                 {
                     // ---- Maba Semester Genap {Mulai Semester Dua}---//
-                    AktivasiMulaiSemesterDua();
+                    AktivasiMulaiSemesterDua(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
                 }
             }
             else
@@ -454,7 +453,7 @@ namespace Padu.account
                 // --------------==== BUKAN MABA ====-------------- //
                 // ---- {Bukan Maba} <=> {Maba Semester Genap} ---- //
 
-                AktivasiMulaiSemesterDua();
+                AktivasiMulaiSemesterDua(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
 
                 // maksudnya semua mhahasiswa UKT di semester 1 nya tidak boleh aktivasi ulang
                 // segera perbaiki
@@ -652,7 +651,7 @@ namespace Padu.account
             }
         }
 
-        protected void AktivasiMulaiSemesterDua()
+        protected void AktivasiMulaiSemesterDua(string semester)
         {
             // ---- Maba Semester Genap ---//
             string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
@@ -669,7 +668,58 @@ namespace Padu.account
 
             try
             {
-                // 1. -------- Get Biaya Semester (UKT) --------
+                // 1. -------- Cek Kalender Akademik Semester Genap  --------------
+                SqlCommand CmdCekKaldikGenap = new SqlCommand(@"
+
+                    DECLARE @NoNpm VARCHAR(12)
+                    DECLARE @IdProdi VARCHAR(12)
+                    DECLARE @Jenjang VARCHAR(3)
+                    DECLARE @TopSemester VARCHAR(5)
+                    DECLARE @Semester VARCHAR(5) 
+
+                    SELECT @NoNpm=bak_mahasiswa.npm, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
+                    FROM            bak_mahasiswa INNER JOIN
+                                    bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
+                    WHERE npm=@npm
+
+                    SELECT TOP 1 @Semester=semester FROM dbo.bak_kal WHERE semester=@GetSemester
+                    IF @Semester IS NULL
+                    BEGIN
+	                    RAISERROR('Kalender Akademik Semester Ini Belum Aktif, Proses Dibatalkan ...', 16, 10)  
+                        RETURN 
+                    END
+
+                    IF (@Jenjang ='S1' OR @Jenjang='D3')
+                    BEGIN
+	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+	                    WHERE jenjang='S1' AND semester != 'new'
+	                    GROUP BY semester,jenjang
+	                    ORDER BY semester DESC
+                    END
+                    ELSE
+                    BEGIN
+	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+	                    WHERE jenjang='S2' AND semester != 'new'
+	                    GROUP BY semester,jenjang
+	                    ORDER BY semester DESC
+                    END
+
+                    IF (@TopSemester <> @Semester)
+                    BEGIN
+	                    RAISERROR('Aktivasi Pembayaran Tidak Sesuai Dengan Semester Aktif, Proses Dibatalkan ...', 16, 10)  
+                        RETURN 
+                    END
+
+                ", ConUntidar,TransUntidar);
+                CmdCekKaldikGenap.CommandType = System.Data.CommandType.Text;
+
+                CmdCekKaldikGenap.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
+                CmdCekKaldikGenap.Parameters.AddWithValue("@GetSemester",semester.Trim());
+
+                CmdCekKaldikGenap.ExecuteNonQuery();
+
+
+                // 2. -------- Get Biaya Semester (UKT) --------
                 SqlCommand cmdBiayaUKT = new SqlCommand("SpGetBiayaUktMhs", ConUKT, TransUKT);
                 cmdBiayaUKT.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -688,7 +738,7 @@ namespace Padu.account
                 biaya = Convert.ToDecimal(Biaya.Value.ToString());
 
 
-                // 2.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
+                // 3.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
                 // --- Catatan : Untuk Awal Semester tidak Perlu Posting Tagihan Karena Tagihan Semester Awal sudah dibayarkan setelah mengisi form UKT (pada saat sebelum registrasi)
                 // -----------------------------------------------------------------------------------------------------------------
                 SqlCommand CmdPost = new SqlCommand("SpInsertPostingMhsUkt", ConUKT, TransUKT);

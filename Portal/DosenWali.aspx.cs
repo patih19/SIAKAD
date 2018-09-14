@@ -346,27 +346,92 @@ namespace Portal
                 using (SqlConnection con = new SqlConnection(CS))
                 {
                     con.Open();
-                    SqlCommand CmdDosen = new SqlCommand("update bak_mahasiswa SET id_wali = NULL WHERE npm=@npm", con);
-                    CmdDosen.CommandType = System.Data.CommandType.Text;
 
-                    CmdDosen.Parameters.AddWithValue("@nidn", _NIDN);
-                    CmdDosen.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
+                    try
+                    {
+                        SqlCommand CmdGantiDosenPA = new SqlCommand(@"
+                        DECLARE @Jenjang VARCHAR(2)
+                        DECLARE @NoNpm VARCHAR(12)
+                        DECLARE @IdProdi VARCHAR(8)
+                        DECLARE @TopSemester VARCHAR(5)
 
-                    CmdDosen.ExecuteNonQuery();
+                        -- ===== GET TOP SEMESTER KALENDER AKADEMIK BY JENJANG =======
+                        SELECT @NoNpm=bak_mahasiswa.npm, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
+                        FROM            bak_mahasiswa INNER JOIN
+                                        bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
+                        WHERE npm=@npm
+
+                        IF (@Jenjang ='S1' OR @Jenjang='D3')
+                        BEGIN
+	                        SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+	                        WHERE jenjang='S1' AND semester != 'new'
+	                        GROUP BY semester,jenjang
+	                        ORDER BY semester DESC
+                        END
+                        ELSE
+                        BEGIN
+	                        SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+	                        WHERE jenjang='S2' AND semester != 'new'
+	                        GROUP BY semester,jenjang
+	                        ORDER BY semester DESC
+                        END
+
+                        -- ======= GET PERSETUJUAN (VALIDASI) KRS OLEH DOSEN ======
+                        DECLARE @no_persetujuan BIGINT
+                        DECLARE @validasi INT
+
+                        SELECT @no_persetujuan=id_persetujuan,@validasi=val FROM dbo.bak_persetujuan_krs 
+                        WHERE npm=@npm AND semester=@TopSemester
+
+                        IF (@no_persetujuan IS NOT NULL AND @validasi = 1)
+                        BEGIN
+	                        RAISERROR('KRS Semester Ini Sudah Divalidasi, Proses Dibatalkan ...', 16, 10)  
+	                        RETURN 
+                        END	
+                        ELSE
+                        BEGIN
+	                        DELETE FROM bak_bimbingan_krs WHERE id_persetujuan=@no_persetujuan
+	                        DELETE FROM dbo.bak_persetujuan_krs WHERE npm=@npm AND semester=@TopSemester
+                        END	
+                        ", con);
+                        CmdGantiDosenPA.CommandType = System.Data.CommandType.Text;
+
+                        CmdGantiDosenPA.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
+                        CmdGantiDosenPA.ExecuteNonQuery();
+
+
+                        SqlCommand CmdDosen = new SqlCommand("update bak_mahasiswa SET id_wali = NULL WHERE npm=@npm", con);
+                        CmdDosen.CommandType = System.Data.CommandType.Text;
+
+                        CmdDosen.Parameters.AddWithValue("@nidn", _NIDN);
+                        CmdDosen.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
+                        CmdDosen.ExecuteNonQuery();
+
+                        //refresh data mahasiswa aktif
+                        PopulateMhsAktif(_NIDN);
+
+                        //refresh daftar mahasiswa dan PA
+                        PopulateDaftarMhs(_NIDN);
+
+                        //tandai mahasiswa 
+                        CheckedMhsDibimbing(_NIDN);
+
+                        // uncheck 
+                        ch.Checked = false;
+                        ch.Dispose();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ch.Checked = true;
+
+                        string message = "alert('" + ex.Message.ToString() + "')";
+                        ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                    }
+ 
                 }
 
-                //refresh data mahasiswa aktif
-                PopulateMhsAktif(_NIDN);
 
-                //refresh daftar mahasiswa dan PA
-                PopulateDaftarMhs(_NIDN);
-
-                //tandai mahasiswa 
-                CheckedMhsDibimbing(_NIDN);
-
-                // uncheck 
-                ch.Checked = false;
-                ch.Dispose();
             }
         }
     }

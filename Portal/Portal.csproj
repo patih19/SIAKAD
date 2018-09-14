@@ -773,6 +773,7 @@
     <Content Include="MhsTunggu.aspx" />
     <Content Include="JadwalUniv.aspx" />
     <Content Include="AddJadwalUniv.aspx" />
+    <Content Include="Transkrip.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1031,6 +1032,13 @@
     </Compile>
     <Compile Include="AddJadwalUniv.aspx.designer.cs">
       <DependentUpon>AddJadwalUniv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transkrip.aspx.cs">
+      <DependentUpon>Transkrip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transkrip.aspx.designer.cs">
+      <DependentUpon>Transkrip.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

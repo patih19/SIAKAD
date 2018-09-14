@@ -49,8 +49,8 @@ namespace Portal
 
                 DataTable TableDosen = new DataTable();
                 TableDosen.Columns.Add("No");
-                TableDosen.Columns.Add("NIDN");
                 TableDosen.Columns.Add("Dosen");
+                TableDosen.Columns.Add("NPM");
                 TableDosen.Columns.Add("Nama");
                 TableDosen.Columns.Add("Semester");
                 TableDosen.Columns.Add("Keterangan");
@@ -63,8 +63,8 @@ namespace Portal
                         {
                             DataRow datarow = TableDosen.NewRow();
                             datarow["No"] = rdr["nomor"];
-                            datarow["NIDN"] = rdr["nidn"];
                             datarow["Dosen"] = rdr["dosen"];
+                            datarow["NPM"] = rdr["npm"];
                             datarow["Nama"] = rdr["nama"];
                             datarow["Semester"] = rdr["semester"];
 

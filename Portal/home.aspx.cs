@@ -50,7 +50,12 @@ namespace Portal
         {
             get { return Convert.ToString(this.ViewState["Jenjang"].ToString()); }
             set { this.ViewState["Jenjang"] = (object)value; }
+        }
 
+        public string _TopSemester
+        {
+            get { return Convert.ToString(this.ViewState["TopSemester"].ToString()); }
+            set { this.ViewState["TopSemester"] = (object)value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -74,6 +79,11 @@ namespace Portal
                 TahunAkademik();
                 LastSemester();
 
+                this.LbSemAktif1.Text = "("+ _TopSemester +")";
+                this.LbSemAktif2.Text = "("+_TopSemester +")";
+
+                PopulateMhsAktif(_TopSemester, this.Session["level"].ToString().Trim());
+                PopulateRekapBimbinganKRS(_TopSemester, this.Session["level"].ToString().Trim());
             }
         }
 
@@ -104,7 +114,7 @@ namespace Portal
                         {
                             while (rdr.Read())
                             {
-                                PopulateMhsAktif(rdr["semester"].ToString().Trim(), this.Session["level"].ToString().Trim());
+                                _TopSemester = rdr["semester"].ToString().Trim();
                             }
                         }
                     }
@@ -117,7 +127,68 @@ namespace Portal
             }
         }
 
-        protected void PopulateMhsAktif(string semester, string IdProdi)
+        protected void TahunAkademik()
+        {
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    //------------------------------------------------------------------------------------
+                    con.Open();
+
+                    if (_Jenjang == "D3" || _Jenjang == "S1")
+                    {
+                        _Jenjang = "S1";
+                    }
+
+                    SqlCommand CmdJadwal = new SqlCommand("select TOP 3 bak_kal.thn AS thn, CAST(bak_kal.thn  AS VARCHAR(50)) + '/' +CAST(bak_kal.thn +1 AS VARCHAR(50) ) AS ThnAkm  FROM bak_kal WHERE jenjang = @jenjang group by thn ORDER BY thn DESC", con);
+                    CmdJadwal.CommandType = System.Data.CommandType.Text;
+
+                    CmdJadwal.Parameters.AddWithValue("@jenjang", _Jenjang);
+
+                    SqlDataReader RdrJadwal = CmdJadwal.ExecuteReader();
+
+                    this.DLTahun.DataSource = RdrJadwal;
+                    this.DLTahun.DataTextField = "ThnAkm";
+                    this.DLTahun.DataValueField = "thn";
+                    this.DLTahun.DataBind();
+
+                    RdrJadwal.Close();
+                    CmdJadwal.Dispose();
+
+                    SqlCommand CmdBimbingan = new SqlCommand("select TOP 3 bak_kal.thn AS thn, CAST(bak_kal.thn  AS VARCHAR(50)) + '/' +CAST(bak_kal.thn +1 AS VARCHAR(50) ) AS ThnAkm  FROM bak_kal WHERE jenjang = @jenjang group by thn ORDER BY thn DESC", con);
+                    CmdBimbingan.CommandType = System.Data.CommandType.Text;
+
+                    CmdBimbingan.Parameters.AddWithValue("@jenjang", _Jenjang);
+
+                    SqlDataReader RdrBimbingan = CmdBimbingan.ExecuteReader();
+
+                    this.DLTahun2.DataSource = RdrBimbingan;
+                    this.DLTahun2.DataTextField = "ThnAkm";
+                    this.DLTahun2.DataValueField = "thn";
+                    this.DLTahun2.DataBind();
+
+                    RdrBimbingan.Close();
+                    CmdBimbingan.Dispose();
+
+                    con.Close();
+                    con.Dispose();
+                }
+
+                this.DLTahun.Items.Insert(0, new ListItem("-- Tahun Akademik --", "-1"));
+
+                this.DLTahun2.Items.Insert(0, new ListItem("-- Tahun Akademik --", "-1"));
+
+            }
+            catch (Exception ex)
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
+                return;
+            }
+        }
+
+        protected void PopulateMhsAktif(string TopSemester, string IdProdi)
         {
             try
             {
@@ -198,7 +269,7 @@ namespace Portal
                         "", con);
                     CmdJadwal.CommandType = System.Data.CommandType.Text;
 
-                    CmdJadwal.Parameters.AddWithValue("@SemNewHitungJumlah", semester);
+                    CmdJadwal.Parameters.AddWithValue("@SemNewHitungJumlah", TopSemester);
                     CmdJadwal.Parameters.AddWithValue("@IdMhsProdi", IdProdi);
 
                     DataTable TableJadwal = new DataTable();
@@ -296,7 +367,7 @@ namespace Portal
             }
         }
 
-        protected void TahunAkademik()
+        protected void PopulateRekapBimbinganKRS(string TopSemester, string IdProdi)
         {
             try
             {
@@ -306,27 +377,81 @@ namespace Portal
                     //------------------------------------------------------------------------------------
                     con.Open();
 
-                    if (_Jenjang == "D3" || _Jenjang == "S1")
+                    SqlCommand CmdBimbingan = new SqlCommand(@"
+                        SELECT ROW_NUMBER() OVER( ORDER by MhsDibimbng.dosen ASC) AS Nomor, MhsDibimbng.no,MhsDibimbng.id_prog_study,MhsDibimbng.nidn,MhsDibimbng.dosen,MhsDibimbng.jumlah as JumlhMhsKRS,MhsDivalidasi.jumlah as MhsValid,MhsBlmValid.jumlah as MhsBlmValid FROM 
+                        (
+	                        SELECT       bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama AS dosen,bak_dosen.aktif, bak_persetujuan_krs.semester, COUNT (*) as jumlah
+	                        FROM            bak_dosen INNER JOIN 
+						                          bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali LEFT OUTER JOIN 
+						                          bak_persetujuan_krs ON bak_mahasiswa.npm = bak_persetujuan_krs.npm 
+	                        WHERE (bak_mahasiswa.status NOT IN('K', 'L')) AND (semester = @TopSemester ) AND (id_prog_study=@IdMhsProdi)
+	                        GROUP BY bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama,bak_dosen.aktif, bak_persetujuan_krs.semester
+                        ) AS MhsDibimbng LEFT OUTER JOIN
+                        (
+	                        SELECT       bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama AS dosen,bak_dosen.aktif, bak_persetujuan_krs.semester,bak_persetujuan_krs.val, COUNT (*) as jumlah
+	                        FROM            bak_dosen INNER JOIN 
+						                          bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali LEFT OUTER JOIN 
+						                          bak_persetujuan_krs ON bak_mahasiswa.npm = bak_persetujuan_krs.npm 
+	                        WHERE (bak_mahasiswa.status NOT IN('K', 'L')) AND (semester = @TopSemester )AND (val=1) AND (id_prog_study=@IdMhsProdi) 
+	                        GROUP BY bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama,bak_dosen.aktif, bak_persetujuan_krs.semester,bak_persetujuan_krs.val
+                        )AS MhsDivalidasi on MhsDibimbng.no = MhsDivalidasi.no LEFT OUTER JOIN
+                        (
+	                        SELECT       bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama AS dosen,bak_dosen.aktif, bak_persetujuan_krs.semester,bak_persetujuan_krs.val, COUNT (*) as jumlah
+	                        FROM            bak_dosen INNER JOIN 
+						                          bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali LEFT OUTER JOIN 
+						                          bak_persetujuan_krs ON bak_mahasiswa.npm = bak_persetujuan_krs.npm 
+	                        WHERE (bak_mahasiswa.status NOT IN('K', 'L')) AND (semester = @TopSemester ) AND (val=0 OR val is null) AND (id_prog_study=@IdMhsProdi) 
+	                        GROUP BY bak_dosen.no,bak_dosen.nidn, bak_mahasiswa.id_prog_study, bak_dosen.nama,bak_dosen.aktif, bak_persetujuan_krs.semester,bak_persetujuan_krs.val
+                        ) AS MhsBlmValid on MhsDibimbng.no = MhsBlmValid.no                    
+                    ", con);
+                    CmdBimbingan.CommandType = System.Data.CommandType.Text;
+
+                    CmdBimbingan.Parameters.AddWithValue("@TopSemester", TopSemester);
+                    CmdBimbingan.Parameters.AddWithValue("@IdMhsProdi", IdProdi);
+
+                    DataTable TableBimbingan = new DataTable();
+                    TableBimbingan.Columns.Add("No");
+                    TableBimbingan.Columns.Add("NIDN");
+                    TableBimbingan.Columns.Add("Nama");
+                    TableBimbingan.Columns.Add("Jumlah Mahasiswa KRS");
+                    TableBimbingan.Columns.Add("Sudah Di Validasi");
+                    TableBimbingan.Columns.Add("Belum Di Validasi");
+
+                    using (SqlDataReader rdr = CmdBimbingan.ExecuteReader())
                     {
-                        _Jenjang = "S1";
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                DataRow datarow = TableBimbingan.NewRow();
+
+                                datarow["No"] = rdr["Nomor"];
+                                datarow["NIDN"] = rdr["nidn"];
+                                datarow["Nama"] = rdr["dosen"];
+                                datarow["Jumlah Mahasiswa KRS"] = rdr["JumlhMhsKRS"];
+                                datarow["Sudah Di Validasi"] = rdr["MhsValid"];
+                                datarow["Belum Di Validasi"] = rdr["MhsBlmValid"];
+
+                                TableBimbingan.Rows.Add(datarow);
+                            }
+
+                            //Fill Gridview
+                            this.GVBimbinganKRS.DataSource = TableBimbingan;
+                            this.GVBimbinganKRS.DataBind();
+
+                        }
+                        else
+                        {
+                            //clear Gridview
+                            TableBimbingan.Rows.Clear();
+                            TableBimbingan.Clear();
+                            GVBimbinganKRS.DataSource = TableBimbingan;
+                            GVBimbinganKRS.DataBind();
+
+                            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data Tidak Ditemukan');", true);
+                        }
                     }
-
-                    SqlCommand CmdJadwal = new SqlCommand("select TOP 3 bak_kal.thn AS thn, CAST(bak_kal.thn  AS VARCHAR(50)) + '/' +CAST(bak_kal.thn +1 AS VARCHAR(50) ) AS ThnAkm  FROM bak_kal WHERE jenjang = @jenjang group by thn ORDER BY thn DESC", con);
-                    CmdJadwal.CommandType = System.Data.CommandType.Text;
-
-                    CmdJadwal.Parameters.AddWithValue("@jenjang", _Jenjang);
-
-                    this.DLTahun.DataSource = CmdJadwal.ExecuteReader();
-                    this.DLTahun.DataTextField = "ThnAkm";
-                    this.DLTahun.DataValueField = "thn";
-                    this.DLTahun.DataBind();
-
-                    con.Close();
-                    con.Dispose();
                 }
-
-                this.DLTahun.Items.Insert(0, new ListItem("-- Tahun Akademik --", "-1"));
-
             }
             catch (Exception ex)
             {
@@ -372,6 +497,8 @@ namespace Portal
 
         protected void BtnSubmit_Click(object sender, EventArgs e)
         {
+            this.LbSemAktif1.Text ="("+ this.DLTahun.SelectedValue.ToString().Trim() + this.DLSemester.SelectedValue.ToString().Trim() +")";
+
             _TotalAktif = 0;
             _TotalNonAktif = 0;
             _TotalCuti = 0;
@@ -412,6 +539,13 @@ namespace Portal
                 e.Row.Cells[5].Text = _TotalLulus.ToString();
 
             }
+        }
+
+        protected void BtnBimKRS_Click(object sender, EventArgs e)
+        {
+            this.LbSemAktif2.Text = "("+ this.DLTahun2.SelectedValue.ToString().Trim() + this.DLSemester2.SelectedValue.ToString().Trim() +")";
+
+            PopulateRekapBimbinganKRS(this.DLTahun2.SelectedValue.ToString().Trim() + this.DLSemester2.SelectedValue.ToString().Trim(), this.Session["level"].ToString().Trim());
         }
     }
 }
