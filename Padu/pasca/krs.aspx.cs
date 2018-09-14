@@ -47,6 +47,12 @@ namespace Padu.pasca
             set { this.ViewState["JenisKRS"] = (object)value; }
         }
 
+        public String _SemesterMulai
+        {
+            get { return this.ViewState["SemesterMulai"].ToString(); }
+            set { this.ViewState["SemesterMulai"] = (object)value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -74,7 +80,7 @@ namespace Padu.pasca
                     LbKelas.Text = mhs.kelas.ToString();
                     LbKdProdi.Text = mhs.id_prodi.ToString();
                     LbProdi.Text = mhs.Prodi.ToString();
-                    LbTahun.Text = mhs.thn_angkatan.ToString();
+                    _SemesterMulai = mhs.semester_mulai.ToString();
 
                 }
                 catch (Exception)
@@ -328,45 +334,44 @@ namespace Padu.pasca
                 }
             }
 
+            //string TahunAngkatan = "";
+            //TahunAngkatan = this.LbTahun.Text.Trim().Substring(0, 4);
+            //int ThnAngkatan = Convert.ToInt16(TahunAngkatan);
 
-            string TahunAngkatan = "";
-            TahunAngkatan = this.LbTahun.Text.Trim().Substring(0, 4);
-            int ThnAngkatan = Convert.ToInt16(TahunAngkatan);
+            //int MhsBaru = 0;
+            //string TahunMhs = "";
 
-            int MhsBaru = 0;
-            string TahunMhs = "";
+            ////------------- Get Mahasiswa Tahun Paling Akhir/Baru  --------------------- //
+            //string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            //using (SqlConnection con = new SqlConnection(CSMaba))
+            //{
+            //    con.Open();
+            //    SqlCommand CmdCekStatus = new SqlCommand("SELECT TOP (1) bak_mahasiswa.thn_angkatan, bak_prog_study.jenjang, bak_mahasiswa.id_prog_study "+
+            //        "FROM            bak_mahasiswa INNER JOIN "+
+            //                                 "bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study "+
+            //        "WHERE jenjang = 'S2' AND dbo.bak_mahasiswa.id_prog_study = @IdProdi "+
+            //        "GROUP BY bak_mahasiswa.thn_angkatan, bak_prog_study.jenjang, bak_mahasiswa.id_prog_study "+
+            //        "ORDER BY bak_mahasiswa.thn_angkatan DESC", con);
+            //    CmdCekStatus.CommandType = System.Data.CommandType.Text;
 
-            //------------- Get Mahasiswa Tahun Paling Akhir/Baru  --------------------- //
-            string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(CSMaba))
-            {
-                con.Open();
-                SqlCommand CmdCekStatus = new SqlCommand("SELECT TOP (1) bak_mahasiswa.thn_angkatan, bak_prog_study.jenjang, bak_mahasiswa.id_prog_study "+
-                    "FROM            bak_mahasiswa INNER JOIN "+
-                                             "bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study "+
-                    "WHERE jenjang = 'S2' AND dbo.bak_mahasiswa.id_prog_study = @IdProdi "+
-                    "GROUP BY bak_mahasiswa.thn_angkatan, bak_prog_study.jenjang, bak_mahasiswa.id_prog_study "+
-                    "ORDER BY bak_mahasiswa.thn_angkatan DESC", con);
-                CmdCekStatus.CommandType = System.Data.CommandType.Text;
+            //    CmdCekStatus.Parameters.AddWithValue("@IdProdi", this.LbKdProdi.Text.Trim());
 
-                CmdCekStatus.Parameters.AddWithValue("@IdProdi", this.LbKdProdi.Text.Trim());
+            //    using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
+            //    {
+            //        if (rdr.HasRows)
+            //        {
+            //            while (rdr.Read())
+            //            {
+            //                TahunMhs = rdr["thn_angkatan"].ToString();
+            //            }
+            //        }
+            //    }
+            //}
 
-                using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
-                {
-                    if (rdr.HasRows)
-                    {
-                        while (rdr.Read())
-                        {
-                            TahunMhs = rdr["thn_angkatan"].ToString();
-                        }
-                    }
-                }
-            }
-
-            MhsBaru = Convert.ToInt16(TahunMhs.Substring(0, 4));
+            //MhsBaru = Convert.ToInt16(TahunMhs.Substring(0, 4));
 
             // =========== BUKAN MAHASISWA BARU ==============//
-            if (ThnAngkatan != MhsBaru)
+            if (_SemesterMulai != this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim())
             {
                 string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
                 string CSPasca = ConfigurationManager.ConnectionStrings["PascaDb"].ConnectionString;
@@ -769,7 +774,7 @@ namespace Padu.pasca
                     ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
                 }
             }
-            else
+            else if (_SemesterMulai == this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim())
             {
                 // ===================== MABA ====================== //
                 // ================================================= //

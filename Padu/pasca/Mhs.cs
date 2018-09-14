@@ -16,6 +16,7 @@ namespace Padu.pasca
         public string kelas { get; set; }
         public string Prodi { get; set; }
         public string id_prodi { get; set; }
+        public string semester_mulai { get; set; }
 
         public void ReadMahasiswa(string npm)
         {
@@ -39,6 +40,7 @@ namespace Padu.pasca
                             thn_angkatan = rdr["thn_angkatan"].ToString();
                             Prodi = rdr["prog_study"].ToString();
                             id_prodi = rdr["id_prog_study"].ToString();
+                            semester_mulai = rdr["smster_mulai"].ToString();
                         }
                     }
                 }
