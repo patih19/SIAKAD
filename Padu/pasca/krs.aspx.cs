@@ -506,7 +506,7 @@ namespace Padu.pasca
                                     "END " +
                                     "ELSE " +
                                     "BEGIN " +
-                                        "RAISERROR('Buka Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) " +
+                                        "RAISERROR('Bukan Mata Kuliah Akhir, Proses Dibatalkan...', 16, 10) " +
                                         "RETURN " +
                                     "END " +
                                     "", ConPasca, TransPasca);
@@ -547,7 +547,7 @@ namespace Padu.pasca
                                     //------ SET KRS VALID => S2 -----//
                                     SqlCommand CmdKRSValid = new SqlCommand(""+
                                         "UPDATE bak_krs SET valid = 1, tgl_valid = GETDATE() WHERE bak_krs.no IN( "+
-                                            "SELECT        bak_krs.no "+
+                                            "SELECT bak_krs.no "+
                                             "FROM            bak_jadwal INNER JOIN "+
                                             "bak_krs ON bak_jadwal.no_jadwal = bak_krs.no_jadwal "+
                                             "WHERE npm = @npm AND semester = @semester ) " +
@@ -557,7 +557,6 @@ namespace Padu.pasca
                                     CmdKRSValid.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
                                     CmdKRSValid.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
                                     CmdKRSValid.ExecuteNonQuery();
-
 
                                     // ----- Simpan Perubahan -----
                                     TransUntidar.Commit();
