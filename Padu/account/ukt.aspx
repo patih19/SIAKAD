@@ -151,8 +151,7 @@
                         </div>
                     </div>
                         <div class="alert alert-warning" role="alert">
-                            <span class="style2">Pembayaran biaya UKT hanya dapat dibayarkan melalui <strong>Bank
-                                BPD Jawa Tengah</strong> dengan cara menunjukkan NPM anda kepada Teller bank, panduan aktifasi pembayaran </span>
+                            <span class="style2">Pembayaran biaya UKT hanya dapat dibayarkan melalui <strong>Bank JATENG &amp; Bank BTN</strong> dengan cara menunjukkan NPM anda kepada Teller bank, panduan aktifasi pembayaran </span>
                             <asp:HyperLink ID="LinkDwnPanduan" runat="server" CssClass="btn btn-success" NavigateUrl="~/doc/Panduan Aktifasi Pembayaran.pdf" Target="_blank">  download </asp:HyperLink>
                         </div>
                     <div class="panel panel-default">
@@ -243,9 +242,12 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                    <p></p>
-                                        <asp:Button ID="BtnAktivasi" runat="server" CssClass="btn btn-success" 
-                                            onclick="BtnAktivasi_Click" Text="Aktivasi" />
+                                        <p></p>
+                                        <p><strong>Pilih salah satu:</strong></p>
+                                        <asp:Button ID="BtnAktivasi" runat="server" CssClass="btn btn-primary" 
+                                            onclick="BtnAktivasiJateng_Click" Text="Aktivasi di Bank JATENG" />
+                                        &nbsp;&nbsp;
+                                        <asp:Button ID="BtnAktivasiBTN" runat="server" CssClass="btn btn-warning" Text="Aktivasi di Bank BTN" OnClick="BtnAktivasiBTN_Click" />
                                     </td>
                                 </tr>
                             </table>  
