@@ -77,7 +77,7 @@ namespace Portal
                                 datarow["Nama"] = rdr["nama"];
                                 datarow["IPS"] = rdr["ips"];
                                 datarow["SKS-Sem"] = rdr["sks_sem"];
-                                datarow["IPK"] = rdr["ips"];
+                                datarow["IPK"] = rdr["ipk"];
                                 datarow["SKS-Total"] = rdr["sks_total"];
 
                                 TableJadwal.Rows.Add(datarow);

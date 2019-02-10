@@ -51,6 +51,9 @@ namespace Portal
             //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data Tahun '" + ThnMhs + "' Belum Dapat Ditampilkan Online');", true);
             //    return;
             //}
+            _TotalBobot = 0;
+            _TotalSKS = 0;
+
 
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))

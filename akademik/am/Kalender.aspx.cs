@@ -501,7 +501,7 @@ namespace akademik.am
                 CmdNewYear.CommandType = System.Data.CommandType.StoredProcedure;
 
                 CmdNewYear.Parameters.AddWithValue("@no", this.LbNoKeg.Text);
-                CmdNewYear.Parameters.AddWithValue("@jenis_keg", this.DLJenisKeg3.SelectedItem.Text);
+                CmdNewYear.Parameters.AddWithValue("@jenis_keg", this.DLJenisKeg3.SelectedValue.Trim());
                 CmdNewYear.Parameters.AddWithValue("@keg", this.TbKeg3.Text);
                 CmdNewYear.Parameters.AddWithValue("@tgl_mulai", Convert.ToDateTime(thn1 + "-" + bln1 + "-" + tgl1));
                 CmdNewYear.Parameters.AddWithValue("@tgl_sls", Convert.ToDateTime(thn2 + "-" + bln2 + "-" + tgl2));
@@ -675,7 +675,7 @@ namespace akademik.am
             int index = gvRow.RowIndex;
 
             this.LbNoKeg.Text = this.GVGasal.Rows[index].Cells[3].Text;
-            this.DLJenisKeg3.SelectedItem.Text = this.GVGasal.Rows[index].Cells[4].Text;
+            this.DLJenisKeg3.SelectedValue = this.GVGasal.Rows[index].Cells[4].Text;
             this.TbKeg3.Text = this.GVGasal.Rows[index].Cells[5].Text;
             // ----tanggal mulai
             string TbMulai3 = this.GVGasal.Rows[index].Cells[6].Text;
@@ -774,7 +774,7 @@ namespace akademik.am
             int index = gvRow.RowIndex;
 
             this.LbNoKeg.Text = this.GVGenap.Rows[index].Cells[3].Text;
-            this.DLJenisKeg3.SelectedItem.Text = this.GVGenap.Rows[index].Cells[4].Text;
+            this.DLJenisKeg3.SelectedValue = this.GVGenap.Rows[index].Cells[4].Text;
             this.TbKeg3.Text = this.GVGenap.Rows[index].Cells[5].Text;
             // ----tanggal mulai
             string TbMulai3 = this.GVGenap.Rows[index].Cells[6].Text;

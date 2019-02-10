@@ -470,6 +470,7 @@ namespace Padu.account
 
         protected void BtnAktivasiBTN_Click(object sender, EventArgs e)
         {
+            return;
 
             if (this.DLTahun.SelectedItem.Text.Trim() == "")
             {

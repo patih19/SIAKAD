@@ -171,6 +171,7 @@
     <Content Include="am\DataDosen.aspx" />
     <Content Include="am\MhsPerProv.aspx" />
     <Content Include="am\MonitorRuang.aspx" />
+    <Content Include="am\RekapPemesanan.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.3.3.6.css" />
@@ -477,7 +478,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="WebForm1.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -886,6 +886,13 @@
     <Compile Include="am\MonitorRuang.aspx.designer.cs">
       <DependentUpon>MonitorRuang.aspx</DependentUpon>
     </Compile>
+    <Compile Include="am\RekapPemesanan.aspx.cs">
+      <DependentUpon>RekapPemesanan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="am\RekapPemesanan.aspx.designer.cs">
+      <DependentUpon>RekapPemesanan.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Front.Master.cs">
       <DependentUpon>Front.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -915,13 +922,6 @@
     </Compile>
     <Compile Include="am\UTSCard.aspx.designer.cs">
       <DependentUpon>UTSCard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

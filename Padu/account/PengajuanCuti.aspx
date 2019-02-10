@@ -10,15 +10,17 @@
                     <a href="#" class="list-group-item" style="background-color: #87cefa">AKUN</a> <a
                         href="<%= Page.ResolveUrl("~/account/keuangan") %>" class="list-group-item"><span
                             class="glyphicon glyphicon-transfer"></span>&nbsp;Aktifasi Pembayaran</a>
-                    <a href="#" class="list-group-item"><span
-                        class="glyphicon glyphicon-picture "></span>&nbsp;Upload Foto</a>
                     <a href="<%= Page.ResolveUrl("~/account/biodata") %>"
                         class="list-group-item"><span class="glyphicon glyphicon-user"></span>&nbsp;Biodata</a>
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">FASILITAS</a>
+                    <a href="<%= Page.ResolveUrl("~/account/Pemesanan") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-check"></span>&nbsp;Pesan Mata Kuliah (Pra KRS)</a>
                     <a href="<%= Page.ResolveUrl("~/account/KRSNew") %>" class="list-group-item"><span
-                        class="glyphicon glyphicon-check"></span>&nbsp;KRS</a>
+                        class="glyphicon glyphicon-check"></span>&nbsp;KRS TAHAP I</a>
+                    <a href="<%= Page.ResolveUrl("~/account/KrsTahap2") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-check"></span>&nbsp;KRS TAHAP II</a>
                     <a href="<%= Page.ResolveUrl("~/account/KHS") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;KHS</a>
                     <a href="<%= Page.ResolveUrl("~/account/KartuUjian") %>" class="list-group-item"><span
@@ -69,28 +71,28 @@
                                 <asp:Panel ID="PanelNilai" runat="server" Style="background-color: #FFFFFF">
                                     <strong>Pengajuan Cuti Kuliah</strong><br />
                                     Pilih semester cuti
-                        <p>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <asp:DropDownList CssClass="form-control" ID="DLTahun" runat="server">
-                                        </asp:DropDownList>
-                                    </td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td>
-                                        <asp:DropDownList CssClass="form-control" ID="DLSemester" runat="server">
-                                            <asp:ListItem Value="-1">-- Pilih Semester --</asp:ListItem>
-                                            <asp:ListItem Value="1">1 - Gasal</asp:ListItem>
-                                            <asp:ListItem Value="2">2 - Genap</asp:ListItem>
-                                        </asp:DropDownList>
-                                    </td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td>
-                                        <asp:Button ID="BtnSubmit" CssClass="btn btn-primary" runat="server" Text="Ajukan" OnClick="BtnSubmit_Click" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </p>
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:DropDownList CssClass="form-control" ID="DLTahun" runat="server">
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>&nbsp;&nbsp;</td>
+                                            <td>
+                                                <asp:DropDownList CssClass="form-control" ID="DLSemester" runat="server">
+                                                    <asp:ListItem Value="-1">-- Pilih Semester --</asp:ListItem>
+                                                    <asp:ListItem Value="1">1 - Gasal</asp:ListItem>
+                                                    <asp:ListItem Value="2">2 - Genap</asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>&nbsp;&nbsp;</td>
+                                            <td>
+                                                <asp:Button ID="BtnSubmit" CssClass="btn btn-primary" runat="server" Text="Ajukan" OnClick="BtnSubmit_Click" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                        
                                 </asp:Panel>
                             </div>
                         </div>
@@ -116,7 +118,6 @@
                                 <asp:HyperLink ID="HyDwnForm" runat="server" NavigateUrl="~/doc/Form-Permohonan-Cuti.docx">berikut,</asp:HyperLink>
                                     kemudian hubungi bagian Tata Usaha
                                 </asp:Panel>
-
                             </div>
                         </div>
                     </asp:Panel>

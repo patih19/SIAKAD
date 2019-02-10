@@ -774,6 +774,8 @@
     <Content Include="JadwalUniv.aspx" />
     <Content Include="AddJadwalUniv.aspx" />
     <Content Include="Transkrip.aspx" />
+    <Content Include="Penawaran.aspx" />
+    <Content Include="RekapPenawaran.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1039,6 +1041,20 @@
     </Compile>
     <Compile Include="Transkrip.aspx.designer.cs">
       <DependentUpon>Transkrip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Penawaran.aspx.cs">
+      <DependentUpon>Penawaran.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Penawaran.aspx.designer.cs">
+      <DependentUpon>Penawaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RekapPenawaran.aspx.cs">
+      <DependentUpon>RekapPenawaran.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RekapPenawaran.aspx.designer.cs">
+      <DependentUpon>RekapPenawaran.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

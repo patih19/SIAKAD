@@ -10,15 +10,17 @@
                     <a href="#" class="list-group-item" style="background-color: #87cefa">AKUN</a> <a
                         href="<%= Page.ResolveUrl("~/account/keuangan") %>" class="list-group-item"><span
                             class="glyphicon glyphicon-transfer"></span>&nbsp;Aktifasi Pembayaran</a>
-                    <a href="#" class="list-group-item"><span
-                        class="glyphicon glyphicon-picture "></span>&nbsp;Upload Foto</a>
                     <a href="<%= Page.ResolveUrl("~/account/biodata") %>"
                         class="list-group-item"><span class="glyphicon glyphicon-user"></span>&nbsp;Biodata</a>
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item" style="background-color: #87cefa">FASILITAS</a>
+                    <a href="<%= Page.ResolveUrl("~/account/Pemesanan") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-check"></span>&nbsp;Pesan Mata Kuliah (Pra KRS)</a>
                     <a href="<%= Page.ResolveUrl("~/account/KRSNew") %>" class="list-group-item"><span
-                        class="glyphicon glyphicon-check"></span>&nbsp;KRS</a>
+                        class="glyphicon glyphicon-check"></span>&nbsp;KRS TAHAP I</a>
+                    <a href="<%= Page.ResolveUrl("~/account/KrsTahap2") %>" class="list-group-item"><span
+                        class="glyphicon glyphicon-check"></span>&nbsp;KRS TAHAP II</a>
                     <a href="<%= Page.ResolveUrl("~/account/KHS") %>" class="list-group-item"><span
                         class="glyphicon glyphicon-file"></span>&nbsp;KHS</a>
                     <a href="<%= Page.ResolveUrl("~/account/KartuUjian") %>" class="list-group-item"><span
@@ -55,7 +57,7 @@
                     <p></p>
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">
-                            <strong>From Kuisioner Penilaian </strong>
+                            <strong>From Kuisioner Semester Gasal Tahun Akademik 2018/2019</strong>
                         </div>
                         <div class="panel-body">
                              Penilaian kinerja dosen oleh mahasiswa melalui laman berikut, <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://goo.gl/forms/7Q92YtcaahMTqs042" Target="_blank">kuisioner</asp:HyperLink> 
@@ -63,11 +65,11 @@
                     </div>
                     <hr />
                     <div class="text-center">
-                        <span style="font-size: large" >ALUR PENGISIAN DAN BIMBIGAN KRS</span></div>
+                        <span style="font-size: large" ></span></div>
                     <br />
                     <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/DIAGRAM ALIR SIPADU_0102-1.jpg" /><p></p>
                     <div class="alert alert-success" role="alert">
-                            <span >Mahasiswa bidikmisi tahun 2014/2015 dan sebelumnya tidak ada perubahan alur aktivasi pembayaran </span>
+                            <span >Mahasiswa bidikmisi tahun 2014/2015 dan sebelumnya tidak ada perubahan mekanisme aktivasi pembayaran </span>
                         </div>
                 </div>
             </div>

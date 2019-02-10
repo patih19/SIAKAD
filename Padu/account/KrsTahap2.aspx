@@ -1,19 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KRSNew.aspx.cs" Inherits="Padu.account.WebForm4" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="KrsTahap2.aspx.cs" Inherits="Padu.account.KrsTahap2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../css/timeline.css" rel="stylesheet" />
     <style type="text/css">
-        .style2
-        {
+        .style2 {
             color: #FF3300;
         }
-        body
-        {
+
+        body {
             margin: 0;
             padding: 0;
             font-family: Arial;
         }
-        .mdl
-        {
+
+        .mdl {
             position: fixed;
             top: 0;
             left: 0;
@@ -25,8 +24,8 @@
             min-height: 100%;
             width: 100%;
         }
-        .center
-        {
+
+        .center {
             z-index: 1000;
             margin: 300px auto;
             padding: 10px;
@@ -37,15 +36,15 @@
             opacity: 1;
             -moz-opacity: 1;
         }
-        .center img
-        {
-            height: 95px;
-            width: 95px;
-        }
+
+            .center img {
+                height: 95px;
+                width: 95px;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div class="container top-main-form" style="background: #fafafa">
         <br />
@@ -98,9 +97,10 @@
             <div class="col-md-9">
                 <div class="col-md-12">
                     <div class="alert alert-success" role="alert">
-                        <p><span> PENGISIAN KRS BAGI MAHASISWA YANG SUDAH MEMESAN MATA KULIAH </span></p>
-                        <p>Panduan KRS, <asp:HyperLink ID="HyperLinkKRS" runat="server" NavigateUrl="~/doc/alur_krs.pdf" Target="_blank">download</asp:HyperLink></p>
+                       <p><span>PENGISIAN KRS BAGI MAHASISWA YANG TIDAK MEMESAN MATA KULIAH / BELUM KRS</span></p> 
+                       <p><span>PERBAIKAN KRS BAGI MAHASISWA YANG SUDAH MENGISI KRS DI TAHAP PERTAMA</span></p> 
                     </div>
+
                     <asp:Panel ID="PanelMhs" runat="server">
                         <table class="table-condensed">
                             <tr>
@@ -159,7 +159,7 @@
                     </asp:Panel>
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">
-                            <strong>Kartu Rencana Studi (KRS) Tahap PERTAMA</strong></div>
+                            <strong>Kartu Rencana Studi (KRS) Tahap KEDUA</strong></div>
                         <div class="panel-body">
                             <table class="table-condensed">
                                 <tr>

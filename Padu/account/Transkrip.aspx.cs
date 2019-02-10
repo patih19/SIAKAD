@@ -136,6 +136,10 @@ namespace Padu.account
                 return;
             }
 
+            _TotalSKS = 0;
+            _TotalBobot = 0;
+
+
             string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
             using (SqlConnection con = new SqlConnection(CS))
             {

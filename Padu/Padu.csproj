@@ -131,6 +131,8 @@
     <Content Include="account\KRS.aspx" />
     <Content Include="account\Transkrip.aspx" />
     <Content Include="account\PengajuanCuti.aspx" />
+    <Content Include="account\Pemesanan.aspx" />
+    <Content Include="account\KrsTahap2.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -139,7 +141,6 @@
     <Content Include="css\login.css" />
     <Content Include="css\print.css" />
     <Content Include="css\timeline.css" />
-    <Content Include="doc\ALURKRS2172.png" />
     <Content Include="doc\DIAGRAM ALIR SIPADU_0102-1.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\Alur Bayar UTS.png" />
@@ -289,6 +290,8 @@
     <Content Include="pasca\Pasca.Master" />
     <Content Include="doc\Form-Permohonan-Cuti.docx" />
     <Content Include="doc\Panduan Aktifasi Pembayaran.pdf" />
+    <Content Include="doc\visio 2010 alur krs.vsd" />
+    <Content Include="doc\alur_krs.pdf" />
     <None Include="pasca\Scripts\jquery-3.1.1-vsdoc.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.js" />
     <Content Include="pasca\Scripts\jquery-3.1.1.min.js" />
@@ -472,6 +475,20 @@
     <Compile Include="account\PengajuanCuti.aspx.designer.cs">
       <DependentUpon>PengajuanCuti.aspx</DependentUpon>
     </Compile>
+    <Compile Include="account\Pemesanan.aspx.cs">
+      <DependentUpon>Pemesanan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="account\Pemesanan.aspx.designer.cs">
+      <DependentUpon>Pemesanan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="account\KrsTahap2.aspx.cs">
+      <DependentUpon>KrsTahap2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="account\KrsTahap2.aspx.designer.cs">
+      <DependentUpon>KrsTahap2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Padu_login.aspx.cs">
       <DependentUpon>Padu_login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -617,7 +634,9 @@
     <None Include="Properties\PublishProfiles\Remote_Sipadu.pubxml" />
     <None Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

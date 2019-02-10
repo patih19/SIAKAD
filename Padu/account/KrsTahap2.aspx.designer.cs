@@ -10,7 +10,7 @@
 namespace Padu.account {
     
     
-    public partial class WebForm4 {
+    public partial class KrsTahap2 {
         
         /// <summary>
         /// ScriptManager1 control.
@@ -29,15 +29,6 @@ namespace Padu.account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor keluar;
-        
-        /// <summary>
-        /// HyperLinkKRS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkKRS;
         
         /// <summary>
         /// PanelMhs control.

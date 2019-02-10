@@ -9,11 +9,9 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
-
 namespace Padu.account
 {
-    //public partial class WebForm4 : System.Web.UI.Page
-    public partial class WebForm4 : Mhs_account
+    public partial class KrsTahap2 : Mhs_account
     {
         //instance object mahasiswa
         Mhs mhs = new Mhs();
@@ -152,13 +150,10 @@ namespace Padu.account
                         {
                             if (rdr.HasRows)
                             {
-                                this.DLSemester.SelectedValue = "Semester";
-
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
                                 return;
                             }
                         }
-
 
                         // --------------- CEK MABA atau NON MABA ----------------//
                         string TahunMhs = "";
@@ -187,7 +182,7 @@ namespace Padu.account
                             CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "KRSMABA");
+                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
                             CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
                             SqlParameter Status = new SqlParameter();
@@ -203,7 +198,7 @@ namespace Padu.account
                             {
                                 this.DLSemester.SelectedValue = "Semester";
 
-                                string message = "alert('Tidak Ada Jadwal Pengisian KRS Tahap I Bagi Mahasiswa Baru...')";
+                                string message = "alert('Tidak Ada Jadwal BATAL TAMBAH Atau KRS TAHAP 2 Bagi Mahasiswa Baru...')";
                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 return;
                             }
@@ -229,8 +224,6 @@ namespace Padu.account
                                 }
                                 else
                                 {
-                                    this.DLSemester.SelectedValue = "Semester";
-
                                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data Pembayaran Tidak Ditemukan');", true);
                                     return;
                                 }
@@ -268,6 +261,8 @@ namespace Padu.account
                                     }
                                     else
                                     {
+                                        this.DLSemester.SelectedValue = "Semester";
+
                                         // Belum aktivasi
                                         string message = "alert('Lakukan Aktivasi Pembayaran Semester Ini')";
                                         ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
@@ -290,7 +285,7 @@ namespace Padu.account
                             CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "KRSNONMABA");
+                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
                             CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
                             SqlParameter Status = new SqlParameter();
@@ -306,7 +301,7 @@ namespace Padu.account
                             {
                                 this.DLSemester.SelectedValue = "Semester";
 
-                                string message = "alert('Tidak Ada Jadwal Pengisian KRS Tahap I Bagi Mahasiswa Lama...')";
+                                string message = "alert('Tidak Ada Jadwal BATAL TAMBAH Atau KRS TAHAP 2 Bagi Mahasiswa Lama...')";
                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 return;
                             }
@@ -322,7 +317,7 @@ namespace Padu.account
                                 _MaxKRS = 24;
                             }
                             else if (this.DLSemester.SelectedValue.Trim() == "2")
-                            { 
+                            {
                                 // ------- Sama dengan mahasiswa lama -------- //
 
                                 _PrevIPS = 0;
@@ -367,7 +362,8 @@ namespace Padu.account
                                 else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
                                 {
                                     _MaxKRS = 22;
-                                } else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                                }
+                                else if (_PrevIPS >= Convert.ToDecimal(3.7))
                                 {
                                     _MaxKRS = 24;
                                 }
@@ -438,40 +434,9 @@ namespace Padu.account
                         CekKRS.ExecuteNonQuery();
 
                         // --------------------- Fill Gridview  ------------------------
-                        SqlCommand CmdKRS = new SqlCommand(@"
-                        DECLARE @Smster_Mhs varchar(5)
-                        DECLARE @NoMhs varchar(20)
+                        SqlCommand CmdKRS = new SqlCommand("SpListKRS2", con);
 
-                        SELECT @NoMhs=npm, @Smster_Mhs=smster_mulai FROM bak_mahasiswa WHERE npm = @npm
-
-                        SELECT  no_jadwal, MakulPesanan.semester, MakulPesanan.kode_makul, makul, sks, quota, nidn, nama, kelas, hari, jam_mulai, 
-                        jam_selesai, ruang, jm_awal_kuliah, jm_akhir_kuliah, nm_ruang, id_kurikulum, semester_mulai, semester_selesai 
-                        FROM (
-	                        SELECT Pesanan.kode_makul,Pesanan.semester FROM (
-		                        SELECT        bak_krs_penawaran.no,bak_penawaran_makul.kode_makul, bak_penawaran_makul.semester
-		                        FROM            bak_krs_penawaran INNER JOIN
-								                         bak_penawaran_makul ON bak_krs_penawaran.no_penawaran = bak_penawaran_makul.no_penawaran INNER JOIN
-								                         bak_makul ON bak_makul.kode_makul = bak_penawaran_makul.kode_makul
-		                        WHERE        (bak_krs_penawaran.npm = @npm) AND (bak_penawaran_makul.semester = @semester)
-	                        ) AS Pesanan LEFT OUTER JOIN dbo.bak_jadwal ON dbo.bak_jadwal.kode_makul = Pesanan.kode_makul AND dbo.bak_jadwal.semester = Pesanan.semester
-                        ) AS MakulPesanan INNER JOIN 
-                        (
-	                        SELECT        bak_jadwal.no_jadwal, bak_jadwal.semester, bak_makul.kode_makul, bak_makul.makul, bak_makul.sks, bak_jadwal.quota, bak_dosen.nidn, bak_dosen.nama, bak_jadwal.kelas, bak_jadwal.hari, bak_jadwal.jam_mulai, 
-								                        bak_jadwal.jam_selesai, bak_jadwal.ruang, bak_jadwal.jm_awal_kuliah, bak_jadwal.jm_akhir_kuliah, bak_ruang.nm_ruang, bak_kurikulum.id_kurikulum, bak_kurikulum.semester_mulai, 
-								                        bak_kurikulum.semester_selesai
-	                        FROM            bak_jadwal INNER JOIN
-								                        bak_dosen ON bak_jadwal.nidn = bak_dosen.nidn INNER JOIN
-								                        bak_makul ON bak_jadwal.kode_makul = bak_makul.kode_makul INNER JOIN
-								                        bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study INNER JOIN
-								                        bak_ruang ON bak_jadwal.id_rng_kuliah = bak_ruang.no INNER JOIN
-								                        bak_kurikulum ON bak_makul.id_kurikulum = bak_kurikulum.id_kurikulum
-	                        WHERE        (bak_kurikulum.semester_mulai <= @Smster_Mhs) AND (bak_kurikulum.semester_selesai >= @Smster_Mhs) AND (bak_jadwal.id_prog_study = @id_prodi) AND (bak_jadwal.jenis_kelas = @jenis_kelas) AND (bak_jadwal.semester = @semester)
-                        ) AS Jadwal 
-                        ON Jadwal.semester = MakulPesanan.semester AND Jadwal.kode_makul = MakulPesanan.kode_makul
-                        GROUP BY  no_jadwal, MakulPesanan.semester, MakulPesanan.kode_makul, makul, sks, quota, nidn, nama, kelas, hari, jam_mulai, 
-                        jam_selesai, ruang, jm_awal_kuliah, jm_akhir_kuliah, nm_ruang, id_kurikulum, semester_mulai, semester_selesai", con);
-
-                        CmdKRS.CommandType = System.Data.CommandType.Text;
+                        CmdKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
                         CmdKRS.Parameters.AddWithValue("@id_prodi", LbKdProdi.Text);
                         CmdKRS.Parameters.AddWithValue("@jenis_kelas", LbKelas.Text);
@@ -546,7 +511,7 @@ namespace Padu.account
                                 this.DLSemester.SelectedValue = "Semester";
 
                                 //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data tidak ditemukan');", true);
-                                string message = "alert('Tidak Ada Jadwal, Anda Wajib Pesan Mata Kuliah ATAU KRS Pada Tahap 2 ...')";
+                                string message = "alert('Tidak Ada Jadwal, Anda Wajib Pesan Mata Kuliah ...')";
                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 return;
                             }
@@ -578,7 +543,7 @@ namespace Padu.account
                 _TotalSKS = 0;
                 _TotalEditSKS = 0;
 
-                _JenisKRS = "EditKRS";
+                _JenisKRS = "BatalKRS";
 
                 try
                 {
@@ -597,8 +562,6 @@ namespace Padu.account
                         {
                             if (rdr.HasRows)
                             {
-                                this.DLSemester.SelectedValue = "Semester";
-
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
                                 return;
                             }
@@ -623,8 +586,6 @@ namespace Padu.account
                                     }
                                     else if (rdr["val"].ToString() == "1")
                                     {
-                                        this.DLSemester.SelectedValue = "Semester";
-
                                         this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('HUBUNGI DOSEN PEMBIMBING UNTUK MEMBUKA KRS');", true);
                                         return;
                                     }
@@ -666,7 +627,7 @@ namespace Padu.account
                             CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "KRSMABA");
+                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
                             CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
                             SqlParameter Status = new SqlParameter();
@@ -696,7 +657,7 @@ namespace Padu.account
                             CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "KRSNONMABA");
+                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "BatalTambah");
                             CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
                             SqlParameter Status = new SqlParameter();
@@ -712,7 +673,7 @@ namespace Padu.account
                             {
                                 this.DLSemester.SelectedValue = "Semester";
 
-                                string message = "alert('Tidak Ada Jadwal BATAL TAMBAH Atau KRS TAHAP 2 Bagi Mahasiswa Baru...')";
+                                string message = "alert('Tidak Ada Jadwal BATAL TAMBAH Atau KRS TAHAP 2 Bagi Mahasiswa Lama...')";
                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 return;
                             }
@@ -855,43 +816,12 @@ namespace Padu.account
                         CekKRS2.ExecuteNonQuery();
 
                         //------------- Fill Gridview Edit KRS ------------------------
-                        SqlCommand CmdEdit = new SqlCommand(@"
-                        DECLARE @Smster_Mhs varchar(5)
-                        DECLARE @NoMhs varchar(20)
+                        SqlCommand CmdEdit = new SqlCommand("SpListKRS2", con);
+                        CmdEdit.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        SELECT @NoMhs=npm, @Smster_Mhs=smster_mulai FROM bak_mahasiswa WHERE npm = @npm
-
-                        SELECT  no_jadwal, MakulPesanan.semester, MakulPesanan.kode_makul, makul, sks, quota, nidn, nama, kelas, hari, jam_mulai, 
-                        jam_selesai, ruang, jm_awal_kuliah, jm_akhir_kuliah, nm_ruang, id_kurikulum, semester_mulai, semester_selesai 
-                        FROM (
-	                        SELECT Pesanan.kode_makul,Pesanan.semester FROM (
-		                        SELECT        bak_krs_penawaran.no,bak_penawaran_makul.kode_makul, bak_penawaran_makul.semester
-		                        FROM            bak_krs_penawaran INNER JOIN
-								                         bak_penawaran_makul ON bak_krs_penawaran.no_penawaran = bak_penawaran_makul.no_penawaran INNER JOIN
-								                         bak_makul ON bak_makul.kode_makul = bak_penawaran_makul.kode_makul
-		                        WHERE        (bak_krs_penawaran.npm = @npm) AND (bak_penawaran_makul.semester = @semester)
-	                        ) AS Pesanan LEFT OUTER JOIN dbo.bak_jadwal ON dbo.bak_jadwal.kode_makul = Pesanan.kode_makul AND dbo.bak_jadwal.semester = Pesanan.semester
-                        ) AS MakulPesanan INNER JOIN 
-                        (
-	                        SELECT        bak_jadwal.no_jadwal, bak_jadwal.semester, bak_makul.kode_makul, bak_makul.makul, bak_makul.sks, bak_jadwal.quota, bak_dosen.nidn, bak_dosen.nama, bak_jadwal.kelas, bak_jadwal.hari, bak_jadwal.jam_mulai, 
-								                        bak_jadwal.jam_selesai, bak_jadwal.ruang, bak_jadwal.jm_awal_kuliah, bak_jadwal.jm_akhir_kuliah, bak_ruang.nm_ruang, bak_kurikulum.id_kurikulum, bak_kurikulum.semester_mulai, 
-								                        bak_kurikulum.semester_selesai
-	                        FROM            bak_jadwal INNER JOIN
-								                        bak_dosen ON bak_jadwal.nidn = bak_dosen.nidn INNER JOIN
-								                        bak_makul ON bak_jadwal.kode_makul = bak_makul.kode_makul INNER JOIN
-								                        bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study INNER JOIN
-								                        bak_ruang ON bak_jadwal.id_rng_kuliah = bak_ruang.no INNER JOIN
-								                        bak_kurikulum ON bak_makul.id_kurikulum = bak_kurikulum.id_kurikulum
-	                        WHERE        (bak_kurikulum.semester_mulai <= @Smster_Mhs) AND (bak_kurikulum.semester_selesai >= @Smster_Mhs) AND (bak_jadwal.id_prog_study = @id_prodi) AND (bak_jadwal.jenis_kelas = @jenis_kelas) AND (bak_jadwal.semester = @semester)
-                        ) AS Jadwal 
-                        ON Jadwal.semester = MakulPesanan.semester AND Jadwal.kode_makul = MakulPesanan.kode_makul
-                        GROUP BY  no_jadwal, MakulPesanan.semester, MakulPesanan.kode_makul, makul, sks, quota, nidn, nama, kelas, hari, jam_mulai, 
-                        jam_selesai, ruang, jm_awal_kuliah, jm_akhir_kuliah, nm_ruang, id_kurikulum, semester_mulai, semester_selesai", con);
-                        CmdEdit.CommandType = System.Data.CommandType.Text;
-
-                        CmdEdit.Parameters.AddWithValue("@id_prodi", LbKdProdi.Text);
-                        CmdEdit.Parameters.AddWithValue("@jenis_kelas", this.LbKelas.Text);
-                        CmdEdit.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                        CmdEdit.Parameters.AddWithValue("@id_prodi",this.LbKdProdi.Text.Trim());
+                        CmdEdit.Parameters.AddWithValue("@jenis_kelas", this.LbKelas.Text.Trim());
+                        CmdEdit.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedItem.Text.Trim());
                         CmdEdit.Parameters.AddWithValue("@npm", this.Session["Name"].ToString().Trim());
 
                         DataTable TableEdit = new DataTable();
@@ -1048,6 +978,7 @@ namespace Padu.account
                                         }
                                         catch (Exception)
                                         {
+
                                             Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Checked");
                                         }
                                     }
@@ -1128,7 +1059,8 @@ namespace Padu.account
 
                     this.DLSemester.SelectedValue = "Semester";
 
-                    string message = "alert('" + ex.Message.ToString() + "')";
+                    string message = "alert('"+ ex.Message +"')";
+                    message.Replace("'", string.Empty);
                     ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
 
                     //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
@@ -1286,6 +1218,7 @@ namespace Padu.account
             //                    }
             //                }
             //            }
+
 
             //            if (this.LbTahun.Text.Trim() == TahunMhs)
             //            {
@@ -2209,31 +2142,31 @@ namespace Padu.account
                                         this.LbPostSuccess.ForeColor = System.Drawing.Color.Green;
 
                                         //-- --------------  INSERT PERSETUJUAN KRS  --------------------  --
-                                        SqlCommand CmdPersetujuan = new SqlCommand(""+
-                                              "DECLARE @IdPersetujuan BIGINT "+
-                                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs "+
-                                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester "+
-                                              "IF(@IdPersetujuan IS NULL) "+
-                                              "BEGIN "+
-                                                "DECLARE @nidn VARCHAR(20) "+
-                                                "SELECT        @nidn = bak_dosen.nidn "+
-                                                "FROM            bak_dosen INNER JOIN "+
-                                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm "+
-                                                "IF(@nidn IS NULL) "+
-                                                "BEGIN "+
-                                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) "+
-                                                    "RETURN "+
-                                                "END "+
-                                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) "+
-                                              "END "+
-                                              "ELSE "+
-                                              "BEGIN "+
-                                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan "+
-                                                "IF(@@ROWCOUNT <> 1) "+
-                                                "BEGIN "+
-                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) "+
-                                                    "RETURN "+
-                                                "END "+
+                                        SqlCommand CmdPersetujuan = new SqlCommand("" +
+                                              "DECLARE @IdPersetujuan BIGINT " +
+                                              "SELECT @IdPersetujuan = id_persetujuan FROM bak_persetujuan_krs " +
+                                              "WHERE npm = @npm AND jenis = 'krs' AND semester = @semester " +
+                                              "IF(@IdPersetujuan IS NULL) " +
+                                              "BEGIN " +
+                                                "DECLARE @nidn VARCHAR(20) " +
+                                                "SELECT        @nidn = bak_dosen.nidn " +
+                                                "FROM            bak_dosen INNER JOIN " +
+                                                                         "bak_mahasiswa ON bak_dosen.nidn = bak_mahasiswa.id_wali WHERE npm = @npm " +
+                                                "IF(@nidn IS NULL) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('ANDA BELUM MEMILIKI DOSEN WALI, HUBUNGI TU PRODI ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
+                                                "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
+                                              "END " +
+                                              "ELSE " +
+                                              "BEGIN " +
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
+                                                "IF(@@ROWCOUNT <> 1) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
                                               "END" +
                                             "", con);
                                         CmdPersetujuan.Transaction = trans;
@@ -3560,16 +3493,16 @@ namespace Padu.account
                 try
                 {
                     // ----=============  Cek EDIT KRS atau BATAL TAMBAH ==============----
-                    if (_JenisKRS.ToString().Trim() == "EditKRS")
+                    if (_JenisKRS.ToString().Trim() == "BatalKRS")
                     {
-                        SqlCommand CmdEditKRS = new SqlCommand("SpInEditKRS", con);
-                        CmdEditKRS.Transaction = trans;
-                        CmdEditKRS.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlCommand CmdBatal = new SqlCommand("SpInBatalKRS", con);
+                        CmdBatal.Transaction = trans;
+                        CmdBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        CmdEditKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                        CmdEditKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
+                        CmdBatal.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                        CmdBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedItem.Text);
 
-                        CmdEditKRS.ExecuteNonQuery();
+                        CmdBatal.ExecuteNonQuery();
                     }
                     else
                     {

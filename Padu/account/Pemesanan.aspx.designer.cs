@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace akademik {
+namespace Padu.account {
     
     
-    public partial class WebForm1 {
+    public partial class Pemesanan {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -22,174 +22,138 @@ namespace akademik {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// GVProdi control.
+        /// keluar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVProdi;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor keluar;
         
         /// <summary>
-        /// LbPendaftar control.
+        /// HyperLinkKRS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbPendaftar;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLinkKRS;
         
         /// <summary>
-        /// LbDalamKota control.
+        /// PanelPenawaran control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbDalamKota;
+        protected global::System.Web.UI.WebControls.Panel PanelPenawaran;
         
         /// <summary>
-        /// LbLuarKota control.
+        /// PanelDosenWali control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbLuarKota;
+        protected global::System.Web.UI.UpdatePanel PanelDosenWali;
         
         /// <summary>
-        /// LbLelaki control.
+        /// LbSemester control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbLelaki;
+        protected global::System.Web.UI.WebControls.Label LbSemester;
         
         /// <summary>
-        /// LbPerempuan control.
+        /// DLTahun control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbPerempuan;
+        protected global::System.Web.UI.WebControls.DropDownList DLTahun;
         
         /// <summary>
-        /// LbSMK control.
+        /// DLSemester control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbSMK;
+        protected global::System.Web.UI.WebControls.DropDownList DLSemester;
         
         /// <summary>
-        /// LbSMA control.
+        /// BtnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbSMA;
+        protected global::System.Web.UI.WebControls.Button BtnSubmit;
         
         /// <summary>
-        /// HyperLink4 control.
+        /// PanelMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink4;
+        protected global::System.Web.UI.WebControls.Panel PanelMsg;
         
         /// <summary>
-        /// TBNoDaftar control.
+        /// LbMaxSKS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TBNoDaftar;
+        protected global::System.Web.UI.WebControls.Label LbMaxSKS;
         
         /// <summary>
-        /// ReqTagihan control.
+        /// PanelMakulDitawarkan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqTagihan;
+        protected global::System.Web.UI.WebControls.Panel PanelMakulDitawarkan;
         
         /// <summary>
-        /// TBPin control.
+        /// GvMakulDitawarkan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TBPin;
+        protected global::System.Web.UI.WebControls.GridView GvMakulDitawarkan;
         
         /// <summary>
-        /// ReqPIN control.
+        /// PanelMakulDipesan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqPIN;
+        protected global::System.Web.UI.WebControls.Panel PanelMakulDipesan;
         
         /// <summary>
-        /// TBReCaptcha control.
+        /// GvMakulDiPesan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TBReCaptcha;
+        protected global::System.Web.UI.WebControls.GridView GvMakulDiPesan;
         
         /// <summary>
-        /// ReqKode control.
+        /// UpdateProgress1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqKode;
-        
-        /// <summary>
-        /// BtLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtLogin;
-        
-        /// <summary>
-        /// HyperLink1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
-        
-        /// <summary>
-        /// HyperLink3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
-        
-        /// <summary>
-        /// HyperLink2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
     }
 }

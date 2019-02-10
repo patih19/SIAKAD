@@ -118,7 +118,7 @@
                             <td>
                                 <asp:DropDownList ID="DLJenisKeg2" runat="server" CssClass="form-control">
                                     <asp:ListItem>Jenis Kegiatan</asp:ListItem>
-                                    <asp:ListItem Value="PMB">Masa Penerimaan Mahasiswa Baru</asp:ListItem>
+                                    <asp:ListItem Value="PenawaranMakul">Penawaran Mata Kuliah</asp:ListItem>
                                     <asp:ListItem Value="KRSMABA">Masa Pengisian KRS Mahasiswa Baru</asp:ListItem>
                                     <asp:ListItem Value="KRSNONMABA">Masa Pengisian KRS Mahasiswa Lama</asp:ListItem>
                                     <asp:ListItem Value="BatalTambah">Masa Batal Tambah Makul</asp:ListItem>
@@ -236,7 +236,7 @@
                             <td>
                                 <asp:DropDownList ID="DLJenisKeg3" runat="server" CssClass="form-control">
                                     <asp:ListItem>Jenis Kegiatan</asp:ListItem>
-                                    <asp:ListItem Value="PMB">Masa Penerimaan Mahasiswa Baru</asp:ListItem>
+                                    <asp:ListItem Value="PenawaranMakul">Penawaran Mata Kuliah</asp:ListItem>
                                     <asp:ListItem Value="KRSMABA">Masa Pengisian KRS Mahasiswa Baru</asp:ListItem>
                                     <asp:ListItem Value="KRSNONMABA">Masa Pengisian KRS Mahasiswa Lama</asp:ListItem>
                                     <asp:ListItem Value="BatalTambah">Masa Batal Tambah Makul</asp:ListItem>
