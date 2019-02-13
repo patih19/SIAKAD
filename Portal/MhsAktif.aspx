@@ -108,32 +108,34 @@
                 <hr />
                 <asp:Label ID="LbKetSelect"
                     runat="server" CssClass="hidden"></asp:Label>
-                <asp:GridView ID="GVMhs" runat="server" CellPadding="4" 
-                    ForeColor="#333333" GridLines="None"
-                    CssClass="table-condensed table-bordered" PageSize="100" 
-                    OnRowCreated="GVMhs_RowCreated">
-                    <AlternatingRowStyle BackColor="White" />
-                    <Columns>
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                BIODATA
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Button ID="BtnLihat" runat="server" CssClass="btn btn-success" Text="Lihat" onclick="BtnLihat_Click" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <EditRowStyle BackColor="#2461BF" />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                </asp:GridView>
+                <div class="table table-responsive" >
+                    <asp:GridView ID="GVMhs" runat="server" CellPadding="4"
+                        ForeColor="#333333" GridLines="None"
+                        CssClass="table-condensed table-bordered" PageSize="100"
+                        OnRowCreated="GVMhs_RowCreated">
+                        <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>
+                                    BIODATA
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Button ID="BtnLihat" runat="server" CssClass="btn btn-success" Text="Lihat" OnClick="BtnLihat_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                    </asp:GridView>
+                </div>
                 <asp:Repeater ID="Repeater1" runat="server" EnableTheming="True">
                     <ItemTemplate>
                         <asp:LinkButton ID="PageButton" runat="server" Text='<%#Eval("Text")%>' CommandArgument='<%#Eval("Value")%>'

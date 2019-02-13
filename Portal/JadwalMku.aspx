@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalUniv.aspx.cs" Inherits="Portal.JadwalUniv" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalMku.aspx.cs" Inherits="Portal.JadwalMku" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="Scripts/DataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="Scripts/DataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/DataTables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="Scripts/DataTables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/jscript">
@@ -15,6 +15,16 @@
                     }
                 });
             }
+
+            $('#ctl00_ContentPlaceHolder1_GVJadwal').DataTable({
+                'iDisplayLength': 100,
+                'aLengthMenu': [[100, 200, 300, -1], [100, 200, 300, "All"]],
+                language: {
+                    search: "Pencarian :",
+                    searchPlaceholder: "Ketik Kata Kunci"
+                }
+            });
+
         }
     </script>
     <style type="text/css">
@@ -36,7 +46,7 @@
             background-color: #EEF7EE;
         }
     </style>
-    <style type="text/css">
+    <%--<style type="text/css">
         .mdl
         {
             position: fixed;
@@ -67,8 +77,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>
-
+    </style>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
@@ -130,48 +139,58 @@
                                 &nbsp;<asp:Button ID="BtnNewJadwal" OnClick="BtnNewJadwal_Click" runat="server" CssClass="btn btn-danger" Text="Buat Jadwal" />
                             </div>
                             <div class="panel-body">
-
-                                <H4>INPUT JADWAL KHUSUS PENDIDIKAN AGAMA NON ISLAM (JADWAL SAMA SE-UNIVERSITAS)</H4>
-
-                                <asp:GridView ID="GVJadwal" runat="server" CssClass="table table-condensed table-bordered table-hover"
-                                    OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender" Visible="False">
-                                    <Columns>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="ButtonAdd" runat="server" OnClick="Button1_Click" Text="Add" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Add
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Edit
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="BtnDelete" runat="server" OnClick="BtnDelete_Click" Text="Delete" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Delete
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <HeaderTemplate>
-                                                Quota
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                <asp:TextBox ID="TbQuota" runat="server" AutoPostBack="True" 
-                                                    CssClass="from-control" MaxLength="3" ontextchanged="TbQuota_TextChanged" 
-                                                    Width="40px"></asp:TextBox>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
+                                <div class="table table-responsive">
+                                    <asp:GridView ID="GVJadwal" runat="server" CssClass="table table-condensed table-bordered table-hover"
+                                        OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                        <AlternatingRowStyle BackColor="White" />
+                                        <Columns>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="ButtonAdd" runat="server" OnClick="Button1_Click" Text="Add" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Add
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Edit
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="BtnDelete" runat="server" OnClick="BtnDelete_Click" Text="Delete" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Delete
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Quota
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="TbQuota" runat="server" AutoPostBack="True" 
+                                                        CssClass="from-control" MaxLength="3" ontextchanged="TbQuota_TextChanged" 
+                                                        Width="40px"></asp:TextBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <EditRowStyle BackColor="#7C6F57" />
+                                        <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                        <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#E3EAEB" />
+                                        <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                        <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                        <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                        <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                        <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                    </asp:GridView>
+                                </div>
                                 <asp:Label CssClass="hidden" ID="LbThn" runat="server" ForeColor="Transparent"></asp:Label>
                                 &nbsp;<asp:Label CssClass="hidden" ID="LbSmstr" runat="server" ForeColor="Transparent" ></asp:Label>
                             </div>

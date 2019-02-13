@@ -64,17 +64,19 @@
                         <strong>Daftar Mata Kuliah</strong> 
                     </div>
                     <div class="panel-body">
-                        <asp:GridView ID="GVMakul" runat="server" 
-                            CssClass="table table-bordered" OnRowCreated="GVMakul_RowCreated" OnRowDataBound="GVMakul_RowDataBound"
-                            onprerender="GVMakul_PreRender">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Edit">
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="LnkEdit" runat="server" OnClick="LnkEdit_Click">Edit</asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
+                        <div class="table table-responsive">
+                            <asp:GridView ID="GVMakul" runat="server"
+                                CssClass="table table-bordered" OnRowCreated="GVMakul_RowCreated" OnRowDataBound="GVMakul_RowDataBound"
+                                OnPreRender="GVMakul_PreRender">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Edit">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="LnkEdit" runat="server" OnClick="LnkEdit_Click">Edit</asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@
 namespace Portal {
     
     
-    public partial class AddJadwalUniv {
+    public partial class AddJadwalMkdu {
         
         /// <summary>
         /// ToolkitScriptManager1 control.

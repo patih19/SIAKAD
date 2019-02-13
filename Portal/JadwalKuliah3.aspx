@@ -140,45 +140,47 @@
                                 &nbsp;<asp:Button ID="BtnNewJadwal" OnClick="BtnNewJadwal_Click" runat="server" CssClass="btn btn-danger" Text="Buat Jadwal" />
                             </div>
                             <div class="panel-body">
-                                <asp:GridView ID="GVJadwal" runat="server" CssClass="table table-condensed table-bordered table-hover"
-                                    OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender">
-                                    <Columns>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="ButtonAdd" runat="server" OnClick="Button1_Click" Text="Add" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Add
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Edit
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:Button ID="BtnDelete" runat="server" OnClick="BtnDelete_Click" Text="Delete" />
-                                            </ItemTemplate>
-                                            <HeaderTemplate>
-                                                Delete
-                                            </HeaderTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <HeaderTemplate>
-                                                Quota
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                <asp:TextBox ID="TbQuota" runat="server" AutoPostBack="True" 
-                                                    CssClass="from-control" MaxLength="3" ontextchanged="TbQuota_TextChanged" 
-                                                    Width="40px"></asp:TextBox>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
+                                <div class="table table-responsive">
+                                    <asp:GridView ID="GVJadwal" runat="server" CssClass="table table-condensed table-bordered table-hover"
+                                        OnRowDataBound="GVJadwal_RowDataBound" OnPreRender="GVJadwal_PreRender">
+                                        <Columns>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="ButtonAdd" runat="server" OnClick="Button1_Click" Text="Add" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Add
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Edit
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:Button ID="BtnDelete" runat="server" OnClick="BtnDelete_Click" Text="Delete" />
+                                                </ItemTemplate>
+                                                <HeaderTemplate>
+                                                    Delete
+                                                </HeaderTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Quota
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="TbQuota" runat="server" AutoPostBack="True"
+                                                        CssClass="from-control" MaxLength="3" OnTextChanged="TbQuota_TextChanged"
+                                                        Width="40px"></asp:TextBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
                                 <asp:Label CssClass="hidden" ID="LbThn" runat="server" ForeColor="Transparent"></asp:Label>
                                 &nbsp;<asp:Label CssClass="hidden" ID="LbSmstr" runat="server" ForeColor="Transparent" ></asp:Label>
                             </div>

@@ -771,11 +771,11 @@
     <Content Include="PermohonanCuti.aspx" />
     <Content Include="ValidasiKRS.aspx" />
     <Content Include="MhsTunggu.aspx" />
-    <Content Include="JadwalUniv.aspx" />
-    <Content Include="AddJadwalUniv.aspx" />
     <Content Include="Transkrip.aspx" />
     <Content Include="Penawaran.aspx" />
     <Content Include="RekapPenawaran.aspx" />
+    <Content Include="JadwalMku.aspx" />
+    <Content Include="AddJadwalMkdu.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1021,20 +1021,6 @@
     <Compile Include="MhsTunggu.aspx.designer.cs">
       <DependentUpon>MhsTunggu.aspx</DependentUpon>
     </Compile>
-    <Compile Include="JadwalUniv.aspx.cs">
-      <DependentUpon>JadwalUniv.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JadwalUniv.aspx.designer.cs">
-      <DependentUpon>JadwalUniv.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AddJadwalUniv.aspx.cs">
-      <DependentUpon>AddJadwalUniv.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AddJadwalUniv.aspx.designer.cs">
-      <DependentUpon>AddJadwalUniv.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Transkrip.aspx.cs">
       <DependentUpon>Transkrip.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1055,6 +1041,20 @@
     </Compile>
     <Compile Include="RekapPenawaran.aspx.designer.cs">
       <DependentUpon>RekapPenawaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JadwalMku.aspx.cs">
+      <DependentUpon>JadwalMku.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JadwalMku.aspx.designer.cs">
+      <DependentUpon>JadwalMku.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddJadwalMkdu.aspx.cs">
+      <DependentUpon>AddJadwalMkdu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddJadwalMkdu.aspx.designer.cs">
+      <DependentUpon>AddJadwalMkdu.aspx</DependentUpon>
     </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>

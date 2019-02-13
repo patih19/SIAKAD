@@ -10,7 +10,7 @@
 namespace Portal {
     
     
-    public partial class JadwalUniv {
+    public partial class JadwalMku {
         
         /// <summary>
         /// ToolkitScriptManager1 control.

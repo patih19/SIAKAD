@@ -128,8 +128,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="<%= Page.ResolveUrl("~/Penawaran") %>">Penawaran Mata Kuliah</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<%= Page.ResolveUrl("~/JadwalUniv") %>">Jadwal Perkuliahan (Univ)</a></li>
-                                    <li><a href="<%= Page.ResolveUrl("~/JadwalKuliah3") %>">Jadwal Perkuliahan</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/JadwalMku") %>">Jadwal Perkuliahan (MKU)</a></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/JadwalKuliah3") %>">Jadwal Perkuliahan (Prodi)</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/Absensi") %>">Presensi Perkuliahan</a></li>
                                     <li class="divider"></li>

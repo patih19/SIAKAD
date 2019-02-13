@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace Portal
 {
-    public partial class AddJadwalUniv : Tu
+    public partial class AddJadwalMkdu : Tu
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -360,8 +360,17 @@ namespace Portal
                     CmdInJadwal.ExecuteNonQuery();
 
                     // ------------- Display Jadwal ----------------------------
-                    SqlCommand CmdJadwal = new SqlCommand("SpListJadwal3", con);
-                    CmdJadwal.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand CmdJadwal = new SqlCommand(@"
+	                SELECT     bak_jadwal.no_jadwal, bak_jadwal.id_prog_study, bak_makul.kode_makul, bak_makul.makul, bak_makul.sks, bak_jadwal.quota, bak_dosen.nama, bak_jadwal.kelas, bak_jadwal.hari, 
+						                  bak_jadwal.jenis_kelas, bak_dosen.nidn, bak_jadwal.jm_awal_kuliah, bak_jadwal.jm_akhir_kuliah, bak_ruang.nm_ruang
+	                FROM         bak_jadwal INNER JOIN
+						                  bak_dosen ON bak_jadwal.nidn = bak_dosen.nidn INNER JOIN
+						                  bak_makul ON bak_jadwal.kode_makul = bak_makul.kode_makul INNER JOIN
+						                  bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study INNER JOIN
+						                  bak_ruang ON bak_jadwal.id_rng_kuliah = bak_ruang.no
+	                WHERE     (bak_jadwal.id_prog_study = @id_prodi) AND (bak_jadwal.semester = @semester) AND (bak_makul.makul_univ = 'yes')
+	                ORDER BY bak_jadwal.no_jadwal ", con);
+                    CmdJadwal.CommandType = System.Data.CommandType.Text;
 
                     CmdJadwal.Parameters.AddWithValue("@id_prodi", this.Session["level"].ToString());
                     CmdJadwal.Parameters.AddWithValue("@semester", this.Session["Semester"].ToString().Trim());

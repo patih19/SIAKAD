@@ -126,22 +126,23 @@
                         </div>
                             <hr />
                         <asp:Panel ID="PanelRekapAktif" runat="server">
-                            <asp:GridView ID="GvMhsTunggu" CssClass="table table-condensed table-bordered table-hover" runat="server" OnRowCreated="GvMhsTunggu_RowCreated" OnPreRender="GvMhsTunggu_PreRender">
-                                <Columns>
-                                    <asp:TemplateField>
-                                        <HeaderTemplate>
-                                            Kuliah Sudah Selesai ?
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <asp:CheckBox ID="CBSelesai" runat="server" OnCheckedChanged="CBSelesai_CheckedChanged" AutoPostBack="True" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <EmptyDataTemplate>
-                                    <asp:CheckBox ID="CbSelesai" runat="server" />
-                                </EmptyDataTemplate>
-                            </asp:GridView>
-
+                            <div class="table table-responsive">
+                                <asp:GridView ID="GvMhsTunggu" CssClass="table table-condensed table-bordered table-hover" runat="server" OnRowCreated="GvMhsTunggu_RowCreated" OnPreRender="GvMhsTunggu_PreRender">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                Kuliah Sudah Selesai ?
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CBSelesai" runat="server" OnCheckedChanged="CBSelesai_CheckedChanged" AutoPostBack="True" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <EmptyDataTemplate>
+                                        <asp:CheckBox ID="CbSelesai" runat="server" />
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
+                            </div>
                         </asp:Panel>
                     </div>
                 </div>

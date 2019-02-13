@@ -17,6 +17,8 @@ namespace Portal
         {
             if (!Page.IsPostBack)
             {
+                Response.Redirect("~/JadwalKuliah3.aspx", false);
+
                 this.LbJadwalResult.Text = "";
 
                 this.PanelJadwal.Enabled = false;

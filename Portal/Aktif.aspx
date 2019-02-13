@@ -89,10 +89,12 @@
                                 <div class="panel-heading ui-draggable-handle">
                                     <strong>Daftar Mahasiswa Tiap Mata Kuliah</strong></div>
                                 <div class="panel-body">
-                                    <asp:GridView ID="GVAktif" runat="server" 
-                                        CssClass="table table-condensed table-bordered table-hover" 
-                                        onrowdatabound="GVAktif_RowDataBound" onprerender="GVAktif_PreRender">
-                                    </asp:GridView>
+                                    <div class="table table-responsive">
+                                        <asp:GridView ID="GVAktif" runat="server"
+                                            CssClass="table table-condensed table-bordered table-hover"
+                                            OnRowDataBound="GVAktif_RowDataBound" OnPreRender="GVAktif_PreRender">
+                                        </asp:GridView>
+                                    </div>
                                 </div>
                             </div>
                         </asp:Panel>

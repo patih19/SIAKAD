@@ -97,9 +97,11 @@
                             <div class="panel-heading ui-draggable-handle">
                                 <strong>Rekap Aktivitas Perkuliahan</strong></div>
                             <div class="panel-body">
-                                <asp:GridView ID="GVAktvMhs" runat="server" CssClass="table table-condensed table-bordered table-hover"
-                                    OnPreRender="GVAktvMhs_PreRender">
-                                </asp:GridView>
+                                <div class="table table-responsive">
+                                    <asp:GridView ID="GVAktvMhs" runat="server" CssClass="table table-condensed table-bordered table-hover"
+                                        OnPreRender="GVAktvMhs_PreRender">
+                                    </asp:GridView>
+                                </div>
                             </div>
                         </div>
                     </asp:Panel>

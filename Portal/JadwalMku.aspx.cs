@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-
 
 namespace Portal
 {
-    public partial class JadwalUniv : Tu
+    public partial class JadwalMku : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -58,8 +57,6 @@ namespace Portal
                 PopulateProdi();
                 PopulateProdi2();
             }
-
-
         }
 
         private void PopulateProdi()
@@ -154,121 +151,113 @@ namespace Portal
                 return;
             }
 
+            string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                //----------------------------------------- -------------------------------------------
+                con.Open();
+                SqlCommand CmdJadwal = new SqlCommand(@"
+	            SELECT     bak_jadwal.no_jadwal, bak_jadwal.id_prog_study, bak_makul.kode_makul, bak_makul.makul, bak_makul.sks, bak_jadwal.quota, bak_dosen.nama, bak_jadwal.kelas, bak_jadwal.hari, 
+						              bak_jadwal.jenis_kelas, bak_dosen.nidn, bak_jadwal.jm_awal_kuliah, bak_jadwal.jm_akhir_kuliah, bak_ruang.nm_ruang
+	            FROM         bak_jadwal INNER JOIN
+						              bak_dosen ON bak_jadwal.nidn = bak_dosen.nidn INNER JOIN
+						              bak_makul ON bak_jadwal.kode_makul = bak_makul.kode_makul INNER JOIN
+						              bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study INNER JOIN
+						              bak_ruang ON bak_jadwal.id_rng_kuliah = bak_ruang.no
+	            WHERE     (bak_jadwal.id_prog_study = @id_prodi) AND (bak_jadwal.semester = @semester) AND (bak_makul.makul_univ = 'yes')
+	            ORDER BY bak_jadwal.no_jadwal ", con);
+                CmdJadwal.CommandType = System.Data.CommandType.Text;
 
-            this.PanelEditJadwal.Enabled = false;
-            this.PanelEditJadwal.Visible = false;
+                CmdJadwal.Parameters.AddWithValue("@id_prodi", this.Session["level"].ToString());
+                CmdJadwal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedValue.ToString() + this.DlSemester.SelectedItem.Text);
 
-            this.PanelJadwal.Enabled = true;
-            this.PanelJadwal.Visible = true;
+                DataTable TableJadwal = new DataTable();
+                TableJadwal.Columns.Add("Key");
+                TableJadwal.Columns.Add("Kode");
+                TableJadwal.Columns.Add("Mata Kuliah");
+                TableJadwal.Columns.Add("SKS");
+                TableJadwal.Columns.Add("Dosen");
+                TableJadwal.Columns.Add("Kelas");
+                TableJadwal.Columns.Add("Hari");
+                TableJadwal.Columns.Add("Mulai");
+                TableJadwal.Columns.Add("Selesai");
+                TableJadwal.Columns.Add("Ruang");
+                TableJadwal.Columns.Add("Jenis Kelas");
 
-            //string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            //using (SqlConnection con = new SqlConnection(CS))
-            //{
-            //    //----------------------------------------- -------------------------------------------
-            //    con.Open();
-            //    SqlCommand CmdJadwal = new SqlCommand(@"
-	           // SELECT     bak_jadwal.no_jadwal, bak_jadwal.id_prog_study, bak_makul.kode_makul, bak_makul.makul, bak_makul.sks, bak_jadwal.quota, bak_dosen.nama, bak_jadwal.kelas, bak_jadwal.hari, 
-						      //        bak_jadwal.jenis_kelas, bak_dosen.nidn, bak_jadwal.jm_awal_kuliah, bak_jadwal.jm_akhir_kuliah, bak_ruang.nm_ruang
-	           // FROM         bak_jadwal INNER JOIN
-						      //        bak_dosen ON bak_jadwal.nidn = bak_dosen.nidn INNER JOIN
-						      //        bak_makul ON bak_jadwal.kode_makul = bak_makul.kode_makul INNER JOIN
-						      //        bak_prog_study ON bak_jadwal.id_prog_study = bak_prog_study.id_prog_study INNER JOIN
-						      //        bak_ruang ON bak_jadwal.id_rng_kuliah = bak_ruang.no
-	           // WHERE     (bak_jadwal.id_prog_study = @id_prodi) AND (bak_jadwal.semester = @semester) AND (bak_makul.makul_univ = 'yes')
-	           // ORDER BY bak_jadwal.no_jadwal ", con);
+                using (SqlDataReader rdr = CmdJadwal.ExecuteReader())
+                {
+                    if (rdr.HasRows)
+                    {
+                        this.LbSmstr.Text = this.DlSemester.SelectedItem.Text;
+                        this.LbThn.Text = this.DLTahun.SelectedItem.Text;
 
-            //    CmdJadwal.CommandType = System.Data.CommandType.Text;
+                        this.LbJadwalResult.Text = "";
 
-            //    CmdJadwal.Parameters.AddWithValue("@id_prodi", this.Session["level"].ToString());
-            //    CmdJadwal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedValue.ToString() + this.DlSemester.SelectedItem.Text);
+                        this.PanelJadwal.Enabled = true;
+                        this.PanelJadwal.Visible = true;
 
-            //    DataTable TableJadwal = new DataTable();
-            //    TableJadwal.Columns.Add("Key");
-            //    TableJadwal.Columns.Add("Kode");
-            //    TableJadwal.Columns.Add("Mata Kuliah");
-            //    TableJadwal.Columns.Add("SKS");
-            //    TableJadwal.Columns.Add("Dosen");
-            //    TableJadwal.Columns.Add("Kelas");
-            //    TableJadwal.Columns.Add("Hari");
-            //    TableJadwal.Columns.Add("Mulai");
-            //    TableJadwal.Columns.Add("Selesai");
-            //    TableJadwal.Columns.Add("Ruang");
-            //    TableJadwal.Columns.Add("Jenis Kelas");
+                        //this.BtnNewJadwal.Enabled = false;
+                        //this.BtnNewJadwal.Visible = false;
 
-            //    using (SqlDataReader rdr = CmdJadwal.ExecuteReader())
-            //    {
-            //        if (rdr.HasRows)
-            //        {
-            //            this.LbSmstr.Text = this.DlSemester.SelectedItem.Text;
-            //            this.LbThn.Text = this.DLTahun.SelectedItem.Text;
+                        while (rdr.Read())
+                        {
+                            DataRow datarow = TableJadwal.NewRow();
+                            datarow["Key"] = rdr["no_jadwal"];
+                            datarow["Kode"] = rdr["kode_makul"];
+                            datarow["Mata Kuliah"] = rdr["makul"];
+                            datarow["SKS"] = rdr["sks"];
+                            datarow["Dosen"] = rdr["nama"];
+                            datarow["Kelas"] = rdr["kelas"];
+                            datarow["Hari"] = rdr["hari"];
+                            datarow["Mulai"] = rdr["jm_awal_kuliah"];
+                            datarow["Selesai"] = rdr["jm_akhir_kuliah"];
+                            datarow["Ruang"] = rdr["nm_ruang"];
+                            datarow["Jenis Kelas"] = rdr["jenis_kelas"];
 
-            //            this.LbJadwalResult.Text = "";
+                            TableJadwal.Rows.Add(datarow);
+                        }
 
-            //            this.PanelJadwal.Enabled = true;
-            //            this.PanelJadwal.Visible = true;
+                        //Fill Gridview
+                        this.GVJadwal.DataSource = TableJadwal;
+                        this.GVJadwal.DataBind();
 
-            //            //this.BtnNewJadwal.Enabled = false;
-            //            //this.BtnNewJadwal.Visible = false;
+                        // hide panel Edit Mata Kuliah
+                        this.PanelEditJadwal.Enabled = false;
+                        this.PanelEditJadwal.Visible = false;
 
-            //            while (rdr.Read())
-            //            {
-            //                DataRow datarow = TableJadwal.NewRow();
-            //                datarow["Key"] = rdr["no_jadwal"];
-            //                datarow["Kode"] = rdr["kode_makul"];
-            //                datarow["Mata Kuliah"] = rdr["makul"];
-            //                datarow["SKS"] = rdr["sks"];
-            //                datarow["Dosen"] = rdr["nama"];
-            //                datarow["Kelas"] = rdr["kelas"];
-            //                datarow["Hari"] = rdr["hari"];
-            //                datarow["Mulai"] = rdr["jm_awal_kuliah"];
-            //                datarow["Selesai"] = rdr["jm_akhir_kuliah"];
-            //                datarow["Ruang"] = rdr["nm_ruang"];
-            //                datarow["Jenis Kelas"] = rdr["jenis_kelas"];
+                        // hide panel di dalam edit perkuliahan
+                        this.PanelDetailRuang.Enabled = false;
+                        this.PanelDetailRuang.Visible = false;
+                        this.PanelDetailDosen.Enabled = false;
+                        this.PanelDetailDosen.Visible = false;
+                        this.PanelRuangAktif.Enabled = false;
+                        this.PanelRuangAktif.Visible = false;
+                        this.DLProdiDosen.SelectedIndex = 0;
+                        this.DLRuangProdi.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        this.LbJadwalResult.Text = "Jadwal Belum Ada ";
+                        this.LbJadwalResult.ForeColor = System.Drawing.Color.Blue;
 
-            //                TableJadwal.Rows.Add(datarow);
-            //            }
+                        // hide panel Edit Mata Kuliah
+                        this.PanelEditJadwal.Enabled = false;
+                        this.PanelEditJadwal.Visible = false;
 
-            //            //Fill Gridview
-            //            this.GVJadwal.DataSource = TableJadwal;
-            //            this.GVJadwal.DataBind();
+                        this.PanelJadwal.Enabled = true;
+                        this.PanelJadwal.Visible = true;
 
-            //            // hide panel Edit Mata Kuliah
-            //            this.PanelEditJadwal.Enabled = false;
-            //            this.PanelEditJadwal.Visible = false;
+                        //this.BtnNewJadwal.Enabled = true;
+                        //this.BtnNewJadwal.Visible = true;
 
-            //            // hide panel di dalam edit perkuliahan
-            //            this.PanelDetailRuang.Enabled = false;
-            //            this.PanelDetailRuang.Visible = false;
-            //            this.PanelDetailDosen.Enabled = false;
-            //            this.PanelDetailDosen.Visible = false;
-            //            this.PanelRuangAktif.Enabled = false;
-            //            this.PanelRuangAktif.Visible = false;
-            //            this.DLProdiDosen.SelectedIndex = 0;
-            //            this.DLRuangProdi.SelectedIndex = 0;
-            //        }
-            //        else
-            //        {
-            //            this.LbJadwalResult.Text = "Jadwal Belum Ada ";
-            //            this.LbJadwalResult.ForeColor = System.Drawing.Color.Blue;
-
-            //            // hide panel Edit Mata Kuliah
-            //            this.PanelEditJadwal.Enabled = false;
-            //            this.PanelEditJadwal.Visible = false;
-
-            //            this.PanelJadwal.Enabled = true;
-            //            this.PanelJadwal.Visible = true;
-
-            //            //this.BtnNewJadwal.Enabled = true;
-            //            //this.BtnNewJadwal.Visible = true;
-
-            //            //clear Gridview
-            //            TableJadwal.Rows.Clear();
-            //            TableJadwal.Clear();
-            //            GVJadwal.DataSource = TableJadwal;
-            //            GVJadwal.DataBind();
-            //        }
-            //    }
-            //}
+                        //clear Gridview
+                        TableJadwal.Rows.Clear();
+                        TableJadwal.Clear();
+                        GVJadwal.DataSource = TableJadwal;
+                        GVJadwal.DataBind();
+                    }
+                }
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -589,7 +578,7 @@ namespace Portal
                 using (SqlConnection con = new SqlConnection(CS))
                 {
                     con.Open();
-                    SqlCommand CmdInJadwal = new SqlCommand("SpEditJadwalKuliahhhhhhhhhh", con);
+                    SqlCommand CmdInJadwal = new SqlCommand("SpEditJadwalKuliah", con);
                     CmdInJadwal.CommandType = System.Data.CommandType.StoredProcedure;
 
                     CmdInJadwal.Parameters.AddWithValue("@NomorJadwal", this.lbno_jadwal.Text);
@@ -855,7 +844,7 @@ namespace Portal
 
         protected void BtnNewJadwal_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/AddJadwalUniv.aspx");
+            Response.Redirect("~/AddJadwalMkdu.aspx");
         }
 
         protected void DLHari_SelectedIndexChanged(object sender, EventArgs e)

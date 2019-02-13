@@ -47,10 +47,12 @@
                         <strong>DAFTAR DOSEN</strong> 
                     </div>
                     <div class="panel-body">
-                        <asp:GridView ID="GVDosen" runat="server" 
-                            CssClass="table table-bordered" OnRowCreated="GVDosen_RowCreated" OnRowDataBound="GVDosen_RowDataBound"
-                            onprerender="GVDosen_PreRender">
-                        </asp:GridView>
+                        <div class="table table-responsive">
+                            <asp:GridView ID="GVDosen" runat="server"
+                                CssClass="table table-bordered" OnRowCreated="GVDosen_RowCreated" OnRowDataBound="GVDosen_RowDataBound"
+                                OnPreRender="GVDosen_PreRender">
+                            </asp:GridView>
+                        </div>
                     </div>
                 </div>
             </div>
