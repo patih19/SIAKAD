@@ -46,7 +46,7 @@
             background-color: #EEF7EE;
         }
     </style>
-    <%--<style type="text/css">
+    <style type="text/css">
         .mdl
         {
             position: fixed;
@@ -77,7 +77,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>--%>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
@@ -88,7 +88,7 @@
             <br />
             <div class="panel panel-default">
                     <div class="panel-heading ui-draggable-handle">
-                        <strong>Jadwal Perkuliahan</strong></div>
+                        <strong>Jadwal Perkuliahan MKU</strong></div>
                     <div class="panel-body">
                     <table class="table-condensed">
                         <tr>
@@ -135,7 +135,7 @@
                     <asp:Panel ID="PanelJadwal" runat="server">
                         <div class="panel panel-default">
                             <div class="panel-heading ui-draggable-handle">
-                                <strong>List Jadwal Perkuliahan</strong>
+                                <strong>List Jadwal Perkuliahan MKU</strong>
                                 &nbsp;<asp:Button ID="BtnNewJadwal" OnClick="BtnNewJadwal_Click" runat="server" CssClass="btn btn-danger" Text="Buat Jadwal" />
                             </div>
                             <div class="panel-body">
@@ -200,7 +200,7 @@
                     <asp:Panel ID="PanelEditJadwal" runat="server">
                         <div class="panel panel-default">
                             <div class="panel-heading ui-draggable-handle">
-                                <strong> EDIT JADWAL PERKULIAHAN</strong></div>
+                                <strong> EDIT JADWAL PERKULIAHAN MKU</strong></div>
                             <div class="panel-body">
                                 <asp:Panel ID="PanelDetailEditJadwal" runat="server">
                                     <asp:Panel ID="PnlAjaxJadwal" runat="server">
@@ -343,22 +343,6 @@
                                                             <table class="table-condensed">
                                                                 <tr>
                                                                      <td style="padding-top: 5px; padding-left: 6px">
-                                                                        <asp:DropDownList ID="DLKelas" runat="server" CssClass="form-control" 
-                                                                            Width="90px">
-                                                                            <asp:ListItem>Kelas</asp:ListItem>
-                                                                            <asp:ListItem>01</asp:ListItem>
-                                                                            <asp:ListItem>02</asp:ListItem>
-                                                                            <asp:ListItem>03</asp:ListItem>
-                                                                            <asp:ListItem>04</asp:ListItem>
-                                                                            <asp:ListItem>05</asp:ListItem>
-                                                                            <asp:ListItem>06</asp:ListItem>
-                                                                            <asp:ListItem>07</asp:ListItem>
-                                                                            <asp:ListItem>08</asp:ListItem>
-                                                                            <asp:ListItem>09</asp:ListItem>
-                                                                            <asp:ListItem>10</asp:ListItem>
-                                                                        </asp:DropDownList>
-                                                                    </td>
-                                                                     <td style="padding-top: 5px; padding-left: 6px">
                                                                         <asp:DropDownList ID="DLHari" runat="server" CssClass="form-control" 
                                                                             Width="90px" onselectedindexchanged="DLHari_SelectedIndexChanged" 
                                                                              AutoPostBack="True">
@@ -372,6 +356,21 @@
                                                                             <asp:ListItem>Minggu</asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </td>
+                                                                     <td style="padding-top: 5px; padding-left: 6px">
+                                                                         <asp:DropDownList ID="DLKelas" runat="server" CssClass="form-control" Visible="False" Width="90px">
+                                                                             <asp:ListItem>Kelas</asp:ListItem>
+                                                                             <asp:ListItem>01</asp:ListItem>
+                                                                             <asp:ListItem>02</asp:ListItem>
+                                                                             <asp:ListItem>03</asp:ListItem>
+                                                                             <asp:ListItem>04</asp:ListItem>
+                                                                             <asp:ListItem>05</asp:ListItem>
+                                                                             <asp:ListItem>06</asp:ListItem>
+                                                                             <asp:ListItem>07</asp:ListItem>
+                                                                             <asp:ListItem>08</asp:ListItem>
+                                                                             <asp:ListItem>09</asp:ListItem>
+                                                                             <asp:ListItem>10</asp:ListItem>
+                                                                         </asp:DropDownList>
+                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                             <p></p>

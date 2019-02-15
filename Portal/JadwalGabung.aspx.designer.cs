@@ -10,7 +10,7 @@
 namespace Portal {
     
     
-    public partial class JadwalMku {
+    public partial class JadwalGabung {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -317,42 +317,6 @@ namespace Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TbSelesai;
-        
-        /// <summary>
-        /// PanelJamMengajar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelJamMengajar;
-        
-        /// <summary>
-        /// GVJamMengajar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVJamMengajar;
-        
-        /// <summary>
-        /// PanelRuangAktif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelRuangAktif;
-        
-        /// <summary>
-        /// GVRuangAktif control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVRuangAktif;
         
         /// <summary>
         /// UpProgSPI control.

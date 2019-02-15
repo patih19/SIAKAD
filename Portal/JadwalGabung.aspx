@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalKuliah3.aspx.cs" Inherits="Portal.WebForm24" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TU.Master" AutoEventWireup="true" CodeBehind="JadwalGabung.aspx.cs" Inherits="Portal.JadwalGabung" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="Scripts/DataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="Scripts/DataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/DataTables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="Scripts/DataTables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/jscript">
@@ -81,20 +81,24 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </ajaxToolkit:ToolkitScriptManager>
     <div class="container top-main-form" style="min-height: 450px; background-color: rgba(36, 134, 17, 0.06); box-shadow: 0px 0px 200px rgba(82, 124, 159, 0.25), 0px 1px 2px rgba(0, 0, 0, 0.19);">
         <div class="row">
             <div class="col-xs-12 col-md-12 col-lg-12">
             <br />
+                <div class="alert alert-danger" role="alert">
+                    <p><span>MENU INI DIPERGUNAKAN UNTUK MENGGABUNGKAN JADWAL KULIAH <strong>NON MKU</strong> DUA KURIKULUM BEBEDA</span></p>
+                </div>
+                <p></p>
             <div class="panel panel-default">
-                    <div class="panel-heading ui-draggable-handle">
-                        <strong>Jadwal Perkuliahan</strong></div>
-                    <div class="panel-body">
+                <div class="panel-heading ui-draggable-handle">
+                    <strong>Penggabungan Jadwal Perkuliahan</strong>
+                </div>
+                <div class="panel-body">
                     <table class="table-condensed">
                         <tr>
-                            <td>
-                                Tahun
+                            <td>Tahun
                             </td>
                             <td>
                                 <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control" Width="130px">
@@ -107,8 +111,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                Semester
+                            <td>Semester
                             </td>
                             <td>
                                 <asp:DropDownList ID="DlSemester" runat="server" CssClass="form-control" Width="130px">
@@ -119,16 +122,15 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>&nbsp;</td>
                             <td>
-                                &nbsp;</td>
-                            <td>
-                                <asp:Button ID="BtnJadwal" runat="server" Text="OK" OnClick="BtnJadwal_Click" 
+                                <asp:Button ID="BtnJadwal" runat="server" Text="OK" OnClick="BtnJadwal_Click"
                                     CssClass="btn btn-success" />
                                 &nbsp;<asp:Label CssClass="hidden" ID="LbJadwalResult" runat="server"></asp:Label>
                             </td>
                         </tr>
                     </table>
-                    </div>
+                </div>
                 </div>
                 <br />
                 <div>
@@ -154,7 +156,7 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField>
                                                 <ItemTemplate>
-                                                    <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
+                                                    <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" Enabled="False" />
                                                 </ItemTemplate>
                                                 <HeaderTemplate>
                                                     Edit
@@ -333,7 +335,7 @@
                                                             <table class="table-condensed">
                                                                 <tr>
                                                                      <td style="padding-top: 5px; padding-left: 6px">
-                                                                         <asp:DropDownList ID="DLHari" runat="server" AutoPostBack="True" CssClass="form-control" onselectedindexchanged="DLHari_SelectedIndexChanged" Width="90px">
+                                                                         <asp:DropDownList ID="DLHari" runat="server" CssClass="form-control" Width="90px">
                                                                              <asp:ListItem Value="-1">Hari</asp:ListItem>
                                                                              <asp:ListItem>Senin</asp:ListItem>
                                                                              <asp:ListItem>Selasa</asp:ListItem>
@@ -388,64 +390,6 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <asp:Panel ID="PanelJamMengajar" runat="server">
-                                                    <table class="table-bordered table-condensed table">
-                                                        <tr>
-                                                            <td style="background-color: #E1F0FF; padding-left: 10px">
-                                                                <strong>JAM MENGAJAR DOSEN</strong>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div style="padding-left:7px; padding-top:5px; padding-right:7px">
-                                                                    <asp:GridView ID="GVJamMengajar" CssClass="table-bordered table" runat="server" CellPadding="4"
-                                                                        ForeColor="#333333" GridLines="None">
-                                                                        <AlternatingRowStyle BackColor="White" />
-                                                                        <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                                                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                                                                        <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
-                                                                        <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
-                                                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
-                                                                        <SortedAscendingCellStyle BackColor="#FDF5AC" />
-                                                                        <SortedAscendingHeaderStyle BackColor="#4D0000" />
-                                                                        <SortedDescendingCellStyle BackColor="#FCF6C0" />
-                                                                        <SortedDescendingHeaderStyle BackColor="#820000" />
-                                                                    </asp:GridView>
-                                                                </div>                                                                
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </asp:Panel>
-
-                                                <asp:Panel ID="PanelRuangAktif" runat="server">
-                                                <table class="table-bordered table-condensed table">
-                                                <tr>
-                                                    <td style="background-color:#E1F0FF; padding-left:10px"><strong>JADWAL RUANG</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    <div style="padding-left:7px; padding-top:5px; padding-right:7px">
-
-                                                        <p></p>
-                                                            <asp:GridView ID="GVRuangAktif" CssClass="table-bordered table" runat="server" CellPadding="4"
-                                                                ForeColor="#333333" GridLines="None">
-                                                                <AlternatingRowStyle BackColor="White" />
-                                                                <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                                                                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                                                                <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
-                                                                <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
-                                                                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
-                                                                <SortedAscendingCellStyle BackColor="#FDF5AC" />
-                                                                <SortedAscendingHeaderStyle BackColor="#4D0000" />
-                                                                <SortedDescendingCellStyle BackColor="#FCF6C0" />
-                                                                <SortedDescendingHeaderStyle BackColor="#820000" />
-                                                            </asp:GridView>
-                                                        
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </table>
-                                                </asp:Panel>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </asp:Panel>

@@ -51,7 +51,7 @@ namespace Portal
                     "FROM            bak_mahasiswa INNER JOIN " +
                                              "bak_pengajuan_cuti ON bak_mahasiswa.npm = bak_pengajuan_cuti.npm " +
                     "WHERE id_prog_study =@IdProdi AND dbo.bak_pengajuan_cuti.status IS NULL " +
-                    "ORDER BY semester, tgl_pengajuan DESC   " +
+                    "ORDER BY tgl_pengajuan DESC   " +
                      "", con);
 
                     CmdStatusCuti.CommandType = System.Data.CommandType.Text;

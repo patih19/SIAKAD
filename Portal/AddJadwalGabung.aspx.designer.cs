@@ -10,7 +10,7 @@
 namespace Portal {
     
     
-    public partial class JadwalMku {
+    public partial class AddJadwalGabung {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -22,130 +22,31 @@ namespace Portal {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// DLTahun control.
+        /// PanelSPI control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLTahun;
+        protected global::System.Web.UI.WebControls.Panel PanelSPI;
         
         /// <summary>
-        /// CascadingDLTahun control.
+        /// UpPnlSPI control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown CascadingDLTahun;
+        protected global::System.Web.UI.UpdatePanel UpPnlSPI;
         
         /// <summary>
-        /// DlSemester control.
+        /// LbProdi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DlSemester;
-        
-        /// <summary>
-        /// BtnJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnJadwal;
-        
-        /// <summary>
-        /// LbJadwalResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbJadwalResult;
-        
-        /// <summary>
-        /// PanelJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelJadwal;
-        
-        /// <summary>
-        /// BtnNewJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnNewJadwal;
-        
-        /// <summary>
-        /// GVJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVJadwal;
-        
-        /// <summary>
-        /// LbThn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbThn;
-        
-        /// <summary>
-        /// LbSmstr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbSmstr;
-        
-        /// <summary>
-        /// PanelEditJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelEditJadwal;
-        
-        /// <summary>
-        /// PanelDetailEditJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelDetailEditJadwal;
-        
-        /// <summary>
-        /// PnlAjaxJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PnlAjaxJadwal;
-        
-        /// <summary>
-        /// UpPnlAjaxJadwal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpPnlAjaxJadwal;
+        protected global::System.Web.UI.WebControls.Label LbProdi;
         
         /// <summary>
         /// LbKodeMakul control.
@@ -166,13 +67,40 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.Label LbMakul;
         
         /// <summary>
-        /// LbProdi control.
+        /// PanelMakul control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbProdi;
+        protected global::System.Web.UI.WebControls.Panel PanelMakul;
+        
+        /// <summary>
+        /// DLProdiMakul control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DLProdiMakul;
+        
+        /// <summary>
+        /// PanelDetailMakul control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelDetailMakul;
+        
+        /// <summary>
+        /// GVMakul control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVMakul;
         
         /// <summary>
         /// LbNidn control.
@@ -283,13 +211,13 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.GridView GVRuang;
         
         /// <summary>
-        /// DLHari control.
+        /// LbSemester control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLHari;
+        protected global::System.Web.UI.WebControls.Label LbSemester;
         
         /// <summary>
         /// DLKelas control.
@@ -299,6 +227,15 @@ namespace Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DLKelas;
+        
+        /// <summary>
+        /// DLHari control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DLHari;
         
         /// <summary>
         /// TbMulai control.
@@ -319,40 +256,184 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.TextBox TbSelesai;
         
         /// <summary>
-        /// PanelJamMengajar control.
+        /// DLJenisKelas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelJamMengajar;
+        protected global::System.Web.UI.WebControls.DropDownList DLJenisKelas;
         
         /// <summary>
-        /// GVJamMengajar control.
+        /// TbQuota control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVJamMengajar;
+        protected global::System.Web.UI.WebControls.TextBox TbQuota;
         
         /// <summary>
-        /// PanelRuangAktif control.
+        /// LbProdi2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelRuangAktif;
+        protected global::System.Web.UI.WebControls.Label LbProdi2;
         
         /// <summary>
-        /// GVRuangAktif control.
+        /// LbKodeMakul2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVRuangAktif;
+        protected global::System.Web.UI.WebControls.Label LbKodeMakul2;
+        
+        /// <summary>
+        /// LbMakul2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbMakul2;
+        
+        /// <summary>
+        /// PanelMakul2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelMakul2;
+        
+        /// <summary>
+        /// DLProdiMakul2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DLProdiMakul2;
+        
+        /// <summary>
+        /// PanelDetailMakul2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelDetailMakul2;
+        
+        /// <summary>
+        /// GVMakul2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVMakul2;
+        
+        /// <summary>
+        /// LbNidn2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbNidn2;
+        
+        /// <summary>
+        /// LbDosen2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbDosen2;
+        
+        /// <summary>
+        /// LbRuang2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbRuang2;
+        
+        /// <summary>
+        /// LbNo2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbNo2;
+        
+        /// <summary>
+        /// Label8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label8;
+        
+        /// <summary>
+        /// LbKelas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbKelas;
+        
+        /// <summary>
+        /// LbHari control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbHari;
+        
+        /// <summary>
+        /// LbMulai control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbMulai;
+        
+        /// <summary>
+        /// LbSelesai control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbSelesai;
+        
+        /// <summary>
+        /// DLJenisKelas2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DLJenisKelas2;
+        
+        /// <summary>
+        /// TbQuota2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbQuota2;
         
         /// <summary>
         /// UpProgSPI control.
@@ -364,6 +445,15 @@ namespace Portal {
         protected global::System.Web.UI.UpdateProgress UpProgSPI;
         
         /// <summary>
+        /// PanelUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelUpdate;
+        
+        /// <summary>
         /// lbno_jadwal control.
         /// </summary>
         /// <remarks>
@@ -371,6 +461,15 @@ namespace Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbno_jadwal;
+        
+        /// <summary>
+        /// PanelTambah control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelTambah;
         
         /// <summary>
         /// BtnSave control.
@@ -382,12 +481,30 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.Button BtnSave;
         
         /// <summary>
-        /// BtnCancel control.
+        /// LbAlert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCancel;
+        protected global::System.Web.UI.WebControls.Label LbAlert;
+        
+        /// <summary>
+        /// PanelListJadwal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelListJadwal;
+        
+        /// <summary>
+        /// GVJadwal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVJadwal;
     }
 }

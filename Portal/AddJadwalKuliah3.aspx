@@ -71,7 +71,7 @@
             <br />
                 <div class="panel panel-default">
                     <div class="panel-heading ui-draggable-handle">
-                        <h5><strong>INPUT JADWAL PERKULIAHAN</strong></h5></div>
+                        <strong>INPUT JADWAL PERKULIAHAN</strong></div>
                     <div class="panel-body">
                         <asp:Panel ID="PanelSPI" runat="server">
                             <asp:UpdatePanel ID="UpPnlSPI" runat="server">

@@ -196,6 +196,9 @@
     <Content Include="css\fullcalendar\fullcalendar.css" />
     <Content Include="css\jquery\jquery-ui.min.css" />
     <Content Include="css\mcustomscrollbar\jquery.mCustomScrollbar.css" />
+    <Content Include="css\menu\jquery.smartmenus.bootstrap.css" />
+    <Content Include="css\menu\jquery.smartmenus.bootstrap.js" />
+    <Content Include="css\menu\jquery.smartmenus.js" />
     <Content Include="css\nvd3\nv.d3.css" />
     <Content Include="css\rickshaw\rickshaw.css" />
     <Content Include="css\style.css" />
@@ -750,6 +753,7 @@
     <Content Include="Scripts\jquery-2.1.3-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.metrospinner.js" />
@@ -776,6 +780,8 @@
     <Content Include="RekapPenawaran.aspx" />
     <Content Include="JadwalMku.aspx" />
     <Content Include="AddJadwalMkdu.aspx" />
+    <Content Include="JadwalGabung.aspx" />
+    <Content Include="AddJadwalGabung.aspx" />
     <Content Include="web_services\ServiceCS.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -1056,6 +1062,20 @@
     <Compile Include="AddJadwalMkdu.aspx.designer.cs">
       <DependentUpon>AddJadwalMkdu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="JadwalGabung.aspx.cs">
+      <DependentUpon>JadwalGabung.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JadwalGabung.aspx.designer.cs">
+      <DependentUpon>JadwalGabung.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddJadwalGabung.aspx.cs">
+      <DependentUpon>AddJadwalGabung.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddJadwalGabung.aspx.designer.cs">
+      <DependentUpon>AddJadwalGabung.aspx</DependentUpon>
+    </Compile>
     <Compile Include="web_services\ServiceCS.asmx.cs">
       <DependentUpon>ServiceCS.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -1100,6 +1120,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\plugins\fileinput\fileinput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

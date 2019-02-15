@@ -283,15 +283,6 @@ namespace Portal {
         protected global::System.Web.UI.WebControls.GridView GVRuang;
         
         /// <summary>
-        /// DLKelas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLKelas;
-        
-        /// <summary>
         /// DLHari control.
         /// </summary>
         /// <remarks>
@@ -299,6 +290,15 @@ namespace Portal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DLHari;
+        
+        /// <summary>
+        /// DLKelas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DLKelas;
         
         /// <summary>
         /// TbMulai control.
