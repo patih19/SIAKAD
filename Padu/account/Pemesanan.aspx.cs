@@ -82,6 +82,9 @@ namespace Padu.account
                 this.PanelMsg.Enabled = false;
                 this.PanelMsg.Visible = false;
 
+                this.PanelListMakulDipesan.Enabled = false;
+                this.PanelListMakulDipesan.Visible = false;
+
                 TahunAkademik();
             }
         }
@@ -120,6 +123,13 @@ namespace Padu.account
 
         protected void BtnSubmit_Click(object sender, EventArgs e)
         {
+            if ((this.RbPesan.Checked == false) && (this.RbLihatPesanan.Checked == false))
+            {
+                string message = "alert('Pilih Jenis Pesanan')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                return;
+            }
+
             if (this.DLTahun.SelectedValue == "-1")
             {
                 string message = "alert('Pilih Tahun Akademik')";
@@ -137,9 +147,60 @@ namespace Padu.account
             _Tahun = this.DLTahun.SelectedValue.Trim();
             _Semester = this.DLSemester.SelectedValue.Trim();
 
-            // ----------- CEK MASA KEGIATAN PENAWARAN ----
-            string MasKeg = CekMasaKeg();
-            if (MasKeg != "ok")
+            // ====== PEMESANAN MAKUL ==========
+            if (RbPesan.Checked)
+            {
+                // ----------- CEK MASA KEGIATAN PENAWARAN ----
+                string MasKeg = CekMasaKeg();
+                if (MasKeg != "ok")
+                {
+                    this.PanelMakulDitawarkan.Enabled = false;
+                    this.PanelMakulDitawarkan.Visible = false;
+
+                    this.PanelMakulDipesan.Enabled = false;
+                    this.PanelMakulDipesan.Visible = false;
+
+                    this.PanelMsg.Enabled = false;
+                    this.PanelMsg.Visible = false;
+
+                    this.PanelListMakulDipesan.Enabled = false;
+                    this.PanelListMakulDipesan.Visible = false;
+
+                    string message = MasKeg;
+                    string mes = "alert('" + message + "')";
+                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", mes, true);
+                    return;
+                }
+
+                // ---------- CEK TAGIHAN MAHASISWA -----
+                string CekTagihan = CekPembayaran();
+                if (CekTagihan != "ok")
+                {
+                    this.PanelMakulDitawarkan.Enabled = false;
+                    this.PanelMakulDitawarkan.Visible = false;
+
+                    this.PanelMakulDipesan.Enabled = false;
+                    this.PanelMakulDipesan.Visible = false;
+
+                    this.PanelMsg.Enabled = false;
+                    this.PanelMsg.Visible = false;
+
+                    this.PanelListMakulDipesan.Enabled = false;
+                    this.PanelListMakulDipesan.Visible = false;
+
+                    string message = CekTagihan;
+                    string mes = "alert('" + message + "')";
+                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", mes, true);
+                    return;
+                }
+
+                this.LbSemester.Text = "Pemesanan Untuk Tahun Akademik " + this.DLTahun.SelectedItem.Text.Trim() + " Semester " + this.DLSemester.SelectedItem.Text.Trim() + " (" + _Tahun + _Semester + ")";
+                HitungMaxSks();
+                PopulateMakulDitawarkan();
+                PopulateMakulDipesan();
+            }
+            // ============ LIHAT PESANAN =========== //
+            else if (this.RbLihatPesanan.Checked)
             {
                 this.PanelMakulDitawarkan.Enabled = false;
                 this.PanelMakulDitawarkan.Visible = false;
@@ -150,35 +211,81 @@ namespace Padu.account
                 this.PanelMsg.Enabled = false;
                 this.PanelMsg.Visible = false;
 
-                string message = MasKeg;
-                string mes = "alert('" + message + "')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", mes, true);
-                return;
-            }
+                DaftarMakulDipesan();
+            }            
+        }
 
-            // ---------- CEK TAGIHAN MAHASISWA -----
-            string CekTagihan = CekPembayaran();
-            if (CekTagihan != "ok")
+        protected void DaftarMakulDipesan()
+        {
+            try
             {
-                this.PanelMakulDitawarkan.Enabled = false;
-                this.PanelMakulDitawarkan.Visible = false;
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    //------------------------------------------------------------------------------------
+                    con.Open();
 
-                this.PanelMakulDipesan.Enabled = false;
-                this.PanelMakulDipesan.Visible = false;
+                    SqlCommand CmdMakulDiPesan = new SqlCommand(@"
+                    SELECT        bak_krs_penawaran.no, bak_krs_penawaran.npm, bak_penawaran_makul.no_penawaran, bak_penawaran_makul.kode_makul, bak_makul.makul, bak_makul.id_prog_study,bak_makul.sks, 
+                                             bak_penawaran_makul.semester
+                    FROM            bak_krs_penawaran INNER JOIN
+                                             bak_penawaran_makul ON bak_krs_penawaran.no_penawaran = bak_penawaran_makul.no_penawaran INNER JOIN
+                                             bak_makul ON bak_makul.kode_makul = bak_penawaran_makul.kode_makul
+                    WHERE   (bak_krs_penawaran.npm=@npm) AND (bak_penawaran_makul.semester=@semester) ", con);
 
-                this.PanelMsg.Enabled = false;
-                this.PanelMsg.Visible = false;
+                    CmdMakulDiPesan.CommandType = System.Data.CommandType.Text;
 
-                string message = CekTagihan;
-                string mes = "alert('" + message + "')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", mes, true);
+                    CmdMakulDiPesan.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                    CmdMakulDiPesan.Parameters.AddWithValue("@semester", _Tahun + _Semester);
+
+                    DataTable TableMakulDipesan = new DataTable();
+                    TableMakulDipesan.Columns.Add("Kode");
+                    TableMakulDipesan.Columns.Add("Mata Kuliah");
+                    TableMakulDipesan.Columns.Add("SKS");
+
+                    using (SqlDataReader rdr = CmdMakulDiPesan.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            this.PanelListMakulDipesan.Enabled = true;
+                            this.PanelListMakulDipesan.Visible = true;
+
+                            while (rdr.Read())
+                            {
+                                DataRow datarow = TableMakulDipesan.NewRow();
+
+                                datarow["Kode"] = rdr["kode_makul"];
+                                datarow["Mata Kuliah"] = rdr["makul"];
+                                datarow["SKS"] = rdr["sks"];
+
+                                TableMakulDipesan.Rows.Add(datarow);
+                            }
+
+                            //Fill Gridview
+                            this.GvListMakulDipesan.DataSource = TableMakulDipesan;
+                            this.GvListMakulDipesan.DataBind();
+                        }
+                        else
+                        {
+                            this.PanelListMakulDipesan.Enabled = false;
+                            this.PanelListMakulDipesan.Visible = false;
+
+                            //clear Gridview
+                            TableMakulDipesan.Rows.Clear();
+                            TableMakulDipesan.Clear();
+                            GvListMakulDipesan.DataSource = TableMakulDipesan;
+                            GvListMakulDipesan.DataBind();
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('TIDAK ADA PEMESANAN DI SEMESTER INI');", true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert(" + ex.Message.ToString() + "');", true);
                 return;
             }
-
-            this.LbSemester.Text = "Pemesanan Untuk Tahun Akademik " + this.DLTahun.SelectedItem.Text.Trim() + " Semester "+ this.DLSemester.SelectedItem.Text.Trim()+" ("+_Tahun+_Semester+")";
-            HitungMaxSks();
-            PopulateMakulDitawarkan();
-            PopulateMakulDipesan();
         }
 
         protected string CekPembayaran()

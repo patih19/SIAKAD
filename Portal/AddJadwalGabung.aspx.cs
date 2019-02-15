@@ -1192,7 +1192,6 @@ namespace Portal
             }
         }
 
-
         protected void CBMakul2_CheckedChanged(object sender, EventArgs e)
         {
             // Get Kode Mata Kuliah dan Mata Kuliah

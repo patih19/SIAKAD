@@ -67,6 +67,24 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Label LbSemester;
         
         /// <summary>
+        /// RbPesan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RbPesan;
+        
+        /// <summary>
+        /// RbLihatPesanan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RbLihatPesanan;
+        
+        /// <summary>
         /// DLTahun control.
         /// </summary>
         /// <remarks>
@@ -146,6 +164,24 @@ namespace Padu.account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GvMakulDiPesan;
+        
+        /// <summary>
+        /// PanelListMakulDipesan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelListMakulDipesan;
+        
+        /// <summary>
+        /// GvListMakulDipesan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvListMakulDipesan;
         
         /// <summary>
         /// UpdateProgress1 control.

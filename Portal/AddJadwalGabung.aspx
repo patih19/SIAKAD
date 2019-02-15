@@ -39,7 +39,7 @@
         }
     </script>
 
-<%--    <style type="text/css">
+    <style type="text/css">
         .mdl
         {
             position: fixed;
@@ -70,7 +70,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>--%>
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -181,43 +181,41 @@
                                                                 </td>
                                                             </tr>
                                                         </table>
-                                                        <div style="background-color:#FFFFEC">
+                                                        <asp:Panel ID="PanelDetailDosen" runat="server">
                                                             <div class="table table-responsive">
                                                                 <div class="row">
                                                                     <div class="col-xs-12 col-md-12 col-lg-12">
-                                                                        <asp:Panel ID="PanelDetailDosen" runat="server">
-                                                                            <table class="table-condensed">
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <asp:GridView ID="GVDosen" runat="server" CellPadding="4" CssClass=" table-condensed table-bordered"
-                                                                                            ForeColor="#333333" GridLines="None" OnPreRender="GVDosen_PreRender">
-                                                                                            <AlternatingRowStyle BackColor="White" />
-                                                                                            <Columns>
-                                                                                                <asp:TemplateField>
-                                                                                                    <ItemTemplate>
-                                                                                                        <asp:CheckBox ID="CbDosen" runat="server" AutoPostBack="True" OnCheckedChanged="CbDosen_CheckedChanged" />
-                                                                                                    </ItemTemplate>
-                                                                                                </asp:TemplateField>
-                                                                                            </Columns>
-                                                                                            <EditRowStyle BackColor="#7C6F57" />
-                                                                                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                                                                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                                                                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                                                                                            <RowStyle BackColor="#E3EAEB" />
-                                                                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                                                                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                                                                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
-                                                                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                                                                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
-                                                                                        </asp:GridView>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </asp:Panel>
+                                                                        <table class="table-condensed">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <asp:GridView ID="GVDosen" runat="server" CellPadding="4" CssClass=" table-condensed table-bordered"
+                                                                                        ForeColor="#333333" GridLines="None" OnPreRender="GVDosen_PreRender">
+                                                                                        <AlternatingRowStyle BackColor="White" />
+                                                                                        <Columns>
+                                                                                            <asp:TemplateField>
+                                                                                                <ItemTemplate>
+                                                                                                    <asp:CheckBox ID="CbDosen" runat="server" AutoPostBack="True" OnCheckedChanged="CbDosen_CheckedChanged" />
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                        </Columns>
+                                                                                        <EditRowStyle BackColor="#7C6F57" />
+                                                                                        <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                                                                        <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                                                                        <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                                                                        <RowStyle BackColor="#E3EAEB" />
+                                                                                        <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                                                                        <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                                                                        <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                                                                        <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                                                                        <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                                                                    </asp:GridView>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </asp:Panel>
                                                     </asp:Panel>
                                                     <p></p>
                                                 </td>

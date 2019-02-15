@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/account/Sipadu.Master" AutoEventWireup="true" CodeBehind="Pemesanan.aspx.cs" Inherits="Padu.account.Pemesanan" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .mdl {
+        .mdl
+        {
             position: fixed;
             top: 0;
             left: 0;
@@ -13,8 +14,8 @@
             min-height: 100%;
             width: 100%;
         }
-
-        .center {
+        .center
+        {
             z-index: 1000;
             margin: 300px auto;
             padding: 10px;
@@ -25,20 +26,10 @@
             opacity: 1;
             -moz-opacity: 1;
         }
-
-            .center img {
-                height: 95px;
-                width: 95px;
-            }
-    </style>
-
-    <style type="text/css">
-        .top {
-            float: left;
-        }
-
-        .dataTables_filter {
-            float: left !important;
+        .center img
+        {
+            height: 95px;
+            width: 95px;
         }
     </style>
 </asp:Content>
@@ -116,8 +107,15 @@
                                     <div class="panel-body">
                                         <table>
                                             <tr>
+                                                <td colspan="3">
+                                                    <asp:RadioButton ID="RbPesan" runat="server" Text="Pesan Mata Kuliah" GroupName="PesanMakul" />
+                                                    &nbsp;<asp:RadioButton ID="RbLihatPesanan" runat="server" Text="Mata Kuliah Dipesan" GroupName="PesanMakul" />
+                                                    <p></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>
-                                                    <asp:DropDownList CssClass="form-control" ID="DLTahun" runat="server">
+                                                    <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control">
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>&nbsp;&nbsp;</td>
@@ -128,12 +126,12 @@
                                                         <asp:ListItem Value="2">Genap</asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td>&nbsp;&nbsp;</td>
-                                                <td>
-                                                    <asp:Button ID="BtnSubmit" CssClass="btn btn-primary" runat="server" Text="SUBMIT" OnClick="BtnSubmit_Click" />
-                                                </td>
+                                                
                                             </tr>
                                         </table>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <asp:Button ID="BtnSubmit" CssClass="btn btn-primary" runat="server" Text="SUBMIT" OnClick="BtnSubmit_Click" />
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +172,6 @@
                                         </div>
                                     </div>
                                 </asp:Panel>
-
                             </div>
 
                             <%-- Mata Kuliah Dipesan--%>
@@ -203,7 +200,32 @@
                                     </div>
                                 </asp:Panel>
                             </div>
+
+                            <%-- Mata Kuliah Dipesan--%>
+                            <div class=" col-md-12 col-lg-12">
+                                <asp:Panel ID="PanelListMakulDipesan" runat="server">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading ui-draggable-handle">
+                                            <strong>DAFTAR MATA KULIAH DIPESAN</strong>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <asp:GridView CssClass="table table-bordered" ID="GvListMakulDipesan" runat="server" >
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="No.">
+                                                            <ItemTemplate>
+                                                                <%# Container.DataItemIndex + 1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </asp:Panel>
+                            </div>
                             <br />
+
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
