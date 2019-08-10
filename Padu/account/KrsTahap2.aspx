@@ -99,6 +99,7 @@
                     <div class="alert alert-success" role="alert">
                        <p><span>PENGISIAN KRS BAGI MAHASISWA YANG TIDAK MEMESAN MATA KULIAH / BELUM KRS</span></p> 
                        <p><span>PERBAIKAN KRS BAGI MAHASISWA YANG SUDAH MENGISI KRS DI TAHAP PERTAMA</span></p> 
+                       <p><span>PENGISIAN/PERBAIKAN KRS BAGI MAHASISWA SEMESTER SATU</span></p> 
                     </div>
 
                     <asp:Panel ID="PanelMhs" runat="server">

@@ -352,7 +352,7 @@ namespace Portal
                                 this.LbMakul.Text = rdr["makul"].ToString();
                                 this.LbNidn.Text = rdr["nidn"].ToString();
                                 this.LbDosen.Text = rdr["nama"].ToString();
-                                //this.DLKelas.SelectedItem.Text = rdr["kelas"].ToString();
+                                this.DLKelas.SelectedItem.Text = rdr["kelas"].ToString();
                                 this.DLHari.SelectedItem.Text = rdr["hari"].ToString();
 
                                 TimeSpan Mulai = (TimeSpan)rdr["jm_awal_kuliah"];

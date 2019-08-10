@@ -10,7 +10,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container top-atas" style="min-height: 450px; background-color: rgba(36, 134, 17, 0.06);
         box-shadow: 0px 0px 200px rgba(82, 124, 159, 0.25), 0px 1px 2px rgba(0, 0, 0, 0.19);">
-
         <div class="row">
             <div class="col-xs-12 col-md-12 col-lg-12">
             <br />
@@ -58,6 +57,8 @@
                                                     <table class=" table table-condensed" style="page-break-before: always" id="TblQuota">
                                                         <thead>
                                                             <tr>
+                                                                <th>Kode
+                                                                </th>
                                                                 <th>Makul
                                                                 </th>
                                                                 <th>Program Studi
@@ -76,7 +77,10 @@
                                                         </thead>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <tr style="page-break-inside: avoid !important">
+                                                    <tr style="page-break-inside: avoid !important">                                                        
+                                                        <td>
+                                                            <asp:Label ID="LbKodeMakul" runat="server" Text='<%# Eval("Kode") %>' />
+                                                        </td>
                                                         <td>
                                                             <asp:Label ID="LblNomerDaftar" runat="server" Text='<%# Eval("Makul") %>' />
                                                         </td>
@@ -119,6 +123,4 @@
             </div>
         </div>
     </div>
-
-
 </asp:Content>

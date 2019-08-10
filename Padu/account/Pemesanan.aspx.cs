@@ -239,7 +239,7 @@ namespace Padu.account
                     CmdMakulDiPesan.Parameters.AddWithValue("@semester", _Tahun + _Semester);
 
                     DataTable TableMakulDipesan = new DataTable();
-                    TableMakulDipesan.Columns.Add("Kode");
+                    TableMakulDipesan.Columns.Add("Kode Mata Kuliah");
                     TableMakulDipesan.Columns.Add("Mata Kuliah");
                     TableMakulDipesan.Columns.Add("SKS");
 
@@ -254,7 +254,7 @@ namespace Padu.account
                             {
                                 DataRow datarow = TableMakulDipesan.NewRow();
 
-                                datarow["Kode"] = rdr["kode_makul"];
+                                datarow["Kode Mata Kuliah"] = rdr["kode_makul"];
                                 datarow["Mata Kuliah"] = rdr["makul"];
                                 datarow["SKS"] = rdr["sks"];
 
@@ -626,31 +626,19 @@ namespace Padu.account
 
                     _PrevIPS = Convert.ToDecimal(CekIPS.Value);
 
-                    if (_PrevIPS < Convert.ToDecimal(1.5))
-                    {
-                        _MaxKRS = 12;
-                    }
-                    else if ((_PrevIPS >= Convert.ToDecimal(1.50)) && (_PrevIPS <= Convert.ToDecimal(1.99999)))
-                    {
-                        _MaxKRS = 14;
-                    }
-                    else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49999)))
-                    {
-                        _MaxKRS = 16;
-                    }
-                    else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99999)))
+                    if (_PrevIPS < Convert.ToDecimal(2.00))
                     {
                         _MaxKRS = 18;
                     }
-                    else if ((_PrevIPS >= Convert.ToDecimal(3.00)) && (_PrevIPS <= Convert.ToDecimal(3.49999)))
+                    else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS < Convert.ToDecimal(2.50)))
                     {
                         _MaxKRS = 20;
                     }
-                    else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
+                    else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS < Convert.ToDecimal(3.00)))
                     {
                         _MaxKRS = 22;
                     }
-                    else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                    else if (_PrevIPS >= Convert.ToDecimal(3.00))
                     {
                         _MaxKRS = 24;
                     }

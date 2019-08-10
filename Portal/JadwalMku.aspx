@@ -46,7 +46,7 @@
             background-color: #EEF7EE;
         }
     </style>
-    <style type="text/css">
+<%--    <style type="text/css">
         .mdl
         {
             position: fixed;
@@ -77,7 +77,7 @@
             height: 95px;
             width: 95px;
         }
-    </style>
+    </style>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
@@ -86,6 +86,10 @@
         <div class="row">
             <div class="col-xs-12 col-md-12 col-lg-12">
             <br />
+                <div class="alert alert-danger" role="alert">
+                    <p><span>MENU INI JUGA DAPAT DIPERGUNAKAN UNTUK MENGGABUNGKAN JADWAL KULIAH MKU DUA KURIKULUM BERBEDA</span></p>
+                </div>
+                <p></p>
             <div class="panel panel-default">
                     <div class="panel-heading ui-draggable-handle">
                         <strong>Jadwal Perkuliahan MKU</strong></div>

@@ -325,6 +325,35 @@ namespace Portal
                     CmdDosen.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
 
                     CmdDosen.ExecuteNonQuery();
+
+                    SqlCommand CmdDosen2 = new SqlCommand(@"
+                    DECLARE @Jenjang VARCHAR(2)
+                    DECLARE @NoNpm VARCHAR(12)
+                    DECLARE @IdProdi VARCHAR(8)
+                    DECLARE @TopSemester VARCHAR(5)
+
+                    -- ===== GET TOP SEMESTER KALENDER AKADEMIK BY JENJANG =======
+                    SELECT @NoNpm=bak_mahasiswa.npm, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
+                    FROM            bak_mahasiswa INNER JOIN
+                                    bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
+                    WHERE npm=@npm
+
+                    IF (@Jenjang ='S1' OR @Jenjang='D3')
+                    BEGIN
+	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+	                    WHERE jenjang='S1' AND semester != 'new'
+	                    GROUP BY semester,jenjang
+	                    ORDER BY semester DESC
+                    END
+
+                    UPDATE bak_persetujuan_krs SET nidn=@nidn where semester=@TopSemester AND npm=@npm
+                        ", con);
+                    CmdDosen2.CommandType = System.Data.CommandType.Text;
+
+                    CmdDosen2.Parameters.AddWithValue("@nidn", _NIDN);
+                    CmdDosen2.Parameters.AddWithValue("@npm", this.GvMhsAdd.Rows[index].Cells[1].Text.Trim());
+
+                    CmdDosen2.ExecuteNonQuery();
                 }
 
                 //refresh data mahasiswa aktif
@@ -391,7 +420,7 @@ namespace Portal
                         ELSE
                         BEGIN
 	                        DELETE FROM bak_bimbingan_krs WHERE id_persetujuan=@no_persetujuan
-	                        DELETE FROM dbo.bak_persetujuan_krs WHERE npm=@npm AND semester=@TopSemester
+	                        --DELETE FROM dbo.bak_persetujuan_krs WHERE npm=@npm AND semester=@TopSemester
                         END	
                         ", con);
                         CmdGantiDosenPA.CommandType = System.Data.CommandType.Text;

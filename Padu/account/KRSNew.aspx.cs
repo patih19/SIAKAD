@@ -344,30 +344,20 @@ namespace Padu.account
                                 CmdCekIPS.ExecuteNonQuery();
 
                                 _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-                                if (_PrevIPS < Convert.ToDecimal(1.5))
-                                {
-                                    _MaxKRS = 12;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(1.50)) && (_PrevIPS <= Convert.ToDecimal(1.99999)))
-                                {
-                                    _MaxKRS = 14;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49999)))
-                                {
-                                    _MaxKRS = 16;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99999)))
+
+                                if (_PrevIPS < Convert.ToDecimal(2.00))
                                 {
                                     _MaxKRS = 18;
                                 }
-                                else if ((_PrevIPS >= Convert.ToDecimal(3.00)) && (_PrevIPS <= Convert.ToDecimal(3.49999)))
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS < Convert.ToDecimal(2.50)))
                                 {
                                     _MaxKRS = 20;
                                 }
-                                else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS < Convert.ToDecimal(3.00)))
                                 {
                                     _MaxKRS = 22;
-                                } else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                                }
+                                else if (_PrevIPS >= Convert.ToDecimal(3.00))
                                 {
                                     _MaxKRS = 24;
                                 }
@@ -396,31 +386,19 @@ namespace Padu.account
                             CmdCekIPS.ExecuteNonQuery();
 
                             _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-                            if (_PrevIPS < Convert.ToDecimal(1.5))
-                            {
-                                _MaxKRS = 12;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(1.50)) && (_PrevIPS <= Convert.ToDecimal(1.99999)))
-                            {
-                                _MaxKRS = 14;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49999)))
-                            {
-                                _MaxKRS = 16;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99999)))
+                            if (_PrevIPS < Convert.ToDecimal(2.00))
                             {
                                 _MaxKRS = 18;
                             }
-                            else if ((_PrevIPS >= Convert.ToDecimal(3.00)) && (_PrevIPS <= Convert.ToDecimal(3.49999)))
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS < Convert.ToDecimal(2.50)))
                             {
                                 _MaxKRS = 20;
                             }
-                            else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS < Convert.ToDecimal(3.00)))
                             {
                                 _MaxKRS = 22;
                             }
-                            else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                            else if (_PrevIPS >= Convert.ToDecimal(3.00))
                             {
                                 _MaxKRS = 24;
                             }
@@ -749,31 +727,19 @@ namespace Padu.account
                                 CmdCekIPS.ExecuteNonQuery();
 
                                 _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-                                if (_PrevIPS < Convert.ToDecimal(1.5))
-                                {
-                                    _MaxKRS = 12;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(1.50)) && (_PrevIPS <= Convert.ToDecimal(1.99999)))
-                                {
-                                    _MaxKRS = 14;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49999)))
-                                {
-                                    _MaxKRS = 16;
-                                }
-                                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99999)))
+                                if (_PrevIPS < Convert.ToDecimal(2.00))
                                 {
                                     _MaxKRS = 18;
                                 }
-                                else if ((_PrevIPS >= Convert.ToDecimal(3.00)) && (_PrevIPS <= Convert.ToDecimal(3.49999)))
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS < Convert.ToDecimal(2.50)))
                                 {
                                     _MaxKRS = 20;
                                 }
-                                else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
+                                else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS < Convert.ToDecimal(3.00)))
                                 {
                                     _MaxKRS = 22;
                                 }
-                                else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                                else if (_PrevIPS >= Convert.ToDecimal(3.00))
                                 {
                                     _MaxKRS = 24;
                                 }
@@ -802,31 +768,19 @@ namespace Padu.account
                             CmdCekIPS.ExecuteNonQuery();
 
                             _PrevIPS = Convert.ToDecimal(CekIPS.Value);
-                            if (_PrevIPS < Convert.ToDecimal(1.5))
-                            {
-                                _MaxKRS = 12;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(1.50)) && (_PrevIPS <= Convert.ToDecimal(1.99999)))
-                            {
-                                _MaxKRS = 14;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS <= Convert.ToDecimal(2.49999)))
-                            {
-                                _MaxKRS = 16;
-                            }
-                            else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS <= Convert.ToDecimal(2.99999)))
+                            if (_PrevIPS < Convert.ToDecimal(2.00))
                             {
                                 _MaxKRS = 18;
                             }
-                            else if ((_PrevIPS >= Convert.ToDecimal(3.00)) && (_PrevIPS <= Convert.ToDecimal(3.49999)))
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.00)) && (_PrevIPS < Convert.ToDecimal(2.50)))
                             {
                                 _MaxKRS = 20;
                             }
-                            else if ((_PrevIPS >= Convert.ToDecimal(3.50)) && (_PrevIPS <= Convert.ToDecimal(3.69999)))
+                            else if ((_PrevIPS >= Convert.ToDecimal(2.50)) && (_PrevIPS < Convert.ToDecimal(3.00)))
                             {
                                 _MaxKRS = 22;
                             }
-                            else if (_PrevIPS >= Convert.ToDecimal(3.7))
+                            else if (_PrevIPS >= Convert.ToDecimal(3.00))
                             {
                                 _MaxKRS = 24;
                             }

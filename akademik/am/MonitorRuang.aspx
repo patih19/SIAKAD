@@ -56,6 +56,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>
+                                                                Kode
+                                                            </th>
+                                                            <th>
                                                                 Makul
                                                             </th>
                                                             <th>
@@ -80,7 +83,10 @@
                                                     </thead>
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <tr style="page-break-inside: avoid !important">
+                                                <tr style="page-break-inside: avoid !important">                                                    
+                                                    <td>
+                                                        <asp:Label ID="LbKodeMakul" runat="server" Text='<%# Eval("Kode") %>' />
+                                                    </td>
                                                     <td>
                                                         <asp:Label ID="LblNomerDaftar" runat="server" Text='<%# Eval("Makul") %>' />
                                                     </td>

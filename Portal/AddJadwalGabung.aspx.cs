@@ -329,6 +329,11 @@ namespace Portal
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Isi Quota / Kapasitas Mahasiswa');", true);
                 return;
             }
+            if (this.DLJenisKelas.SelectedItem.Text == "Jenis Kelas")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Pilih Jenis Kelas');", true);
+                return;
+            }
 
             //Form Validation MAKUL KEDUA
             if (this.LbProdi2.Text == "")
@@ -374,6 +379,11 @@ namespace Portal
             if (this.TbQuota2.Text == "")
             {
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Isi Quota / Kapasitas Mahasiswa');", true);
+                return;
+            }
+            if (this.DLJenisKelas2.SelectedItem.Text == "Jenis Kelas")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Pilih Jenis Kelas');", true);
                 return;
             }
 

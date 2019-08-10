@@ -57,7 +57,7 @@
                     <p></p>
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">
-                            <strong>From Kuisioner Semester Gasal Tahun Akademik 2018/2019</strong>
+                            <strong>From Kuisioner Semester Genap Tahun Akademik 2018/2019</strong>
                         </div>
                         <div class="panel-body">
                              Penilaian kinerja dosen oleh mahasiswa melalui laman berikut, <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://goo.gl/forms/7Q92YtcaahMTqs042" Target="_blank">kuisioner</asp:HyperLink> 

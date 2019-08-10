@@ -84,6 +84,7 @@ namespace akademik.am
                 cmd.Parameters.AddWithValue("@Hari", Hari);
 
                 DataTable TableData = new DataTable();
+                TableData.Columns.Add("Kode");
                 TableData.Columns.Add("Makul");
                 TableData.Columns.Add("Program Studi");
                 TableData.Columns.Add("Ruang");
@@ -100,6 +101,7 @@ namespace akademik.am
                         while (rdr.Read())
                         {
                             DataRow datarow = TableData.NewRow();
+                            datarow["Kode"] = rdr["kode_makul"];
                             datarow["Makul"] = rdr["makul"];
                             datarow["Program Studi"] = rdr["prog_study"];
                             datarow["Ruang"] = rdr["nm_ruang"];

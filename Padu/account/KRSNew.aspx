@@ -101,6 +101,9 @@
                         <p><span> PENGISIAN KRS BAGI MAHASISWA YANG SUDAH MEMESAN MATA KULIAH </span></p>
                         <p>Panduan KRS, <asp:HyperLink ID="HyperLinkKRS" runat="server" NavigateUrl="~/doc/alur_krs.pdf" Target="_blank">download</asp:HyperLink></p>
                     </div>
+                    <div class="alert alert-danger" role="alert">
+                        <p><span> HUBUNGI PRODI TERKAIT JIKA MATA KULIAH YANG DIPESAN TIDAK TERDAFTAR DALAM DAFTAR KRS </span></p>
+                    </div>
                     <asp:Panel ID="PanelMhs" runat="server">
                         <table class="table-condensed">
                             <tr>

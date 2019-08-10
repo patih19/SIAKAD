@@ -264,6 +264,9 @@ namespace Portal
 
         protected void BtnEdit_Click(object sender, EventArgs e)
         {
+            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Menu Edit Sedang Dalam Perbaikan');", true);
+            //return;
+
             // get row index
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;

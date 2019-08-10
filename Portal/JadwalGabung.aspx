@@ -88,7 +88,7 @@
             <div class="col-xs-12 col-md-12 col-lg-12">
             <br />
                 <div class="alert alert-danger" role="alert">
-                    <p><span>MENU INI DIPERGUNAKAN UNTUK MENGGABUNGKAN JADWAL KULIAH <strong>NON MKU</strong> DUA KURIKULUM BEBEDA</span></p>
+                    <p><span>MENU INI DIPERGUNAKAN UNTUK MENGGABUNGKAN JADWAL KULIAH <strong>NON MKU</strong> DUA KURIKULUM BERBEDA</span></p>
                 </div>
                 <p></p>
             <div class="panel panel-default">
