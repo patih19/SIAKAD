@@ -318,22 +318,32 @@ namespace Padu.account
 			                    PRINT 'Mahasiswa Bidikmisi'
 		                    END
 		                    ELSE	
-		                    BEGIN	
-			                    DECLARE @NoBilingPembayaran VARCHAR(12)
-			                    SELECT @NoBilingPembayaran=billingNo FROM ukt.dbo.keu_posting_bank WHERE (payeeId= @NpmCekBayar) AND (status ='unpaid')
-			                    IF @@ROWCOUNT >=1
+		                    BEGIN
+			                    DECLARE @CekAktivasi VARCHAR(12)
+			                    SELECT @CekAktivasi=status FROM ukt.dbo.keu_posting_bank WHERE (payeeId= @NpmCekBayar) AND (billRef4=@SemCekBayar) 
+			                    IF @CekAktivasi IS NULL
 			                    BEGIN
-				                    RAISERROR('ANDA TERCATAT BELUM MELUNASI TAGIHAN',16,10)
+				                    RAISERROR('ANDA TERCATAT BELUM MELAKUKAN AKTIVASI PEMBAYARAN',16,10)
 				                    RETURN
 			                    END
 			                    ELSE
 			                    BEGIN
-				                    DECLARE @NoBilingPembayaran2 VARCHAR(12)
-				                    SELECT @NoBilingPembayaran2=billingNo FROM ukt.dbo.keu_posting_bank WHERE (billRef4=@SemCekBayar) AND (cicilan IS NULL OR cicilan ='1') AND (payeeId=@NpmCekBayar) AND (status='unpaid')
-				                    IF @@ROWCOUNT >= 1
+				                    DECLARE @NoBilingPembayaran VARCHAR(12)
+				                    SELECT @NoBilingPembayaran=billingNo FROM ukt.dbo.keu_posting_bank WHERE (payeeId= @NpmCekBayar) AND (status ='unpaid')
+				                    IF @@ROWCOUNT >=1
 				                    BEGIN
-					                    RAISERROR('ANDA TERCATAT BELUM MELUNASI TAGIHAN SEMESTER INI',16,10)
+					                    RAISERROR('ANDA TERCATAT BELUM MELUNASI TAGIHAN',16,10)
 					                    RETURN
+				                    END
+				                    ELSE
+				                    BEGIN
+					                    DECLARE @NoBilingPembayaran2 VARCHAR(12)
+					                    SELECT @NoBilingPembayaran2=billingNo FROM ukt.dbo.keu_posting_bank WHERE (billRef4=@SemCekBayar) AND (cicilan IS NULL OR cicilan ='1') AND (payeeId=@NpmCekBayar) AND (status='unpaid')
+					                    IF @@ROWCOUNT >= 1
+					                    BEGIN
+						                    RAISERROR('ANDA TERCATAT BELUM MELUNASI TAGIHAN SEMESTER INI',16,10)
+						                    RETURN
+					                    END
 				                    END
 			                    END
 		                    END
@@ -499,7 +509,7 @@ namespace Padu.account
                             this.LbSemester.Text = "";
                             this.LbMaxSKS.Text = "";
 
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('TIDAK ADA PEMESANAN DI SEMESTER INI');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('MATA KULIAH BELUM DI TAWARKAN, HUBUNGI PRODI !');", true);
                         }
                     }
                 }
@@ -576,7 +586,7 @@ namespace Padu.account
 
                             this.LbSemester.Text = "";
 
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Belum Memesan Mata Kuliah, Silahkan Pesan');", true);
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Belum Memesan Mata Kuliah, Silahkan Pesan');", true);
                         }
                     }
                 }
@@ -852,5 +862,6 @@ namespace Padu.account
         {
             e.Row.Cells[1].Visible = false; //No KRS Penawaran
         }
+
     }
 }

@@ -468,14 +468,14 @@ namespace Padu.pasca
 
                                         "SET @BIAYA = @SPP " +
 
-                                        "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM AND billRef5 = 'TESIS' " +
+                                        "SELECT * FROM dbo.keu_posting_bank WHERE payeeId = @NoNPM AND billRef5 = 'TESIS' AND billRef4 =@Semester " +
                                         "IF(@@ROWCOUNT >= 1) " +
                                         "BEGIN " +
                                             "RAISERROR('Posting Tagihan Skripsi Semester Ini Sudah Dibuat, Proses Dibatalkan...', 16, 10) " +
                                             "RETURN " +
                                         "END " +
 
-                                        "SELECT * FROM keu_tagihan WHERE npm = @NoNPM AND jenis_tagihan = 'TESIS' " +
+                                        "SELECT * FROM keu_tagihan WHERE npm = @NoNPM AND jenis_tagihan = 'TESIS' AND semester =@Semester " +
 
                                         "IF(@@ROWCOUNT >= 1) " +
                                         "BEGIN " +

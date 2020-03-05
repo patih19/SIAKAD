@@ -147,7 +147,9 @@
                     </asp:GridView>
                 </td>
             </tr>
-        </table>
+        </table> 
+        <p><strong>&nbsp;&nbsp; Keterangan : Jumlah kehadiran kurang dari 75%&nbsp; tidak ditampilkan dalam daftar hadir UAS</strong></p>
+         
     </div>
     </form>
 </body>

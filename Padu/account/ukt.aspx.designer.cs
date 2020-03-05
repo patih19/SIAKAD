@@ -157,15 +157,6 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.GridView GvHistoryPaid;
         
         /// <summary>
-        /// LinkDwnPanduan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkDwnPanduan;
-        
-        /// <summary>
         /// DLTahun control.
         /// </summary>
         /// <remarks>
@@ -220,21 +211,12 @@ namespace Padu.account {
         protected global::System.Web.UI.WebControls.Label LbStatusBdk;
         
         /// <summary>
-        /// BtnAktivasi control.
+        /// ButtonAktivasi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAktivasi;
-        
-        /// <summary>
-        /// BtnAktivasiBTN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAktivasiBTN;
+        protected global::System.Web.UI.WebControls.Button ButtonAktivasi;
     }
 }

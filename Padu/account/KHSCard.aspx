@@ -29,7 +29,7 @@
     <table align="center" class="table-condensed">
         <tr>
             <td>
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Lg-Kemenristek.png" />
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logoUntidar17.png" Height="80px" />
             </td>
             <td class="text-center" colspan="2">
                 Kartu 

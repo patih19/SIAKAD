@@ -128,6 +128,7 @@ namespace Padu.account
 
             if (this.RBInput.Checked)
             {
+                //Response.Write(this.Session["jenjang"].ToString());
                 try
                 {
                     _TotalSKS = 0;
@@ -154,9 +155,15 @@ namespace Padu.account
                             {
                                 this.DLSemester.SelectedValue = "Semester";
 
+                                rdr.Close();
+                                rdr.Dispose();
+
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
                                 return;
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
 
@@ -175,6 +182,9 @@ namespace Padu.account
                                     TahunMhs = rdr["thn_angkatan"].ToString();
                                 }
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
                         if (this.LbTahun.Text.Trim() == TahunMhs)
@@ -182,22 +192,22 @@ namespace Padu.account
                             //============= INPUT KRS MAHASISWA BARU ================== //
 
                             // 1. ------ Cek Masa KRS -------
-                            SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
+                            SqlCommand CmdCekMasaKrsMaba = new SqlCommand("SpCekMasaKeg", con);
                             //CmdCekMasa.Transaction = trans;
-                            CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
+                            CmdCekMasaKrsMaba.CommandType = System.Data.CommandType.StoredProcedure;
 
-                            CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-                            CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "KRSMABA");
-                            CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
+                            CmdCekMasaKrsMaba.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
+                            CmdCekMasaKrsMaba.Parameters.AddWithValue("@jenis_keg", "KRSMABA");
+                            CmdCekMasaKrsMaba.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
                             SqlParameter Status = new SqlParameter();
                             Status.ParameterName = "@output";
                             Status.SqlDbType = System.Data.SqlDbType.VarChar;
-                            Status.Size = 20;
+                            Status.Size = 300;
                             Status.Direction = System.Data.ParameterDirection.Output;
-                            CmdCekMasa.Parameters.Add(Status);
+                            CmdCekMasaKrsMaba.Parameters.Add(Status);
 
-                            CmdCekMasa.ExecuteNonQuery();
+                            CmdCekMasaKrsMaba.ExecuteNonQuery();
 
                             if (Status.Value.ToString() == "OUT")
                             {
@@ -229,6 +239,8 @@ namespace Padu.account
                                 }
                                 else
                                 {
+                                    Bidikmisi = "No";
+
                                     this.DLSemester.SelectedValue = "Semester";
 
                                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data Pembayaran Tidak Ditemukan');", true);
@@ -528,6 +540,9 @@ namespace Padu.account
                                 ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 return;
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
                     }
                 }
@@ -580,6 +595,9 @@ namespace Padu.account
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Tercatat Sebagai Mahasiswa Aktif');", true);
                                 return;
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
                         //-------------- Read Status Validasi KRS  --------------------- //
@@ -615,6 +633,9 @@ namespace Padu.account
                                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJUAN KRS');", true);
                                 return;
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
 
@@ -633,6 +654,9 @@ namespace Padu.account
                                     TahunMhs = rdr["thn_angkatan"].ToString();
                                 }
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
                         if (this.LbTahun.Text.Trim() == TahunMhs)
@@ -916,6 +940,9 @@ namespace Padu.account
 
                                 this.DLSemester.SelectedValue = "Semester";
 
+                                rdr.Close();
+                                rdr.Dispose();
+
                                 //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Mahasiswa Tidak Ditemukan');", true);
 
                                 string message = "alert('KRS Mahasiswa Tidak Ditemukan')";
@@ -923,6 +950,9 @@ namespace Padu.account
 
                                 return;
                             }
+
+                            rdr.Close();
+                            rdr.Dispose();
                         }
 
                         //-- 3. loop id jadwal yg sudah diambil berdasarkan no jadwal
@@ -1002,6 +1032,9 @@ namespace Padu.account
                                         }
                                         catch (Exception)
                                         {
+                                            rdrchecked.Close();
+                                            rdrchecked.Dispose();
+
                                             Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Checked");
                                         }
                                     }
@@ -1061,9 +1094,15 @@ namespace Padu.account
                                     }
                                     catch (Exception)
                                     {
+                                        rdrchecked.Close();
+                                        rdrchecked.Dispose();
+
                                         Response.Write("Error Reading Satus/ Sisa Quota Jadwal Mata Kuliah Unchecked");
                                     }
                                 }
+
+                                rdrchecked.Close();
+                                rdrchecked.Dispose();
                             }
                         }
                         this.LbJumlahEditSKS.Text = TotalSKS.ToString();
@@ -1654,9 +1693,15 @@ namespace Padu.account
                                 {
                                     this.DLSemester.SelectedValue = "Semester";
 
+                                    rdr.Close();
+                                    rdr.Dispose();
+
                                     this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('TIDAK ADA PENGAJAUN KRS');", true);
                                     return;
                                 }
+
+                                rdr.Close();
+                                rdr.Dispose();
                             }
 
                             // B. --------------- VALIDASI ACTION-----------------
@@ -1738,10 +1783,16 @@ namespace Padu.account
 
                                         this.DLSemester.SelectedValue = "Semester";
 
+                                        rdr.Close();
+                                        rdr.Dispose();
+
                                         //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('KRS Semester Ini Belum Ada');", true);
                                         string message = "alert('KRS Semester Ini Belum Ada')";
                                         ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                     }
+
+                                    rdr.Close();
+                                    rdr.Dispose();
                                 }
 
                                 // 2. --- Disable download ---
@@ -1783,13 +1834,15 @@ namespace Padu.account
 
                                         this.PanelValidasiKRS.Enabled = true;
                                         this.PanelValidasiKRS.Visible = true;
-
                                     }
                                     else
                                     {
                                         this.PanelValidasiKRS.Enabled = false;
                                         this.PanelValidasiKRS.Visible = false;
                                     }
+
+                                    rdr.Close();
+                                    rdr.Dispose();
                                 }
 
                                 this.PanelInfo.Visible = true;
@@ -1799,7 +1852,6 @@ namespace Padu.account
                             }
                             else if (ReadValid == "Valid")
                             {
-
                                 //Response.Write("KRS Valid");
 
                                 SqlCommand CmdListKRS = new SqlCommand("SpListKrsMhs2", con);
@@ -1882,6 +1934,9 @@ namespace Padu.account
                                         string message = "alert('KRS Semester Ini Belum Ada')";
                                         ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                     }
+
+                                    rdr.Close();
+                                    rdr.Dispose();
                                 }
 
                                 this.PanelInfo.Visible = false;
@@ -1981,6 +2036,9 @@ namespace Padu.account
                                     string message = "alert('KRS Semester Ini Belum Ada')";
                                     ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
                                 }
+
+                                rdr.Close();
+                                rdr.Dispose();
                             }
 
                             this.PanelValidasiKRS.Visible = false;
@@ -2044,7 +2102,8 @@ namespace Padu.account
             }
 
             // ---- ================== Cek Makul Dobel ================== --- //
-            string[] arr = new string[1000];
+            string[] arr = new string[GVAmbilKRS.Rows.Count+3];
+
             for (int i = 0; i < GVAmbilKRS.Rows.Count; i++)
             {
                 //makul checked
@@ -2076,7 +2135,6 @@ namespace Padu.account
                     }
                 }
             }
-
 
             string TahunAngkatan = "";
             TahunAngkatan = this.LbTahun.Text.Trim().Substring(0, 4);
@@ -2180,14 +2238,14 @@ namespace Padu.account
                                                 "END "+
                                                 "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) "+
                                               "END "+
-                                              "ELSE "+
-                                              "BEGIN "+
-                                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan "+
-                                                "IF(@@ROWCOUNT <> 1) "+
-                                                "BEGIN "+
-                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) "+
-                                                    "RETURN "+
-                                                "END "+
+                                              "ELSE " +
+                                              "BEGIN " +
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 0, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan AND val <> 1" +
+                                                "IF(@@ROWCOUNT <> 1) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
                                               "END" +
                                             "", con);
                                         CmdPersetujuan.Transaction = trans;
@@ -2226,6 +2284,7 @@ namespace Padu.account
                             catch (Exception ex)
                             {
                                 trans.Rollback();
+                                trans.Dispose();
                                 con.Close();
                                 con.Dispose();
 
@@ -2346,15 +2405,15 @@ namespace Padu.account
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester,val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
                                   "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
+                                              "ELSE " +
+                                              "BEGIN " +
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 0, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan AND val <> 1" +
+                                                "IF(@@ROWCOUNT <> 1) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
+                                              "END" +
                                 "", con);
                             CmdPersetujuan.Transaction = trans;
                             CmdPersetujuan.CommandType = System.Data.CommandType.Text;
@@ -2451,14 +2510,14 @@ namespace Padu.account
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
                                   "END " +
                                   "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
+                                              "BEGIN " +
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 0, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan AND val <> 1" +
+                                                "IF(@@ROWCOUNT <> 1) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
+                                              "END" +
                                 "", con);
                             CmdPersetujuan.Transaction = trans;
                             CmdPersetujuan.CommandType = System.Data.CommandType.Text;
@@ -2554,15 +2613,6 @@ namespace Padu.account
                                     "END " +
                                     "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester, 0) " +
                                   "END " +
-                                  "ELSE " +
-                                  "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
                                 "", con);
                             CmdPersetujuan.Transaction = trans;
                             CmdPersetujuan.CommandType = System.Data.CommandType.Text;
@@ -2642,6 +2692,8 @@ namespace Padu.account
                             {
                                 TahunMhs = rdr["thn_angkatan"].ToString();
                             }
+                            rdr.Close();
+                            rdr.Dispose();
                         }
                     }
                 }
@@ -2666,7 +2718,7 @@ namespace Padu.account
                     try
                     {
                         // 1. ------------- Cek Masa KRS ------------
-                        SqlCommand CmdMasaKRS = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                        SqlCommand CmdMasaKRS = new SqlCommand("SpCekMasaKeg", ConUntidar,TransUntidar);
                         CmdMasaKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
                         CmdMasaKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
@@ -2686,7 +2738,7 @@ namespace Padu.account
                         {
 
                             //------ Cek Masa Batal Tambah -------
-                            SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                            SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar,TransUntidar);
                             CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedValue.Trim());
@@ -2704,13 +2756,8 @@ namespace Padu.account
 
                             if (StatusBtl.Value.ToString() == "OUT")
                             {
-                                TransUntidar.Rollback();
-                                TransUKT.Rollback();
-
                                 ConUntidar.Close();
                                 ConUKT.Close();
-                                ConUntidar.Dispose();
-                                ConUKT.Dispose();
 
                                 this.DLSemester.SelectedValue = "Semester";
 
@@ -2759,8 +2806,8 @@ namespace Padu.account
                             smstr = "1";
                         }
 
-                        SqlCommand CmdUpKHS = new SqlCommand("SpTranKuliahMhs2", ConUntidar);
-                        CmdUpKHS.Transaction = TransUntidar;
+                        SqlCommand CmdUpKHS = new SqlCommand("SpTranKuliahMhs2", ConUntidar,TransUntidar);
+                        //CmdUpKHS.Transaction = TransUntidar;
                         CmdUpKHS.CommandType = System.Data.CommandType.StoredProcedure;
 
                         CmdUpKHS.Parameters.AddWithValue("@semester", thn + smstr);
@@ -2827,7 +2874,7 @@ namespace Padu.account
 
                         //4. -------------- Filter Cek Pembayaran UKT ----------------
                         // filter sama seperti cek download KRS
-                        SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar, TransUntidar);
+                        SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar,TransUntidar);
                         CmdFilterSemGasal.CommandType = System.Data.CommandType.StoredProcedure;
 
                         CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
@@ -2853,16 +2900,16 @@ namespace Padu.account
                                 "END " +
                                 "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester,0) " +
                               "END " +
-                              "ELSE " +
-                              "BEGIN " +
-                                "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                "IF(@@ROWCOUNT <> 1) " +
-                                "BEGIN " +
-                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                    "RETURN " +
-                                "END " +
-                              "END" +
-                            "", ConUntidar, TransUntidar);
+                                              "ELSE " +
+                                              "BEGIN " +
+                                                "UPDATE dbo.bak_persetujuan_krs SET val = 0, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan AND val <> 1" +
+                                                "IF(@@ROWCOUNT <> 1) " +
+                                                "BEGIN " +
+                                                    "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                                    "RETURN " +
+                                                "END " +
+                                              "END" +
+                            "", ConUntidar,TransUntidar);
 
                         CmdPersetujuan.CommandType = System.Data.CommandType.Text;
 
@@ -2994,17 +3041,7 @@ namespace Padu.account
                                         "END " +
                                         "INSERT INTO bak_persetujuan_krs(npm, nidn, jenis, semester, val) VALUES(@npm, @nidn, 'krs', @semester, 0) " +
                                       "END " +
-                                      "ELSE " +
-                                      "BEGIN " +
-                                        "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                        "IF(@@ROWCOUNT <> 1) " +
-                                        "BEGIN " +
-                                            "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                            "RETURN " +
-                                        "END " +
-                                      "END" +
                                     "", con);
-                                CmdPersetujuan.Transaction = trans;
 
                                 CmdPersetujuan.CommandType = System.Data.CommandType.Text;
 
@@ -3046,6 +3083,8 @@ namespace Padu.account
                                 this.DLSemester.SelectedIndex = 0;
 
                                 trans.Rollback();
+                                trans.Dispose();
+
                                 con.Close();
                                 con.Dispose();
 
@@ -3074,10 +3113,10 @@ namespace Padu.account
                         try
                         {
                             // 1. ------------- Cek Masa KRS ------------
-                            SqlCommand CmdMasaKRS = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                            SqlCommand CmdMasaKRS = new SqlCommand("SpCekMasaKeg", ConUntidar,TransUntidar);
                             CmdMasaKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
-                            CmdMasaKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+                            CmdMasaKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
                             CmdMasaKRS.Parameters.AddWithValue("@jenis_keg", "KRSMABA");
                             CmdMasaKRS.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
 
@@ -3094,7 +3133,7 @@ namespace Padu.account
                             {
 
                                 //------ Cek Masa Batal Tambah -------
-                                SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar, TransUntidar);
+                                SqlCommand CmdCekMasaBatal = new SqlCommand("SpCekMasaKeg", ConUntidar,TransUntidar);
                                 CmdCekMasaBatal.CommandType = System.Data.CommandType.StoredProcedure;
 
                                 CmdCekMasaBatal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.SelectedValue.Trim());
@@ -3112,11 +3151,9 @@ namespace Padu.account
 
                                 if (StatusBtl.Value.ToString() == "OUT")
                                 {
-                                    TransUntidar.Rollback();
-                                    TransUKT.Rollback();
-
                                     ConUntidar.Close();
                                     ConUKT.Close();
+
                                     ConUntidar.Dispose();
                                     ConUKT.Dispose();
 
@@ -3128,7 +3165,6 @@ namespace Padu.account
                                     //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Jadwal Pengisian Dan Batal Tambah KRS ...');", true);
                                     return;
                                 }
-
 
 
                                 //PanelKRS.Enabled = false;
@@ -3169,8 +3205,8 @@ namespace Padu.account
                                 smstr = "1";
                             }
 
-                            SqlCommand CmdUpKHS = new SqlCommand("SpTranKuliahMhs2", ConUntidar);
-                            CmdUpKHS.Transaction = TransUntidar;
+                            SqlCommand CmdUpKHS = new SqlCommand("SpTranKuliahMhs2", ConUntidar,TransUntidar);
+                            //CmdUpKHS.Transaction = TransUntidar;
                             CmdUpKHS.CommandType = System.Data.CommandType.StoredProcedure;
 
                             CmdUpKHS.Parameters.AddWithValue("@semester", thn + smstr);
@@ -3236,14 +3272,12 @@ namespace Padu.account
                             //// - ========================================================================================================================
                             //// - ========================================================================================================================
 
-
-
                             //4. -------------- Filter Cek Pembayaran UKT ----------------
                             // filter sama seperti cek download KRS
-                            SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar, TransUntidar);
+                            SqlCommand CmdFilterSemGasal = new SqlCommand("SpCekDownloadKRS", ConUntidar,TransUntidar);
                             CmdFilterSemGasal.CommandType = System.Data.CommandType.StoredProcedure;
 
-                            CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+                            CmdFilterSemGasal.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text.Trim() + this.DLSemester.Text.Trim());
                             CmdFilterSemGasal.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
 
                             CmdFilterSemGasal.ExecuteNonQuery();
@@ -3269,14 +3303,14 @@ namespace Padu.account
                                   "END " +
                                   "ELSE " +
                                   "BEGIN " +
-                                    "UPDATE dbo.bak_persetujuan_krs SET val = 1, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan " +
-                                    "IF(@@ROWCOUNT <> 1) " +
-                                    "BEGIN " +
-                                        "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
-                                        "RETURN " +
-                                    "END " +
-                                  "END" +
-                                "", ConUntidar, TransUntidar);
+                                     "UPDATE dbo.bak_persetujuan_krs SET val = 0, tgl = GETDATE() WHERE id_persetujuan = @IdPersetujuan AND val <> 1" +
+                                     "IF(@@ROWCOUNT <> 1) " +
+                                     "BEGIN " +
+                                         "RAISERROR('UPDATE PERSETUJUAN KRS GAGAL ...', 16, 10) " +
+                                         "RETURN " +
+                                     "END " +
+                                "END" +
+                                "", ConUntidar,TransUntidar);
 
                             CmdPersetujuan.CommandType = System.Data.CommandType.Text;
 
@@ -3466,7 +3500,7 @@ namespace Padu.account
             }
 
             // ---- ================== Cek Makul Dobel ================== --- //
-            string[] arr = new string[1000];
+            string[] arr = new string[GVEditKRS.Rows.Count+3];
             for (int i = 0; i < GVEditKRS.Rows.Count; i++)
             {
                 //makul checked
@@ -3554,7 +3588,7 @@ namespace Padu.account
                             {
                                 SqlCommand cmdInKRS = new SqlCommand("SpInKRS", con);
                                 cmdInKRS.Transaction = trans;
-
+                          
                                 cmdInKRS.CommandType = System.Data.CommandType.StoredProcedure;
 
                                 cmdInKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
@@ -3565,7 +3599,6 @@ namespace Padu.account
                         }
                         else
                         {
-
                             SqlCommand cmdDelKRS = new SqlCommand("SpDelKRS", con);
                             cmdDelKRS.Transaction = trans;
 
@@ -3575,7 +3608,6 @@ namespace Padu.account
                             cmdDelKRS.Parameters.AddWithValue("@no_jadwal", GVEditKRS.Rows[i].Cells[2].Text);
 
                             cmdDelKRS.ExecuteNonQuery();
-
                         }
                     }
 
@@ -3595,7 +3627,6 @@ namespace Padu.account
                         cmd.Parameters.AddWithValue("@update", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
-
                     }
                     //Insert jumlah SKS khusus untuk Mhs Yayasan Tahun 2014
                     else if (this.LbTahun.Text == "2014/2015")
@@ -3643,6 +3674,7 @@ namespace Padu.account
                 {
                     trans.Rollback();
                     trans.Dispose();
+
                     con.Close();
                     con.Dispose();
                     //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
@@ -3691,28 +3723,7 @@ namespace Padu.account
             }
             else
             {
-                ////----- hitung ulang sks berdasarkan makul checked ----- //
-                //for (int i = 0; i < GVAmbilKRS.Rows.Count; i++)
-                //{
-                //    CheckBox ch2 = (CheckBox)GVAmbilKRS.Rows[i].FindControl("CBMakul");
-                //    if (ch2.Checked == true)
-                //    {
-                //        JumlahSKS += Convert.ToInt32(this.GVAmbilKRS.Rows[i].Cells[5].Text);
-                //        _TotalSKS = JumlahSKS;
-                //        this.LbJumlahSKS.Text = JumlahSKS.ToString();
-                //    }
-                //}
-
-                ////----- background makul checked ----- //
-                //for (int i = 0; i < GVAmbilKRS.Rows.Count; i++)
-                //{
-                //    CheckBox ch2 = (CheckBox)GVAmbilKRS.Rows[i].FindControl("CBMakul");
-                //    if (ch2.Checked == true)
-                //    {
-                //        this.GVAmbilKRS.Rows[i].BackColor = System.Drawing.Color.FromName("#FFFFB7");
-                //    }
-                //}
-
+                //----- hitung ulang sks berdasarkan makul checked ----- //
                 //----- Cek Apakah semua makul UnChecked ----- //
                 bool ischecked = false;
                 for (int i = 0; i < GVAmbilKRS.Rows.Count; i++)
@@ -3727,6 +3738,7 @@ namespace Padu.account
 
                 if (ischecked == true)
                 {
+                    //----- hitung ulang sks berdasarkan makul checked ----- //
                     //----- hitung ulang sks ( makul checked ) ----- //
                     for (int j = 0; j < GVAmbilKRS.Rows.Count; j++)
                     {
@@ -3801,29 +3813,6 @@ namespace Padu.account
             }
             else
             {
-                ////----- hitung ulang sks berdasarkan makul checked ----- //
-                //for (int i = 0; i < GVEditKRS.Rows.Count; i++)
-                //{
-                //    CheckBox ch2 = (CheckBox)GVEditKRS.Rows[i].FindControl("CBEdit");
-                //    if (ch2.Checked == true)
-                //    {
-                //        JumlahEditSKS += Convert.ToInt32(this.GVEditKRS.Rows[i].Cells[5].Text);
-                //        _TotalEditSKS = JumlahEditSKS;
-                //        this.LbJumlahEditSKS.Text = JumlahEditSKS.ToString();
-                //    }
-                //}
-
-                ////----- background makul checked ----- //
-                //for (int i = 0; i < GVEditKRS.Rows.Count; i++)
-                //{
-                //    CheckBox ch2 = (CheckBox)GVEditKRS.Rows[i].FindControl("CBEdit");
-                //    if (ch2.Checked == true)
-                //    {
-                //        this.GVEditKRS.Rows[i].BackColor = System.Drawing.Color.FromName("#FFFFB7");
-                //    }
-                //}
-
-
                 //----- Cek Apakah semua makul UnChecked ----- //
                 bool ischecked = false;
                 for (int i = 0; i < GVEditKRS.Rows.Count; i++)

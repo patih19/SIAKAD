@@ -114,14 +114,14 @@
                                 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<%= Page.ResolveUrl("~/Penawaran") %>">Penawaran Mata Kuliah</a></li>
-                                    <li class="divider"></li>
+                                    <%--<li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/JadwalMku") %>">Jadwal Perkuliahan (MKU)</a></li>
                                     <li><a href="#" class="dropup">Jadwal Perkuliahan (Prodi)<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="<%= Page.ResolveUrl("~/JadwalKuliah3") %>">Kurikulum Sama</a></li>
                                             <li><a href="<%= Page.ResolveUrl("~/JadwalGabung") %>">Kurikulum Berbeda (Penggabungan)</a></li>
                                         </ul>
-                                    </li>
+                                    </li>--%>
                                     <li class="divider"></li>
                                     <li><a href="<%= Page.ResolveUrl("~/Absensi") %>">Presensi Perkuliahan</a></li>
                                     <li class="divider"></li>

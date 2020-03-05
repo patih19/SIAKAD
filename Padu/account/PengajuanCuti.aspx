@@ -52,6 +52,21 @@
             </div>
             <div class="col-md-9">
                 <div class="col-md-12">
+                    <asp:Panel ID="TahapnCuti" runat="server">
+                        <div class="panel panel-default">
+                            <div class="panel-heading ui-draggable-handle">
+                                <strong>Tahapan Cuti Akademik</strong>
+                            </div>
+                            <div class="panel-body">
+                                <ol>
+                                    <li>Klik Pengajuan Cuti Kuliah,klik tombol Ajukan</li>
+                                    <li>Mengunduh dan mengisi formulir kemudian menyerahkannya kepada staff Tata Usaha </li>
+                                    <li>Membayar Biaya Cuti Sebesar 25% Dari Biaya Kuliah Per Semester Melalui <strong>BANK JATENG</strong></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </asp:Panel>
+
                     <asp:Panel ID="PanelCuti" runat="server">
                         <div class="panel panel-default">
                             <div class="panel-heading ui-draggable-handle">

@@ -52,21 +52,132 @@
             </div>
             <div class="col-md-9">
                 <div class="col-md-12">
-                    <div class="text-center">
+                    <%--<div class="text-center">
                         <span style="font-size: large" >KUISIONER PENILAIAN KINERJA DOSEN OLEH MAHASISWA</span></div>
-                    <p></p>
+                    <p></p>--%>
                     <div class="panel panel-default">
                         <div class="panel-heading ui-draggable-handle">
-                            <strong>From Kuisioner Semester Genap Tahun Akademik 2018/2019</strong>
-                        </div>
+                            <strong>From Kuisioner Semester Gasal Tahun Akademik 2019/2020</strong></div>
                         <div class="panel-body">
                              Penilaian kinerja dosen oleh mahasiswa melalui laman berikut, <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://goo.gl/forms/7Q92YtcaahMTqs042" Target="_blank">kuisioner</asp:HyperLink> 
                         </div>
                     </div>
-                    <hr />
-                    <div class="text-center">
-                        <span style="font-size: large" ></span></div>
-                    <br />
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading ui-draggable-handle">
+                            <strong>Informasi Kegiatan Pada Semester Genap Tahun Akademik 2019/2020</strong></div>
+                        <div class="panel-body">
+                            <table class='table table-condensed table-hover'>
+                                <thead>
+                                    <tr>
+                                        <th>NO.</th>
+                                        <th>KEGIATAN</th>
+                                        <th>TANGGAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style='background-color: #e9f3fd'>
+                                        <td>1.</td>
+                                        <td>Pemesanan Mata Kuliah</td>
+                                        <td>3 - 4 Februari 2020</td>
+                                    </tr>
+                                    <tr style='background-color: #e9f3fd'>
+                                        <td>2.</td>
+                                        <td>KRS</td>
+                                        <td>6,7,8 Februari 2020</td>
+                                    </tr>
+                                    <tr style='background-color: #e9f3fd'>
+                                        <td>3.</td>
+                                        <td>Pengajuan Cuti</td>
+                                        <td>3 - 8 Februari 2020</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading ui-draggable-handle">
+                            <strong>Prosedur Pembayaran UKT</strong></div>
+                        <div class="panel-body">
+
+                            <ol>
+                                <li>Melakukan <a></a> 
+                                    <asp:LinkButton ID="LinkBtnAktifasi" runat="server" PostBackUrl="~/account/Keuangan.aspx">aktifasi pembayaran</asp:LinkButton>
+                                    setelah masa KHS
+                                </li>
+                                <li>Melakukan pembayaran UKT di <strong>Bank BTN atau Bank Jateng</strong>, sesuai tabel berikut :<p></p>
+		                            <table class='table table-condensed table-hover'>
+                                        <thead>
+                                            <tr>
+                                                <th>NO.</th>
+                                                <th>TAHUN ANGKATAN</th>
+                                                <th>FAKULTAS</th>
+                                                <th>BANK</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style='background-color: #f8fbd8'>
+                                                <td>1.</td>
+                                                <td>Mulai 2019/2020</td>
+                                                <td>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</td>
+                                                <td>BANK BTN</td>
+                                            </tr>
+                                            <tr style='background-color: #f8fbd8'>
+                                                <td>2.</td>
+                                                <td>Mulai 2019/2020</td>
+                                                <td>FAKULTAS EKONOMI</td>
+                                                <td>BANK BTN</td>
+                                            </tr>
+                                            <tr style='background-color: #e9f3fd'>
+                                                <td>3.</td>
+                                                <td>Mulai 2019/2020</td>
+                                                <td>FAKULTAS TEKNIK</td>
+                                                <td>BANK JATENG</td>
+                                            </tr>
+                                            <tr style='background-color: #e9f3fd'>
+                                                <td>4.</td>
+                                                <td>Mulai 2019/2020</td>
+                                                <td>FAKULTAS PERTANIAN</td>
+                                                <td>BANK JATENG</td>
+                                            </tr>
+                                            <tr style='background-color: #e9f3fd'>
+                                                <td>5.</td>
+                                                <td>Mulai 2019/2020</td>
+                                                <td>FAKULTAS ILMU SOSIAL DAN ILMU POLITIK</td>
+                                                <td>BANK JATENG</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+		                            <table class='table table-condensed table-hover'>
+                                        <thead>
+                                            <tr>
+                                                <th>NO.</th>
+                                                <th>TAHUN ANGKATAN</th>
+                                                <th>FAKULTAS</th>
+                                                <th>BANK</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style='background-color: #e9f3fd'>
+                                                <td>1.</td>
+                                                <td>Sebelum 2019/2020</td>
+                                                <td>SEMUA FAKULTAS</td>
+                                                <td>BANK JATENG</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                                <li>Mahasiswa menunjukkan NPM kepada Teller Bank
+                                </li>
+                                <li>Mahasiswa memperoleh bukti pembayaran UKT
+                                </li>
+                            </ol>
+
+
+                        </div>
+                    </div>
+
                     <asp:Image ID="ImgKrs" CssClass=" img-responsive" runat="server" ImageUrl="~/doc/DIAGRAM ALIR SIPADU_0102-1.jpg" /><p></p>
                     <div class="alert alert-success" role="alert">
                             <span >Mahasiswa bidikmisi tahun 2014/2015 dan sebelumnya tidak ada perubahan mekanisme aktivasi pembayaran </span>

@@ -125,117 +125,6 @@ namespace Padu.account
             }
         }
 
-        protected void DLSemester_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                // ---------- Gridview SKS ------------------
-                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    con.Open();
-
-                    // -- Cek Masa INPUT NILAI
-                    // -- Tidak Diperbolehkan Pada Saat Masa Input NILAI --
-                    SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
-                    CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
-                    CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
-                    CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
-
-                    SqlParameter Status = new SqlParameter();
-                    Status.ParameterName = "@output";
-                    Status.SqlDbType = System.Data.SqlDbType.VarChar;
-                    Status.Size = 20;
-                    Status.Direction = System.Data.ParameterDirection.Output;
-                    CmdCekMasa.Parameters.Add(Status);
-
-                    CmdCekMasa.ExecuteNonQuery();
-
-                    if (Status.Value.ToString() == "IN")
-                    {
-                        con.Close();
-                        con.Dispose();
-
-                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
-                        return;
-                    }
-
-                    // --------------------- Fill Gridview  ------------------------
-                    SqlCommand CmdListKRS = new SqlCommand("SpGetKHS", con);
-                    CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
-
-
-                    CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
-                    CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
-
-                    DataTable TableKRS = new DataTable();
-                    TableKRS.Columns.Add("Kode");
-                    TableKRS.Columns.Add("Mata Kuliah");
-                    TableKRS.Columns.Add("SKS");
-                    TableKRS.Columns.Add("Nilai");
-                    TableKRS.Columns.Add("Jumlah");
-
-                    using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
-                    {
-                        if (rdr.HasRows)
-                        {
-                            this.PanelListKRS.Visible = true;
-
-                            while (rdr.Read())
-                            {
-                                DataRow datarow = TableKRS.NewRow();
-                                datarow["Kode"] = rdr["kode_makul"];
-                                datarow["Mata Kuliah"] = rdr["makul"];
-                                datarow["SKS"] = rdr["sks"];
-
-                                if (rdr["Nilai"] == DBNull.Value)
-                                {
-                                    //datarow["Nilai"] = "";
-                                }
-                                else
-                                {
-                                    datarow["Nilai"] = rdr["nilai"];
-                                }
-                                datarow["Jumlah"] = rdr["jumlah"];
-
-                                TableKRS.Rows.Add(datarow);
-                            }
-
-                            //Fill Gridview
-                            this.GVKHS.DataSource = TableKRS;
-                            this.GVKHS.DataBind();
-
-                            //Set Label
-                            this.LBSks.Text = _TotalSKS.ToString();
-                            decimal IPS = _TotalNilai / _TotalSKS;
-                            this.LbIPS.Text = String.Format("{0:0.##}", IPS);
-
-                        }
-                        else
-                        {
-                            this.PanelListKRS.Visible = false;
-
-                            //clear Gridview
-                            TableKRS.Rows.Clear();
-                            TableKRS.Clear();
-                            GVKHS.DataSource = TableKRS;
-                            GVKHS.DataBind();
-
-                            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Data tidak ditemukan');", true);
-                            return;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message.ToString() + "');", true);
-                return;
-            }
-        }
-
         // hitung Jumlah SKS dan IP Semester
         int TotalSKS = 0;
         decimal TotalNilai = 0;
@@ -336,6 +225,145 @@ namespace Padu.account
             }
             return clearText;
         }
+
+        protected void DLSemester_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.PanelListKRS.Visible = false;
+                this.PanelListKRS.Enabled = false;
+
+
+                // ---------- Gridview SKS ------------------
+                string CS = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    con.Open();
+
+                    // -- Cek Masa INPUT NILAI
+                    // -- Tidak Diperbolehkan Pada Saat Masa Input NILAI --
+                    SqlCommand CmdCekMasa = new SqlCommand("SpCekMasaKeg", con);
+                    CmdCekMasa.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    CmdCekMasa.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.SelectedValue);
+                    CmdCekMasa.Parameters.AddWithValue("@jenis_keg", "Nilai");
+                    CmdCekMasa.Parameters.AddWithValue("@jenjang", this.Session["jenjang"].ToString());
+
+                    SqlParameter Status = new SqlParameter();
+                    Status.ParameterName = "@output";
+                    Status.SqlDbType = System.Data.SqlDbType.VarChar;
+                    Status.Size = 20;
+                    Status.Direction = System.Data.ParameterDirection.Output;
+                    CmdCekMasa.Parameters.Add(Status);
+
+                    CmdCekMasa.ExecuteNonQuery();
+
+                    if (Status.Value.ToString() == "IN")
+                    {
+                        con.Close();
+                        con.Dispose();
+
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Masa input nilai sedang berlangsung');", true);
+                        return;
+                    }
+
+                    // --------------------- Fill Gridview  ------------------------
+                    SqlCommand CmdListKRS = new SqlCommand("SpGetKHS", con);
+                    CmdListKRS.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    CmdListKRS.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                    CmdListKRS.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Text + this.DLSemester.Text);
+
+                    DataTable TableKRS = new DataTable();
+                    TableKRS.Columns.Add("Kode");
+                    TableKRS.Columns.Add("Mata Kuliah");
+                    TableKRS.Columns.Add("SKS");
+                    TableKRS.Columns.Add("Nilai");
+                    TableKRS.Columns.Add("Jumlah");
+
+                    using (SqlDataReader rdr = CmdListKRS.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            this.PanelListKRS.Visible = true;
+                            this.PanelListKRS.Enabled = true;
+
+                            while (rdr.Read())
+                            {
+                                DataRow datarow = TableKRS.NewRow();
+                                datarow["Kode"] = rdr["kode_makul"];
+                                datarow["Mata Kuliah"] = rdr["makul"];
+                                datarow["SKS"] = rdr["sks"];
+
+                                if (rdr["Nilai"] == DBNull.Value)
+                                {
+                                    //datarow["Nilai"] = "";
+                                }
+                                else
+                                {
+                                    datarow["Nilai"] = rdr["nilai"];
+                                }
+                                datarow["Jumlah"] = rdr["jumlah"];
+
+                                TableKRS.Rows.Add(datarow);
+                            }
+
+                            //Fill Gridview
+                            this.GVKHS.DataSource = TableKRS;
+                            this.GVKHS.DataBind();
+
+                            //Set Label
+                            this.LBSks.Text = _TotalSKS.ToString();
+                            decimal IPS = _TotalNilai / _TotalSKS;
+                            this.LbIPS.Text = String.Format("{0:0.##}", IPS);
+
+                        }
+                        else
+                        {
+                            this.DLTahun.SelectedIndex = 0;
+                            this.DLSemester.SelectedIndex = 0;
+
+                            this.PanelListKRS.Visible = false;
+                            this.PanelListKRS.Enabled = false;
+
+                            //clear Gridview
+                            TableKRS.Rows.Clear();
+                            TableKRS.Clear();
+                            GVKHS.DataSource = TableKRS;
+                            GVKHS.DataBind();
+
+                            string message = "alert('Data tidak ditemukan')";
+                            ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                this.DLTahun.SelectedIndex = 0;
+                this.DLSemester.SelectedIndex = 0;
+
+                this.PanelListKRS.Visible = false;
+                this.PanelListKRS.Enabled = false;
+
+                string message = "alert('" + ex.Message.ToString() + "')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+            }
+        }
+
+        protected void DLTahun_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.PanelListKRS.Visible = false;
+            this.PanelListKRS.Enabled = false;
+
+            if (this.DLSemester.SelectedValue != "semester")
+            {
+                this.DLSemester.SelectedIndex = 0;
+            }
+        }
+
 
     }
 }

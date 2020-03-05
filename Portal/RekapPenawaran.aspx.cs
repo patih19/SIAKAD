@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace Portal
 {
-    public partial class RekapPenawaran : System.Web.UI.Page
+    public partial class RekapPenawaran : Tu
     {
         protected void Page_Load(object sender, EventArgs e)
         {

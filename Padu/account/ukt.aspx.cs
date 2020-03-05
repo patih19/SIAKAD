@@ -356,232 +356,6 @@ namespace Padu.account
             }
         }
 
-        protected void BtnAktivasiJateng_Click(object sender, EventArgs e)
-        {
-
-            if (this.DLTahun.SelectedItem.Text.Trim() == "")
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (this.DLTahun.SelectedItem.Text.Trim() == "-- Tahun Akademik --")
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (DLTahun.SelectedItem.Value.Length != 4)
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (this.DLSemester.SelectedValue != "1" && this.DLSemester.SelectedValue != "2")
-            {
-                string msg = "alert('Pilih Semester')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            // ------------ Filter Tagihan Unapid ---------------- //
-            if (_Unpaid.ToString().Trim() == "ada")
-            {
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Aktivasi Tidak Diperbolehkan Tagihan Anda Belum Lunas');", true);
-                return;
-            }
-
-            //------------- Get Mahasiswa Tahun Paling Akhir/Baru  --------------------- //
-            int MhsBaru = 0;
-            string TahunMhs = "";
-
-            string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(CSMaba))
-            {
-                con.Open();
-
-                SqlCommand CmdCekStatus = new SqlCommand("SELECT TOP 1 thn_angkatan FROM dbo.bak_mahasiswa GROUP BY thn_angkatan ORDER BY thn_angkatan DESC", con);
-                CmdCekStatus.CommandType = System.Data.CommandType.Text;
-
-                using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
-                {
-                    if (rdr.HasRows)
-                    {
-                        while (rdr.Read())
-                        {
-                            TahunMhs = rdr["thn_angkatan"].ToString();
-                        }
-                    }
-                }
-            }
-            MhsBaru = Convert.ToInt16(TahunMhs.Substring(0, 4));
-
-            //------------ Compare tahun angkatan ------------------//
-            int MyThnAngkatan = Convert.ToInt32(_ThnAngkatan.Substring(0, 4));
-
-            if (MhsBaru == MyThnAngkatan)
-            {
-                if (this.DLSemester.SelectedValue == "1")
-                {
-                    // ---- Maba Semester Gasal ---//
-                    if (_Bidikmisi == "Y")
-                    {
-                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Tagihan di Semester Gasal Bagi Mahasiswa Baru Bidikmisi');", true);
-                        return;
-                    }
-                    else
-                    {
-                        //---- Mahasiswa baru tidak lolos bidikmisi
-                        if (HistoriSudahBayarUkt() == false)
-                        {
-                            AktivasiMulaiSemesterSatuJateng();
-                        }
-                    }
-                }
-                else if (this.DLSemester.SelectedValue == "2")
-                {
-                    // ---- Maba Semester Genap {Mulai Semester Dua}---//
-                    AktivasiMulaiSemesterDuaJateng(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
-                }
-            }
-            else
-            {
-                // --------------==== BUKAN MABA ====-------------- //
-                // ---- {Bukan Maba} <=> {Maba Semester Genap} ---- //
-
-                AktivasiMulaiSemesterDuaJateng(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
-
-                // maksudnya semua mhahasiswa UKT di semester 1 nya tidak boleh aktivasi ulang
-                // segera perbaiki
-
-                //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Tagihan di Semester Satu, Proses Dibatalkan ...');", true);
-                //}
-                //else
-                //{
-                //    AktivasiMulaiSemesterDua();
-                //}
-               
-            }
-        }
-
-        protected void BtnAktivasiBTN_Click(object sender, EventArgs e)
-        {
-            return;
-
-            if (this.DLTahun.SelectedItem.Text.Trim() == "")
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (this.DLTahun.SelectedItem.Text.Trim() == "-- Tahun Akademik --")
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (DLTahun.SelectedItem.Value.Length != 4)
-            {
-                string msg = "alert('Pilih Tahun')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            if (this.DLSemester.SelectedValue != "1" && this.DLSemester.SelectedValue != "2")
-            {
-                string msg = "alert('Pilih Semester')";
-                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-                return;
-            }
-
-            // ------------ Filter Tagihan Unapid ---------------- //
-            if (_Unpaid.ToString().Trim() == "ada")
-            {
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Aktivasi Tidak Diperbolehkan Tagihan Anda Belum Lunas');", true);
-                return;
-            }
-
-            //------------- Get Mahasiswa Tahun Paling Akhir/Baru  --------------------- //
-            int MhsBaru = 0;
-            string TahunMhs = "";
-
-            string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(CSMaba))
-            {
-                con.Open();
-
-                SqlCommand CmdCekStatus = new SqlCommand("SELECT TOP 1 thn_angkatan FROM dbo.bak_mahasiswa GROUP BY thn_angkatan ORDER BY thn_angkatan DESC", con);
-                CmdCekStatus.CommandType = System.Data.CommandType.Text;
-
-                using (SqlDataReader rdr = CmdCekStatus.ExecuteReader())
-                {
-                    if (rdr.HasRows)
-                    {
-                        while (rdr.Read())
-                        {
-                            TahunMhs = rdr["thn_angkatan"].ToString();
-                        }
-                    }
-                }
-            }
-            MhsBaru = Convert.ToInt16(TahunMhs.Substring(0, 4));
-
-            //------------ Compare tahun angkatan ------------------//
-            int MyThnAngkatan = Convert.ToInt32(_ThnAngkatan.Substring(0, 4));
-
-            if (MhsBaru == MyThnAngkatan)
-            {
-                if (this.DLSemester.SelectedValue == "1")
-                {
-                    // ---- Maba Semester Gasal ---//
-                    if (_Bidikmisi == "Y")
-                    {
-                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Tagihan di Semester Gasal Bagi Mahasiswa Baru Bidikmisi');", true);
-                        return;
-                    }
-                    else
-                    {
-                        //---- Mahasiswa baru tidak lolos bidikmisi
-                        if (HistoriSudahBayarUkt() == false)
-                        {
-                            AktivasiMulaiSemesterSatuBTN();
-                        }
-                    }
-                }
-                else if (this.DLSemester.SelectedValue == "2")
-                {
-                    // ---- Maba Semester Genap {Mulai Semester Dua}---//
-                    AktivasiMulaiSemesterDuaBTN(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
-                }
-            }
-            else
-            {
-                // --------------==== BUKAN MABA ====-------------- //
-                // ---- {Bukan Maba} <=> {Maba Semester Genap} ---- //
-
-                AktivasiMulaiSemesterDuaBTN(DLTahun.SelectedItem.Value.Trim() + this.DLSemester.SelectedValue);
-
-                // maksudnya semua mhahasiswa UKT di semester 1 nya tidak boleh aktivasi ulang
-                // segera perbaiki
-
-                //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Tidak Ada Tagihan di Semester Satu, Proses Dibatalkan ...');", true);
-                //}
-                //else
-                //{
-                //    AktivasiMulaiSemesterDua();
-                //}
-
-            }
-        }
-
-
         protected bool CegahBayarSmesterSatu(string semester)
         {
             string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
@@ -673,452 +447,6 @@ namespace Padu.account
                 {
                     return Bayar;
                 }
-            }
-        }
-
-        protected void AktivasiMulaiSemesterSatuJateng()
-        {
-            // ---- Maba Semester Genap ---//
-            string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
-
-            SqlConnection ConUntidar = new SqlConnection(CSUntidar);
-            SqlConnection ConUKT = new SqlConnection(CSUKT);
-
-            ConUntidar.Open();
-            ConUKT.Open();
-
-            var TransUntidar = ConUntidar.BeginTransaction();
-            var TransUKT = ConUKT.BeginTransaction();
-
-            try
-            {
-                // 1. -------- Get Biaya Semester (UKT) --------
-                SqlCommand cmdBiayaUKT = new SqlCommand("SpGetBiayaUktMhs", ConUKT, TransUKT);
-                cmdBiayaUKT.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmdBiayaUKT.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-
-                SqlParameter Biaya = new SqlParameter();
-                Biaya.ParameterName = "@biaya";
-                Biaya.SqlDbType = System.Data.SqlDbType.Decimal;
-                Biaya.Size = 20;
-                Biaya.Direction = System.Data.ParameterDirection.Output;
-                cmdBiayaUKT.Parameters.Add(Biaya);
-
-                cmdBiayaUKT.ExecuteNonQuery();
-
-                decimal biaya;
-                biaya = Convert.ToDecimal(Biaya.Value.ToString());
-
-
-                // 2.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
-                // --- Catatan : Untuk Awal Semester tidak Perlu Posting Tagihan Karena Tagihan Semester Awal sudah dibayarkan setelah mengisi form UKT (pada saat sebelum registrasi)
-                // -----------------------------------------------------------------------------------------------------------------
-                SqlCommand CmdPost = new SqlCommand("SpInsertPostingMhsUkt", ConUKT, TransUKT);
-                CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
-                CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
-                CmdPost.ExecuteNonQuery();
-
-                this.PanelPembayaran.Enabled = false;
-                this.PanelPembayaran.Visible = false;
-
-                this.PanelMessage.Enabled = true;
-                this.PanelMessage.Visible = true;
-
-                // close connection
-                TransUntidar.Commit();
-                TransUKT.Commit();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                string FormattedString9 = string.Format(new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
-                this.LbTagihan.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
-                this.LbTagihan.ForeColor = System.Drawing.Color.Green;
-
-            }
-            catch (Exception ex)
-            {
-                // close connection
-                TransUntidar.Rollback();
-                TransUKT.Rollback();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                //string msg = "alert('" + ex.Message + "')";
-                //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
-                return;
-            }
-        }
-
-        protected void AktivasiMulaiSemesterSatuBTN()
-        {
-            // ---- Maba Semester Genap ---//
-            string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
-
-            SqlConnection ConUntidar = new SqlConnection(CSUntidar);
-            SqlConnection ConUKT = new SqlConnection(CSUKT);
-
-            ConUntidar.Open();
-            ConUKT.Open();
-
-            var TransUntidar = ConUntidar.BeginTransaction();
-            var TransUKT = ConUKT.BeginTransaction();
-
-            try
-            {
-                // 1. -------- Get Biaya Semester (UKT) --------
-                SqlCommand cmdBiayaUKT = new SqlCommand("SpGetBiayaUktMhs", ConUKT, TransUKT);
-                cmdBiayaUKT.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmdBiayaUKT.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-
-                SqlParameter Biaya = new SqlParameter();
-                Biaya.ParameterName = "@biaya";
-                Biaya.SqlDbType = System.Data.SqlDbType.Decimal;
-                Biaya.Size = 20;
-                Biaya.Direction = System.Data.ParameterDirection.Output;
-                cmdBiayaUKT.Parameters.Add(Biaya);
-
-                cmdBiayaUKT.ExecuteNonQuery();
-
-                decimal biaya;
-                biaya = Convert.ToDecimal(Biaya.Value.ToString());
-
-
-                // 2.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
-                // --- Catatan : Untuk Awal Semester tidak Perlu Posting Tagihan Karena Tagihan Semester Awal sudah dibayarkan setelah mengisi form UKT (pada saat sebelum registrasi)
-                // -----------------------------------------------------------------------------------------------------------------
-                SqlCommand CmdPost = new SqlCommand("SpInsertPostingBTNMhsUkt", ConUKT, TransUKT);
-                CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
-                CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
-                CmdPost.ExecuteNonQuery();
-
-                this.PanelPembayaran.Enabled = false;
-                this.PanelPembayaran.Visible = false;
-
-                this.PanelMessage.Enabled = true;
-                this.PanelMessage.Visible = true;
-
-                // close connection
-                TransUntidar.Commit();
-                TransUKT.Commit();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                string FormattedString9 = string.Format(new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
-                this.LbTagihan.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
-                this.LbTagihan.ForeColor = System.Drawing.Color.Green;
-
-            }
-            catch (Exception ex)
-            {
-                // close connection
-                TransUntidar.Rollback();
-                TransUKT.Rollback();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                //string msg = "alert('" + ex.Message + "')";
-                //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
-                return;
-            }
-        }
-
-        protected void AktivasiMulaiSemesterDuaJateng(string semester)
-        {
-            // ---- Maba Semester Genap ---//
-            string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
-
-            SqlConnection ConUntidar = new SqlConnection(CSUntidar);
-            SqlConnection ConUKT = new SqlConnection(CSUKT);
-
-            ConUntidar.Open();
-            ConUKT.Open();
-
-            var TransUntidar = ConUntidar.BeginTransaction();
-            var TransUKT = ConUKT.BeginTransaction();
-
-            try
-            {
-                // 1. -------- Cek Kalender Akademik Semester Genap  --------------
-                SqlCommand CmdCekKaldikGenap = new SqlCommand(@"
-
-                    DECLARE @NoNpm VARCHAR(12)
-                    DECLARE @IdProdi VARCHAR(12)
-                    DECLARE @Jenjang VARCHAR(3)
-                    DECLARE @TopSemester VARCHAR(5)
-                    DECLARE @Semester VARCHAR(5) 
-
-                    SELECT @NoNpm=bak_mahasiswa.npm, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
-                    FROM            bak_mahasiswa INNER JOIN
-                                    bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
-                    WHERE npm=@npm
-
-                    SELECT TOP 1 @Semester=semester FROM dbo.bak_kal WHERE semester=@GetSemester
-                    IF @Semester IS NULL
-                    BEGIN
-	                    RAISERROR('Kalender Akademik Semester Ini Belum Aktif, Proses Dibatalkan ...', 16, 10)  
-                        RETURN 
-                    END
-
-                    IF (@Jenjang ='S1' OR @Jenjang='D3')
-                    BEGIN
-	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
-	                    WHERE jenjang='S1' AND semester != 'new'
-	                    GROUP BY semester,jenjang
-	                    ORDER BY semester DESC
-                    END
-                    ELSE
-                    BEGIN
-	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
-	                    WHERE jenjang='S2' AND semester != 'new'
-	                    GROUP BY semester,jenjang
-	                    ORDER BY semester DESC
-                    END
-
-                    IF (@TopSemester <> @Semester)
-                    BEGIN
-	                    RAISERROR('Aktivasi Pembayaran Tidak Sesuai Dengan Semester Aktif, Proses Dibatalkan ...', 16, 10)  
-                        RETURN 
-                    END
-
-                ", ConUntidar,TransUntidar);
-                CmdCekKaldikGenap.CommandType = System.Data.CommandType.Text;
-
-                CmdCekKaldikGenap.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-                CmdCekKaldikGenap.Parameters.AddWithValue("@GetSemester",semester.Trim());
-
-                CmdCekKaldikGenap.ExecuteNonQuery();
-
-
-                // 2. -------- Get Biaya Semester (UKT) --------
-                SqlCommand cmdBiayaUKT = new SqlCommand("SpGetBiayaUktMhs", ConUKT, TransUKT);
-                cmdBiayaUKT.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmdBiayaUKT.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-
-                SqlParameter Biaya = new SqlParameter();
-                Biaya.ParameterName = "@biaya";
-                Biaya.SqlDbType = System.Data.SqlDbType.Decimal;
-                Biaya.Size = 20;
-                Biaya.Direction = System.Data.ParameterDirection.Output;
-                cmdBiayaUKT.Parameters.Add(Biaya);
-
-                cmdBiayaUKT.ExecuteNonQuery();
-
-                decimal biaya;
-                biaya = Convert.ToDecimal(Biaya.Value.ToString());
-
-
-                // 3.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
-                // --- Catatan : Untuk Awal Semester tidak Perlu Posting Tagihan Karena Tagihan Semester Awal sudah dibayarkan setelah mengisi form UKT (pada saat sebelum registrasi)
-                // -----------------------------------------------------------------------------------------------------------------
-                SqlCommand CmdPost = new SqlCommand("SpInsertPostingMhsUkt", ConUKT, TransUKT);
-                CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
-                CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
-                CmdPost.ExecuteNonQuery();
-
-                this.PanelPembayaran.Enabled = false;
-                this.PanelPembayaran.Visible = false;
-
-                this.PanelMessage.Enabled = true;
-                this.PanelMessage.Visible = true;
-
-                // close connection
-                TransUntidar.Commit();
-                TransUKT.Commit();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                string FormattedString9 = string.Format(new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
-                this.LbTagihan.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
-                this.LbTagihan.ForeColor = System.Drawing.Color.Green;
-
-            }
-            catch (Exception ex)
-            {
-                // close connection
-                TransUntidar.Rollback();
-                TransUKT.Rollback();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                //string msg = "alert('" + ex.Message + "')";
-                //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
-                return;
-            }
-        }
-
-        protected void AktivasiMulaiSemesterDuaBTN(string semester)
-        {
-            // ---- Maba Semester Genap ---//
-            string CSUntidar = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
-            string CSUKT = ConfigurationManager.ConnectionStrings["UKTDb"].ConnectionString;
-
-            SqlConnection ConUntidar = new SqlConnection(CSUntidar);
-            SqlConnection ConUKT = new SqlConnection(CSUKT);
-
-            ConUntidar.Open();
-            ConUKT.Open();
-
-            var TransUntidar = ConUntidar.BeginTransaction();
-            var TransUKT = ConUKT.BeginTransaction();
-
-            try
-            {
-                // 1. -------- Cek Kalender Akademik Semester Genap  --------------
-                SqlCommand CmdCekKaldikGenap = new SqlCommand(@"
-
-                    DECLARE @NoNpm VARCHAR(12)
-                    DECLARE @IdProdi VARCHAR(12)
-                    DECLARE @Jenjang VARCHAR(3)
-                    DECLARE @TopSemester VARCHAR(5)
-                    DECLARE @Semester VARCHAR(5) 
-
-                    SELECT @NoNpm=bak_mahasiswa.npm, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
-                    FROM            bak_mahasiswa INNER JOIN
-                                    bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
-                    WHERE npm=@npm
-
-                    SELECT TOP 1 @Semester=semester FROM dbo.bak_kal WHERE semester=@GetSemester
-                    IF @Semester IS NULL
-                    BEGIN
-	                    RAISERROR('Kalender Akademik Semester Ini Belum Aktif, Proses Dibatalkan ...', 16, 10)  
-                        RETURN 
-                    END
-
-                    IF (@Jenjang ='S1' OR @Jenjang='D3')
-                    BEGIN
-	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
-	                    WHERE jenjang='S1' AND semester != 'new'
-	                    GROUP BY semester,jenjang
-	                    ORDER BY semester DESC
-                    END
-                    ELSE
-                    BEGIN
-	                    SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
-	                    WHERE jenjang='S2' AND semester != 'new'
-	                    GROUP BY semester,jenjang
-	                    ORDER BY semester DESC
-                    END
-
-                    IF (@TopSemester <> @Semester)
-                    BEGIN
-	                    RAISERROR('Aktivasi Pembayaran Tidak Sesuai Dengan Semester Aktif, Proses Dibatalkan ...', 16, 10)  
-                        RETURN 
-                    END
-
-                ", ConUntidar, TransUntidar);
-                CmdCekKaldikGenap.CommandType = System.Data.CommandType.Text;
-
-                CmdCekKaldikGenap.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-                CmdCekKaldikGenap.Parameters.AddWithValue("@GetSemester", semester.Trim());
-
-                CmdCekKaldikGenap.ExecuteNonQuery();
-
-
-                // 2. -------- Get Biaya Semester (UKT) --------
-                SqlCommand cmdBiayaUKT = new SqlCommand("SpGetBiayaUktMhs", ConUKT, TransUKT);
-                cmdBiayaUKT.CommandType = System.Data.CommandType.StoredProcedure;
-
-                cmdBiayaUKT.Parameters.AddWithValue("@npm", _NPM.ToString().Trim());
-
-                SqlParameter Biaya = new SqlParameter();
-                Biaya.ParameterName = "@biaya";
-                Biaya.SqlDbType = System.Data.SqlDbType.Decimal;
-                Biaya.Size = 20;
-                Biaya.Direction = System.Data.ParameterDirection.Output;
-                cmdBiayaUKT.Parameters.Add(Biaya);
-
-                cmdBiayaUKT.ExecuteNonQuery();
-
-                decimal biaya;
-                biaya = Convert.ToDecimal(Biaya.Value.ToString());
-
-
-                // 3.) POSTING tahihan to BANK by using SpInsertPostingMhsUkt -----
-                // --- Catatan : Untuk Awal Semester tidak Perlu Posting Tagihan Karena Tagihan Semester Awal sudah dibayarkan setelah mengisi form UKT (pada saat sebelum registrasi)
-                // -----------------------------------------------------------------------------------------------------------------
-                SqlCommand CmdPost = new SqlCommand("SpInsertPostingBTNMhsUkt", ConUKT, TransUKT);
-                CmdPost.CommandType = System.Data.CommandType.StoredProcedure;
-                CmdPost.Parameters.AddWithValue("@Npm_Mhs", this.Session["Name"].ToString());
-                CmdPost.Parameters.AddWithValue("@semester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
-                CmdPost.ExecuteNonQuery();
-
-                this.PanelPembayaran.Enabled = false;
-                this.PanelPembayaran.Visible = false;
-
-                this.PanelMessage.Enabled = true;
-                this.PanelMessage.Visible = true;
-
-                // close connection
-                TransUntidar.Commit();
-                TransUKT.Commit();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                string FormattedString9 = string.Format(new System.Globalization.CultureInfo("id"), "{0:c}", biaya);
-                this.LbTagihan.Text = "Tagihan Yang Harus Dibayar : " + FormattedString9;
-                this.LbTagihan.ForeColor = System.Drawing.Color.Green;
-
-            }
-            catch (Exception ex)
-            {
-                // close connection
-                TransUntidar.Rollback();
-                TransUKT.Rollback();
-                TransUntidar.Dispose();
-                TransUKT.Dispose();
-                ConUntidar.Close();
-                ConUKT.Close();
-                ConUntidar.Dispose();
-                ConUKT.Dispose();
-
-                //string msg = "alert('" + ex.Message + "')";
-                //ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
-
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
-                return;
             }
         }
 
@@ -1302,6 +630,379 @@ namespace Padu.account
             }
         }
 
+        protected void AktivasiBayarJateng()
+        {
+            string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CSMaba))
+            {
+                con.Open();
+                try
+                {
+                    SqlCommand CmdAktivasiJateng = new SqlCommand(@"
+                    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+				    SET XACT_ABORT ON;
+				    DECLARE @trans int;
 
+				    BEGIN TRY
+					    SET @trans = @@TRANCOUNT
+					    IF @trans = 0
+					    BEGIN TRANSACTION;
+
+                        -- ================== CEK KALDIK SEMESTER BERJALAN =================== --
+                        DECLARE @NoNpm VARCHAR(12)
+                        DECLARE @IdProdi VARCHAR(12)
+                        DECLARE @Jenjang VARCHAR(3)
+                        DECLARE @TopSemester VARCHAR(5)
+                        DECLARE @Semester VARCHAR(5) 
+                        DECLARE @SemesterMulai VARCHAR(5)
+
+                        SELECT @NoNpm=bak_mahasiswa.npm, @SemesterMulai=bak_mahasiswa.smster_mulai, @IdProdi=bak_mahasiswa.id_prog_study, @Jenjang=bak_prog_study.jenjang
+                        FROM            bak_mahasiswa INNER JOIN
+                                        bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
+                        WHERE npm=@npm
+
+                        SELECT TOP 1 @Semester=semester FROM dbo.bak_kal WHERE semester=@GetSemester
+                        IF @Semester IS NULL
+                        BEGIN
+                            RAISERROR('Kalender Akademik Semester Ini Belum Aktif, Proses Dibatalkan ...', 16, 10)  
+                            RETURN 
+                        END
+
+                        IF (@Jenjang ='S1' OR @Jenjang='D3')
+                        BEGIN
+                            SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+                            WHERE jenjang='S1' AND semester != 'new'
+                            GROUP BY semester,jenjang
+                            ORDER BY semester DESC
+                        END
+                        ELSE
+                        BEGIN
+                            SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+                            WHERE jenjang='S2' AND semester != 'new'
+                            GROUP BY semester,jenjang
+                            ORDER BY semester DESC
+                        END
+
+                        IF (@TopSemester <> @Semester)
+                        BEGIN
+                            RAISERROR('Aktivasi Pembayaran Tidak Sesuai Dengan Semester Aktif, Proses Dibatalkan ...', 16, 10)  
+                            RETURN 
+                        END
+
+                        -- ==================== CEK APAKAH PEMBAYARN UNTUK SEMESTER SATU =================== --
+                        IF @SemesterMulai = @GetSemester
+                        BEGIN
+                            RAISERROR('SEMESTER SATU SUDAH LUNAS', 16, 10)  
+                            RETURN 
+                        END
+
+                        -- ====================== POST TAGIHAN (JATENG) ======================== --
+                        exec ukt.dbo.SpInsertPostingMhsUkt @npm,@GetSemester 
+
+                        IF @trans = 0
+					    COMMIT TRANSACTION;
+				    END TRY 
+				    BEGIN CATCH
+					    --Something went wrong. Better undo...
+					    IF XACT_STATE() <> 0 AND @trans = 0
+					    BEGIN
+						    ROLLBACK TRANSACTION;
+					    END;
+					    DECLARE
+					    @err_msg nvarchar(4000) = ERROR_MESSAGE(),
+					    @err_sev int = ERROR_SEVERITY(),
+					    @err_st int = ERROR_STATE();
+					    RAISERROR(@err_msg,@err_sev,@err_st);
+				    END CATCH;
+                    ", con);
+
+                    CmdAktivasiJateng.CommandType = System.Data.CommandType.Text;
+                    CmdAktivasiJateng.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                    CmdAktivasiJateng.Parameters.AddWithValue("@GetSemester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
+
+                    CmdAktivasiJateng.ExecuteNonQuery();
+
+                    Page_Load(this, null);
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+                    con.Dispose();
+
+                    //this.PanelMessage.Enabled = true;
+                    //this.PanelMessage.Visible = true;
+                    //this.LbMsg.Text = ex.Message;
+
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    return;
+                }
+            }
+        }
+
+        protected void AktivasiBayarBtn()
+        {
+            string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CSMaba))
+            {
+                con.Open();
+                try
+                {
+                    SqlCommand CmdAktivasiBtn = new SqlCommand(@"
+
+                    SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+				    SET XACT_ABORT ON;
+				    DECLARE @trans int;
+
+				    BEGIN TRY
+					    SET @trans = @@TRANCOUNT
+					    IF @trans = 0
+					    BEGIN TRANSACTION;
+
+                        -- ================== CEK KALDIK SEMESTER BERJALAN =================== --
+                        DECLARE @NoNpm VARCHAR(12)
+                        DECLARE @Nama VARCHAR(75)
+                        DECLARE @Prodi VARCHAR(75)
+                        DECLARE @Angkatan VARCHAR(12)
+                        DECLARE @SemesterMulai VARCHAR(5)
+                        DECLARE @IdProdi VARCHAR(12)
+                        DECLARE @Jenjang VARCHAR(3)
+                        DECLARE @TopSemester VARCHAR(5)
+                        DECLARE @Semester VARCHAR(5) 
+                        DECLARE @Bdk VARCHAR(3)
+
+                        SELECT @NoNpm=bak_mahasiswa.npm,@Nama=bak_mahasiswa.nama,@Bdk=bak_mahasiswa.bdk,@Angkatan=bak_mahasiswa.thn_angkatan,@SemesterMulai=bak_mahasiswa.smster_mulai, @IdProdi=bak_mahasiswa.id_prog_study, @Prodi=bak_prog_study.prog_study, @Jenjang=bak_prog_study.jenjang
+                        FROM            bak_mahasiswa INNER JOIN
+                                        bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study
+                        WHERE npm=@npm
+
+                        SELECT TOP 1 @Semester=semester FROM dbo.bak_kal WHERE semester=@GetSemester
+                        IF @Semester IS NULL
+                        BEGIN
+                            RAISERROR('Kalender Akademik Semester Ini Belum Aktif, Proses Dibatalkan ...', 16, 10)  
+                            RETURN 
+                        END
+
+                        IF (@Jenjang ='S1' OR @Jenjang='D3')
+                        BEGIN
+                            SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+                            WHERE jenjang='S1' AND semester != 'new'
+                            GROUP BY semester,jenjang
+                            ORDER BY semester DESC
+                        END
+                        ELSE
+                        BEGIN
+                            SELECT TOP 1 @TopSemester=semester FROM dbo.bak_kal 
+                            WHERE jenjang='S2' AND semester != 'new'
+                            GROUP BY semester,jenjang
+                            ORDER BY semester DESC
+                        END
+
+                        IF (@TopSemester <> @Semester)
+                        BEGIN
+                            RAISERROR('Aktivasi Pembayaran Tidak Sesuai Dengan Semester Aktif, Proses Dibatalkan ...', 16, 10)  
+                            RETURN 
+                        END
+
+                        -- ==================== CEK APAKAH PEMBAYARN UNTUK SEMESTER SATU =================== --
+                        IF @SemesterMulai = @GetSemester
+                        BEGIN
+                            RAISERROR('SEMESTER SATU SUDAH LUNAS', 16, 10)  
+                            RETURN 
+                        END
+
+                        --========================= GET BIAYA UKT ========================== --
+                        DECLARE @Biaya DECIMAL
+                        DECLARE @NomorMhs VARCHAR(12)
+
+                        SELECT @NomorMhs=UntidarDb.dbo.bak_mahasiswa.npm, @Biaya=ukt.dbo.ukt_master.biaya
+                        FROM    UntidarDb.dbo.bak_mahasiswa INNER JOIN
+			                        ukt.dbo.ukt_master ON ukt.dbo.ukt_master.idprodi = bak_mahasiswa.id_prog_study AND 
+			                        ukt.dbo.ukt_master.thn_ukt = bak_mahasiswa.thn_ukt AND 
+			                        ukt.dbo.ukt_master.kategori = bak_mahasiswa.ukt
+                        WHERE  UntidarDb.dbo.bak_mahasiswa.npm =@npm
+
+                        -- ======================= BAYAR UKT ========================== --
+                        DECLARE @NoBayar BIGINT
+                        SELECT @NoBayar=nomor FROM ukt.dbo.keu_posting_bank WHERE payeeId=@npm AND billRef4=@GetSemester 
+
+
+                        IF @NoBayar IS NOT NULL
+                        BEGIN
+	                        raiserror ('Biaya UKT Semester Ini Sudah Ada, Proses Dibatalkan... ', 16, 10)
+	                        return
+                        END
+                        ELSE
+                        BEGIN
+	                        IF @Bdk = '1'
+	                        BEGIN
+		                        -- Billing Number --
+		                        declare @tgl_bdk varchar(10)
+		                        declare @tglstring_bdk varchar(10) 
+		                        declare @tglprefix_bdk varchar(6) 
+		                        select @tgl_bdk= CONVERT(varchar,getdate(),23)
+		                        select @tglstring_bdk=REPLACE(@tgl_bdk,'-','')
+		                        select @tglprefix_bdk =RIGHT(@tglstring_bdk,6)
+
+		                        declare @BillNumber_bdk varchar(12)
+		                        declare @RegNomor_bdk BIGINT
+		                        declare @Prefix_bdk varchar(2) = '01'
+		                        select @RegNomor_bdk= COUNT(*)+1 from ukt.dbo.keu_posting_bank where CAST(post_date as date) = @tgl_bdk AND bank ='btn'
+
+		                        select @BillNumber_bdk=@Prefix_bdk +@tglprefix_bdk+RIGHT('0000'+CAST(@RegNomor_bdk as varchar(4)),4)
+		                        --print @BillNumber 
+
+		                        -- ukt db --
+		                        insert into ukt.dbo.keu_posting_bank (billingNo,payeeId,name,billRef1,billRef2,billRef3,billRef4,billRef5,amount_total,post_date,status,bank,keterangan) values
+		                        (@BillNumber_bdk,@npm,@Nama,@Prodi,NULL,@Angkatan,@GetSemester,NULL,@biaya,GETDATE(),'paid','btn','BIAYA SEMESTER UKT')
+	                        END
+	                        ELSE
+	                        BEGIN
+		                        -- Billing Number --
+		                        declare @tgl varchar(10)
+		                        declare @tglstring varchar(10) 
+		                        declare @tglprefix varchar(6) 
+		                        select @tgl= CONVERT(varchar,getdate(),23)
+		                        select @tglstring=REPLACE(@tgl,'-','')
+		                        select @tglprefix =RIGHT(@tglstring,6)
+
+		                        declare @BillNumber varchar(12)
+		                        declare @RegNomor BIGINT
+		                        declare @Prefix varchar(2) = '01'
+		                        select @RegNomor= COUNT(*)+1 from ukt.dbo.keu_posting_bank where CAST(post_date as date) = @tgl AND bank ='btn'
+
+		                        select @BillNumber=@Prefix +@tglprefix+RIGHT('0000'+CAST(@RegNomor as varchar(4)),4)
+		                        --print @BillNumber 
+
+		                        -- ukt db --
+		                        insert into ukt.dbo.keu_posting_bank (billingNo,payeeId,name,billRef1,billRef2,billRef3,billRef4,billRef5,amount_total,post_date,status,bank,keterangan) values
+		                        (@BillNumber,@npm,@Nama,@Prodi,NULL,@Angkatan,@GetSemester,NULL,@biaya,GETDATE(),'unpaid','btn','BIAYA SEMESTER UKT')
+
+		                        -- BTN db --
+		                        INSERT INTO btn.dbo.keu_posting_bank
+				                        ( billingNo ,
+				                          payeeId ,
+				                          name ,
+				                          billRef1 ,
+				                          billRef2 ,
+				                          billRef3 ,
+				                          billRef4,
+				                          billRef5 ,
+				                          amount_total ,
+				                          post_date ,
+				                          status ,
+				                          keterangan
+				                        )
+		                        VALUES  ( @BillNumber , -- billingNo - nvarchar(12)
+				                          @npm , -- payeeId - nvarchar(10)
+				                          @Nama , -- name - nvarchar(45)
+				                          @Prodi , -- billRef1 - nvarchar(50)
+				                          NULL , -- billRef2 - nvarchar(25)
+				                          @Angkatan , -- billRef3 - nvarchar(25)
+				                          @GetSemester,
+				                          NULL, -- billRef5 - nvarchar(10)
+				                          @biaya , -- amount_total - decimal
+				                          GETDATE() , -- post_date - datetime
+				                          'unpaid' , -- status - nvarchar(7)
+				                          'BIAYA SEMESTER UKT'  -- keterangan - varchar(50)
+				                        )		
+	                        END
+                        END
+
+                        IF @trans = 0
+					    COMMIT TRANSACTION;
+				    END TRY 
+				    BEGIN CATCH
+					    --Something went wrong. Better undo...
+					    IF XACT_STATE() <> 0 AND @trans = 0
+					    BEGIN
+						    ROLLBACK TRANSACTION;
+					    END;
+					    DECLARE
+					    @err_msg nvarchar(4000) = ERROR_MESSAGE(),
+					    @err_sev int = ERROR_SEVERITY(),
+					    @err_st int = ERROR_STATE();
+					    RAISERROR(@err_msg,@err_sev,@err_st);
+				    END CATCH;
+                    ", con);
+
+                    CmdAktivasiBtn.CommandType = System.Data.CommandType.Text;
+                    CmdAktivasiBtn.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+                    CmdAktivasiBtn.Parameters.AddWithValue("@GetSemester", this.DLTahun.SelectedItem.Value.ToString().Trim() + this.DLSemester.SelectedValue.Trim());
+
+                    CmdAktivasiBtn.ExecuteNonQuery();
+
+                    Page_Load(this,null);
+                }
+                catch (Exception ex)
+                {
+                    con.Close();
+                    con.Dispose();
+
+                    //this.PanelMessage.Enabled = true;
+                    //this.PanelMessage.Visible = true;
+                    //this.LbMsg.Text = ex.Message;
+
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                    return;
+                }
+            }
+        }
+
+        protected void ButtonAktivasi_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                string jenis_bank = "";
+
+                string CSMaba = ConfigurationManager.ConnectionStrings["MainDb"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CSMaba))
+                {
+                    con.Open();
+
+                    SqlCommand CekAktivasi = new SqlCommand(@"
+                DECLARE @semester_mulai VARCHAR(5)
+                DECLARE @kode_fakultas VARCHAR(8)
+
+                DECLARE @no_npm VARCHAR(12)
+                SELECT        @no_npm=bak_mahasiswa.npm, @kode_fakultas=bak_prog_study.id_fakultas,@semester_mulai=smster_mulai
+                FROM            bak_mahasiswa INNER JOIN
+                                         bak_prog_study ON bak_mahasiswa.id_prog_study = bak_prog_study.id_prog_study WHERE npm=@npm
+
+                SELECT nomor,bank FROM keu_master_bank WHERE kode_fakultas=@kode_fakultas AND 
+                mhs_mulai_semester <= @semester_mulai AND sampai_semester >= @semester_mulai ", con);
+
+                    CekAktivasi.CommandType = System.Data.CommandType.Text;
+                    CekAktivasi.Parameters.AddWithValue("@npm", this.Session["Name"].ToString());
+
+                    using (SqlDataReader rdr = CekAktivasi.ExecuteReader())
+                    {
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                jenis_bank = rdr["bank"].ToString();
+                            }
+                        }
+                    }
+
+                    if (jenis_bank == "jateng")
+                    {
+                        AktivasiBayarJateng();
+                    }
+                    else if (jenis_bank == "btn")
+                    {
+                        AktivasiBayarBtn();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('" + ex.Message + "');", true);
+                return;
+            }
+
+        }
     }
 }

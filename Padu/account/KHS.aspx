@@ -119,6 +119,8 @@
                         </table>
                     </asp:Panel>
                     <strong>Kartu Hasil Studi (KHS)</strong><br /><br />
+
+                    <em>pilih tahun kemudian semester</em>
                     <table class="table-condensed table-bordered">
                         <tr>
                             <td>
@@ -126,7 +128,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DLTahun" runat="server" CssClass="form-control" 
-                                    Width="120px">
+                                    Width="120px" AutoPostBack="True" OnSelectedIndexChanged="DLTahun_SelectedIndexChanged">
                                     <asp:ListItem>Tahun</asp:ListItem>
                                     <asp:ListItem>2014</asp:ListItem>
                                     <asp:ListItem>2015</asp:ListItem>
@@ -138,8 +140,8 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:DropDownList ID="DLSemester" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DLSemester_SelectedIndexChanged"
-                                    CssClass="form-control" Width="120px">
+                                <asp:DropDownList ID="DLSemester" runat="server"
+                                    CssClass="form-control" Width="120px" AutoPostBack="True" OnSelectedIndexChanged="DLSemester_SelectedIndexChanged">
                                     <asp:ListItem>Semester</asp:ListItem>
                                     <asp:ListItem>1</asp:ListItem>
                                     <asp:ListItem>2</asp:ListItem>

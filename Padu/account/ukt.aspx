@@ -142,7 +142,7 @@
                         <strong>
                             <asp:Label ID="LbTagihan" runat="server" Text=""></asp:Label></strong>
                         <strong>
-                            <asp:Label ID="LbMsg" runat="server" Text=""></asp:Label></strong>
+                            <asp:Label ID="LbMsg" runat="server" ForeColor="#FF3300"></asp:Label></strong>
                         <p></p>
                     </asp:Panel>
                     <asp:Panel ID="PanelPembayaran" runat="server">
@@ -158,10 +158,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="alert alert-warning" role="alert">
+                       <%-- <div class="alert alert-warning" role="alert">
                             <span class="style2">Pembayaran biaya UKT hanya dapat dibayarkan melalui <strong>Bank JATENG &amp; Bank BTN</strong> dengan cara menunjukkan NPM anda kepada Teller bank, panduan aktifasi pembayaran </span>
                             <asp:HyperLink ID="LinkDwnPanduan" runat="server" CssClass="btn btn-success" NavigateUrl="~/doc/Panduan Aktifasi Pembayaran.pdf" Target="_blank">  download </asp:HyperLink>
-                        </div>
+                        </div>--%>
                         <div class="panel panel-default">
                             <div class="panel-heading ui-draggable-handle">
                                 <strong>Aktivasi Pembayaran UKT</strong>
@@ -188,10 +188,8 @@
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-
                                             <asp:Button ID="BtnOpenAktv" runat="server" Text="submit"
                                                 OnClick="BtnOpenAktv_Click" />
-
                                         </td>
                                     </tr>
                                 </table>
@@ -247,11 +245,7 @@
                                             <td colspan="2">
                                                 <p></p>
                                                 <hr />
-                                                <p><strong>-- ==== pilih salah satu ==== --</strong></p>
-                                                <asp:Button ID="BtnAktivasi" runat="server" CssClass="btn btn-primary"
-                                                    OnClick="BtnAktivasiJateng_Click" Text="Aktivasi di Bank JATENG" />
-                                                &nbsp;&nbsp;
-                                        <asp:Button ID="BtnAktivasiBTN" runat="server" CssClass="btn btn-warning" Text="Aktivasi di Bank BTN (belum aktif)" OnClick="BtnAktivasiBTN_Click" />
+                                                <asp:Button ID="ButtonAktivasi" runat="server"  CssClass="btn btn-primary" Text="Aktivasi Pembayaran" OnClick="ButtonAktivasi_Click" />
                                             </td>
                                         </tr>
                                     </table>
